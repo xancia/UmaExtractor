@@ -18,6 +18,7 @@ try:
 except Exception as e:
     print("[X] Error: Could not attach to game process")
     print("  Make sure UmamusumePrettyDerby.exe is running")
+    input("\nPress Enter to exit...")
     sys.exit(1)
 
 print("[OK] Connected to game\n")
@@ -38,19 +39,33 @@ console.log("Scanning for veteran character data...");
     // Look for trained_chara_array key followed by array16 marker
     const pattern = 'B3 74 72 61 69 6E 65 64 5F 63 68 61 72 61 5F 61 72 72 61 79 DC';
     
-    const ranges = Process.enumerateRanges({protection: "rw-", coalesce: true});
+    const allRanges = Process.enumerateRanges({protection: "rw-", coalesce: true});
+    
+    // Filter and sort ranges: skip tiny (<100KB) and huge (>500MB) ranges
+    // Sort by size descending - game data is likely in larger allocations
+    const ranges = allRanges
+        .filter(r => r.size >= 100000 && r.size <= 500 * 1024 * 1024)
+        .sort((a, b) => b.size - a.size);
+    
+    console.log(`Scanning ${ranges.length} memory regions (filtered from ${allRanges.length})...`);
+    
     let found = false;
+    let scannedCount = 0;
     
     for (let i = 0; i < ranges.length && !found; i++) {
         const range = ranges[i];
+        scannedCount++;
         
-        if (range.size < 100000) continue; // Skip small ranges
+        // Progress update every 10 ranges
+        if (scannedCount % 10 === 0) {
+            console.log(`Progress: ${scannedCount}/${ranges.length} regions scanned...`);
+        }
         
         try {
             const results = Memory.scanSync(range.base, range.size, pattern);
             
             if (results.length > 0) {
-                console.log(`Found ${results.length} potential matches`);
+                console.log(`Found ${results.length} potential matches in region ${scannedCount}`);
                 
                 for (const result of results) {
                     // Array starts after: B3(1) + "trained_chara_array"(19) + DC(1) = 21 bytes
@@ -99,20 +114,35 @@ console.log("Scanning for veteran character data...");
         console.log("No data found. Make sure you're on the Veteran List page!");
     }
 })();
-""")
+""", runtime='v8')
 
 script.on("message", on_message)
 
 try:
     script.load()
 except Exception as e:
-    print(f"✗ Error loading script: {e}")
-    sys.exit(1)
+    # Don't exit on timeout - the script may still be running and find data
+    if "timeout" in str(e).lower():
+        print(f"[!] Script load timed out, but scan is still running in background...")
+        print("    Waiting for results (this may take a minute)...\n")
+    else:
+        print(f"[X] Error loading script: {e}")
+        print("\nThis may be caused by:")
+        print("  - Antivirus blocking the memory scan (try disabling temporarily)")
+        print("  - Not running as Administrator (right-click -> Run as admin)")
+        print("  - Windows Controlled Folder Access blocking the scan")
+        input("\nPress Enter to exit...")
+        sys.exit(1)
 
 # Wait for data
 import time
-print("Scanning memory (please wait 10-20 seconds)...\n")
-time.sleep(20)
+print("Scanning memory (please wait, this may take up to 60 seconds)...\n")
+
+# Wait longer and check periodically for data
+for i in range(60):
+    time.sleep(1)
+    if found_data:
+        break
 
 # Process the data
 if found_data:
@@ -192,3 +222,4 @@ else:
     print("  3. Try running the script again")
 
 session.detach()
+input("\nPress Enter to exit...")
