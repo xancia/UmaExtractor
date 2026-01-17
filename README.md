@@ -1,4 +1,4 @@
-# Umadump (Updated Fork)
+# UmaExtractor (Updated Umadump Fork)
 
 > **Note:** This is an updated fork of the original umadump project. The original version stopped working due to game updates. This version has been rewritten with a more resilient memory scanning approach.
 
@@ -16,7 +16,7 @@ Extract all your trained characters with their stats, skills, and **inheritance 
 ## Usage
 
 1. **Open Umamusume Pretty Derby** and navigate to the **Veteran List** page (Enhance → List)
-2. **Run `umadump.exe`** (double-click or run from command line)
+2. **Run `umaextractor.exe`** (double-click or run from command line)
 3. Wait 10-20 seconds for the scan to complete
 4. **`data.json`** will be created in the same folder with all your character data
 
