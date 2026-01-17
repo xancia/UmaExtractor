@@ -126,11 +126,41 @@ if found_data:
         if isinstance(character_array, list):
             print(f"[OK] Successfully parsed {len(character_array)} characters")
             
-            # Save to JSON
-            with open("data.json", "w", encoding="utf-8") as f:
-                json.dump(character_array, f, indent=2, ensure_ascii=False)
+            # Remove personal information
+            print("Scrubbing personal information...")
+            for char in character_array:
+                char.pop('viewer_id', None)
+                char.pop('owner_viewer_id', None)
+            print("[OK] Removed viewer_id and owner_viewer_id fields")
             
-            print(f"[OK] Saved to data.json\n")
+            # Save to JSON - try current directory first, then fallback to Documents
+            import os
+            output_file = "data.json"
+            save_success = False
+            
+            # Try saving to current directory
+            try:
+                with open(output_file, "w", encoding="utf-8") as f:
+                    json.dump(character_array, f, indent=2, ensure_ascii=False)
+                save_success = True
+                print(f"[OK] Saved to {os.path.abspath(output_file)}\n")
+            except PermissionError:
+                # Fallback to user's Documents folder
+                docs_folder = os.path.join(os.path.expanduser("~"), "Documents")
+                output_file = os.path.join(docs_folder, "data.json")
+                try:
+                    with open(output_file, "w", encoding="utf-8") as f:
+                        json.dump(character_array, f, indent=2, ensure_ascii=False)
+                    save_success = True
+                    print(f"[OK] Saved to {output_file}\n")
+                    print("    (Saved to Documents folder due to permission issue in current directory)")
+                except PermissionError:
+                    print(f"[X] Error: Permission denied when saving file.")
+                    print("    Please make sure data.json is not open in another program,")
+                    print("    or try running this program from a different folder.")
+            
+            if not save_success:
+                raise Exception("Could not save data.json - permission denied")
             
             # Show summary
             if len(character_array) > 0:
