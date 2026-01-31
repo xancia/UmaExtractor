@@ -27,6 +27,27 @@ If you have Python 3.10+ with `frida` and `msgpack` installed:
 python py/extract_umas.py
 ```
 
+### Linux (Steam/Proton)
+
+For Linux users running the game via Steam/Proton:
+
+**Requirements:**
+- Python 3.10 or higher
+- `msgpack` package: `pip install msgpack`
+- Root permissions (required to read process memory)
+
+**Steps:**
+1. **Launch Uma Musume Pretty Derby** via Steam and navigate to the **Veteran List** page (Enhance → List)
+2. Wait for the page to fully load
+3. **Run the Linux extraction script with sudo:**
+   ```bash
+   sudo python3 py/linux_extract.py
+   ```
+4. Wait 30-60 seconds for the memory scan to complete
+5. **`data.json`** will be created in the current directory (or home directory if permissions fail)
+
+**Note:** Root access is required because the script needs to read process memory from `/proc/<pid>/mem`. The script automatically detects the game process running under Proton/Wine.
+
 ## Output Format
 
 The generated `data.json` contains an array of character objects with fields including:
