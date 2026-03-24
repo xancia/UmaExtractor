@@ -1,4 +1,5 @@
 dist/
+build/
 releasecommands.md
 __pycache__/
 data.json

@@ -13,6 +13,7 @@ import sys
 import threading
 import time
 import traceback
+import ctypes
 import tkinter as tk
 from tkinter import scrolledtext, ttk
 
@@ -33,19 +34,66 @@ console.log("Scanning for veteran character data...");
     // Look for the trained_chara_array key. The next byte is the MsgPack array marker:
     // fixarray (0x90-0x9F), array16 (0xDC), or array32 (0xDD).
     const pattern = 'B3 74 72 61 69 6E 65 64 5F 63 68 61 72 61 5F 61 72 72 61 79';
-    
-    const allRanges = Process.enumerateRanges({protection: "rw-", coalesce: true});
-    
-    // Filter and sort ranges: skip tiny (<16KB) and huge (>500MB) ranges
-    // Sort by size descending - game data is likely in larger allocations
-    const ranges = allRanges
-        .filter(r => r.size >= 16 * 1024 && r.size <= 500 * 1024 * 1024)
-        .sort((a, b) => b.size - a.size);
-    
-    console.log(`Scanning ${ranges.length} memory regions (filtered from ${allRanges.length})...`);
-    
+
+    const scanProtection = "rw-";
+    const minRangeSize = 16 * 1024;
+    const maxRangeSize = 500 * 1024 * 1024;
+    const probeSizes = [15 * 1024 * 1024, 20 * 1024 * 1024, 25 * 1024 * 1024];
+
+    const readableProtectionCounts = {};
+    const readableProtectionQueryErrors = {};
+    for (const prot of ["r--", "rw-", "r-x", "rwx"]) {
+        try {
+            const rangesForProt = Process.enumerateRanges({protection: prot, coalesce: true});
+            readableProtectionCounts[prot] = rangesForProt.length;
+        } catch (e) {
+            readableProtectionCounts[prot] = -1;
+            readableProtectionQueryErrors[prot] = String(e);
+        }
+    }
+
+    const rawRanges = Process.enumerateRanges({protection: scanProtection, coalesce: true});
+    let skippedTooSmall = 0;
+    let skippedTooLarge = 0;
+    const ranges = [];
+
+    for (const r of rawRanges) {
+        if (r.size < minRangeSize) {
+            skippedTooSmall++;
+            continue;
+        }
+        if (r.size > maxRangeSize) {
+            skippedTooLarge++;
+            continue;
+        }
+        ranges.push(r);
+    }
+
+    ranges.sort((a, b) => b.size - a.size);
+
+    send({
+        type: 'scan_started',
+        scan_protection: scanProtection,
+        min_range_size: minRangeSize,
+        max_range_size: maxRangeSize,
+        raw_range_count: rawRanges.length,
+        filtered_range_count: ranges.length,
+        skipped_too_small: skippedTooSmall,
+        skipped_too_large: skippedTooLarge,
+        readable_protection_counts: readableProtectionCounts,
+        readable_protection_query_errors: readableProtectionQueryErrors
+    });
+
+    console.log(`Scanning ${ranges.length} memory regions (filtered from ${rawRanges.length})...`);
+
     let found = false;
     let scannedCount = 0;
+    let scanErrors = 0;
+    let readErrors = 0;
+    let hitRegions = 0;
+    let hitCount = 0;
+    const scanErrorSamples = [];
+    const readErrorSamples = [];
     
     for (let i = 0; i < ranges.length && !found; i++) {
         const range = ranges[i];
@@ -68,6 +116,8 @@ console.log("Scanning for veteran character data...");
             const results = Memory.scanSync(range.base, range.size, pattern);
             
             if (results.length > 0) {
+                hitRegions++;
+                hitCount += results.length;
                 console.log(`Found ${results.length} potential matches in region ${scannedCount}`);
                 
                 for (const result of results) {
@@ -75,10 +125,7 @@ console.log("Scanning for veteran character data...");
                     // We keep the array marker byte (fixarray/array16/array32) in the payload.
                     const arrayStart = result.address.add(20);
                     
-                    // Try different sizes
-                    const sizes = [15 * 1024 * 1024, 20 * 1024 * 1024, 25 * 1024 * 1024];
-                    
-                    for (const size of sizes) {
+                    for (const size of probeSizes) {
                         try {
                             const maxSize = Math.min(size, range.size - (arrayStart - range.base));
                             const data = arrayStart.readByteArray(maxSize);
@@ -120,18 +167,41 @@ console.log("Scanning for veteran character data...");
                                     array_len: arrayLen,
                                     card_count: cardCount,
                                     scanned_regions: scannedCount,
-                                    total_ranges: ranges.length
+                                    total_ranges: ranges.length,
+                                    scan_errors: scanErrors,
+                                    read_errors: readErrors,
+                                    hit_regions: hitRegions,
+                                    hit_count: hitCount,
+                                    scan_error_samples: scanErrorSamples,
+                                    read_error_samples: readErrorSamples
                                 }, data);
                                 found = true;
                                 return;
                             }
                         } catch (e) {
+                            readErrors++;
+                            if (readErrorSamples.length < 5) {
+                                readErrorSamples.push({
+                                    region_index: scannedCount,
+                                    region_size: range.size,
+                                    probe_size: size,
+                                    error: String(e)
+                                });
+                            }
                             continue;
                         }
                     }
                 }
             }
         } catch (e) {
+            scanErrors++;
+            if (scanErrorSamples.length < 5) {
+                scanErrorSamples.push({
+                    region_index: scannedCount,
+                    region_size: range.size,
+                    error: String(e)
+                });
+            }
             continue;
         }
     }
@@ -141,7 +211,13 @@ console.log("Scanning for veteran character data...");
         send({
             type: 'scan_complete',
             scanned_regions: scannedCount,
-            total_ranges: ranges.length
+            total_ranges: ranges.length,
+            scan_errors: scanErrors,
+            read_errors: readErrors,
+            hit_regions: hitRegions,
+            hit_count: hitCount,
+            scan_error_samples: scanErrorSamples,
+            read_error_samples: readErrorSamples
         });
     }
 })();
@@ -157,11 +233,20 @@ def resource_path(*parts):
 
 
 def runtime_diagnostics_lines():
+    is_admin = "unknown"
+    if os.name == "nt":
+        try:
+            is_admin = str(bool(ctypes.windll.shell32.IsUserAnAdmin()))
+        except Exception:
+            is_admin = "error"
     return [
         "Environment:",
         f"  - OS: {platform.platform()}",
         f"  - Python: {sys.version.split()[0]}",
         f"  - Frida: {getattr(frida, '__version__', 'unknown')}",
+        f"  - Elevated (admin): {is_admin}",
+        f"  - Current working directory: {os.getcwd()}",
+        f"  - Executable: {sys.executable}",
     ]
 
 
@@ -295,15 +380,46 @@ def run_extraction(logger, progress=None):
         return {"success": False, "error": "attach_failed"}
 
     logger("[OK] Connected to game")
+    session_pid = getattr(session, "pid", None)
+    if session_pid is not None:
+        logger(f"[DIAG] Attached session pid: {session_pid}")
+    for line in runtime_diagnostics_lines():
+        logger(line)
     set_progress(10, "Attached. Scanning memory...")
 
     found_data = None
     found_meta = None
     scan_completed = False
+    scan_summary_payload = None
     script_error = None
 
+    def log_scan_diagnostics(payload):
+        scan_errors = payload.get("scan_errors", 0)
+        read_errors = payload.get("read_errors", 0)
+        hit_regions = payload.get("hit_regions", 0)
+        hit_count = payload.get("hit_count", 0)
+        logger(
+            f"[DIAG] scan summary: hit_regions={hit_regions}, hit_count={hit_count}, "
+            f"scan_errors={scan_errors}, read_errors={read_errors}"
+        )
+
+        scan_samples = payload.get("scan_error_samples") or []
+        for idx, sample in enumerate(scan_samples, 1):
+            logger(
+                f"[DIAG] scan_error_sample_{idx}: region={sample.get('region_index')} "
+                f"size={sample.get('region_size')} error={sample.get('error')}"
+            )
+
+        read_samples = payload.get("read_error_samples") or []
+        for idx, sample in enumerate(read_samples, 1):
+            logger(
+                f"[DIAG] read_error_sample_{idx}: region={sample.get('region_index')} "
+                f"size={sample.get('region_size')} probe={sample.get('probe_size')} "
+                f"error={sample.get('error')}"
+            )
+
     def on_message(message, data):
-        nonlocal found_data, found_meta, scan_completed, script_error
+        nonlocal found_data, found_meta, scan_completed, scan_summary_payload, script_error
 
         message_type = message.get("type")
         if message_type == "send":
@@ -322,12 +438,36 @@ def run_extraction(logger, progress=None):
                         array_len = payload.get("array_len", "unknown")
                         card_count = payload.get("card_count", "unknown")
                         logger(f"[OK] Candidate array detected (len={array_len}, card_id matches={card_count})")
+                        log_scan_diagnostics(payload)
                 elif payload_type == "scan_complete":
                     scan_completed = True
+                    scan_summary_payload = payload
                     scanned = payload.get("scanned_regions", "unknown")
                     total = payload.get("total_ranges", "unknown")
                     logger(f"[!] Scan completed with no data hit (scanned {scanned}/{total} filtered regions)")
+                    log_scan_diagnostics(payload)
                     set_progress(85, f"Scan complete ({scanned}/{total})")
+                elif payload_type == "scan_started":
+                    logger(
+                        "[DIAG] scan config: "
+                        f"protection={payload.get('scan_protection')} "
+                        f"min={payload.get('min_range_size')} "
+                        f"max={payload.get('max_range_size')}"
+                    )
+                    logger(
+                        "[DIAG] range counts: "
+                        f"raw={payload.get('raw_range_count')} "
+                        f"filtered={payload.get('filtered_range_count')} "
+                        f"skipped_too_small={payload.get('skipped_too_small')} "
+                        f"skipped_too_large={payload.get('skipped_too_large')}"
+                    )
+                    prot_counts = payload.get("readable_protection_counts") or {}
+                    if prot_counts:
+                        parts = [f"{k}={v}" for k, v in prot_counts.items()]
+                        logger(f"[DIAG] readable protection counts: {'; '.join(parts)}")
+                    prot_errors = payload.get("readable_protection_query_errors") or {}
+                    for prot, err in prot_errors.items():
+                        logger(f"[DIAG] protection query error ({prot}): {err}")
                 elif payload_type == "scan_progress":
                     scanned = payload.get("scanned_regions", 0)
                     total = payload.get("total_ranges", 0)
@@ -380,6 +520,12 @@ def run_extraction(logger, progress=None):
 
         if not found_data:
             logger("[X] No data was extracted")
+            if scan_summary_payload and scan_summary_payload.get("hit_count", 0) == 0:
+                logger(
+                    "[TIP] Scanner did not see the veteran-data signature in memory this run. "
+                    "This can happen if the page data is not fully loaded yet."
+                )
+                logger("[TIP] Go back from Veteran List, re-enter Veteran List, wait 3-5 seconds, then try again.")
             if script_error:
                 logger("  JavaScript scanner reported an internal error. See details above.")
             logger("Troubleshooting:")
