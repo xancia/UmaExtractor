@@ -39,7 +39,7 @@ TARGET_PROCESS_NAMES = [
     "UmamusumePrettyDerby",
 ]
 PROCESS_KEYWORDS = ["uma", "musume", "derby", "cygames"]
-MAX_WAIT_SECONDS = 300
+MAX_WAIT_SECONDS = 1200
 
 # ── The injected Frida script ──────────────────────────────────────────────
 #
@@ -480,7 +480,14 @@ def main():
         script = session.create_script(EXPLORE_SCRIPT, runtime="v8")
         script.on("message", on_message)
         print("[*] Loading explorer script...")
-        script.load()
+        try:
+            script.load()
+        except Exception as e:
+            if "timeout" in str(e).lower():
+                print("[*] Script load timed out, but scan is still running in the background...")
+                print("    This is normal for large memory spaces. Waiting for results...")
+            else:
+                raise
     except Exception as e:
         print(f"[X] Failed to load script: {type(e).__name__}: {e}")
         traceback.print_exc()
