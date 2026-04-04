@@ -36,7 +36,7 @@ MAX_WAIT_SECONDS = 30000
 # IDs we know should be in the target array.
 # The script will find every MsgPack-encoded occurrence of each ID,
 # then figure out which array/region contains the most of them.
-KNOWN_IDS = [200154, 200152, 200441, 200652]
+KNOWN_IDS = [200154, 200152, 200441, 200652, 200722, 201152]
 
 
 def build_hunt_script(known_ids):
@@ -222,12 +222,19 @@ console.log("Searching for arrays containing known IDs...");
     }
 
     // ── For the best region(s), try to extract data ───────────────────
-    // Read a large chunk around the cluster of hits and send to Python
-    const bestRegions = regionScores.filter(r => r.matchedIdCount >= 2).slice(0, 3);
+    // Only consider regions that contain ALL known IDs
+    const bestRegions = regionScores.filter(r => r.matchedIdCount === knownIds.length).slice(0, 3);
 
-    if (bestRegions.length === 0 && regionScores.length > 0) {
-        // Fall back to any region with at least 1 match
-        bestRegions.push(regionScores[0]);
+    if (bestRegions.length === 0) {
+        // Fall back to regions with the most matches
+        const fallback = regionScores.filter(r => r.matchedIdCount >= Math.max(2, knownIds.length - 1)).slice(0, 3);
+        if (fallback.length > 0) {
+            console.log(`No region has ALL ${knownIds.length} IDs. Falling back to best partial matches...`);
+            for (const r of fallback) bestRegions.push(r);
+        } else if (regionScores.length > 0) {
+            console.log(`No region has enough IDs. Sending best available...`);
+            bestRegions.push(regionScores[0]);
+        }
     }
 
     for (const region of bestRegions) {
@@ -363,44 +370,70 @@ def find_msgpack_structures(raw_bytes, known_ids):
     results = []
     known_set = set(known_ids)
     data_len = len(raw_bytes)
+    last_print = time.time()
+    start_time = time.time()
+    max_seconds = 120  # give up after 2 minutes per region
+    attempts = 0
+    skipped = 0
 
-    print(f"    Scanning {data_len} bytes for MsgPack structures...")
+    print(f"    Scanning {data_len:,} bytes for MsgPack structures...")
 
-    for i in range(data_len - 3):
+    i = 0
+    while i < data_len - 3:
+        # Progress every 2 seconds
+        now = time.time()
+        if now - last_print >= 2:
+            pct = int(i / data_len * 100)
+            print(f"    ... {pct}% ({i:,}/{data_len:,} bytes, {attempts} attempts, {len(results)} found)", flush=True)
+            last_print = now
+        if now - start_time > max_seconds:
+            print(f"    ⏱ Time limit ({max_seconds}s) reached at {int(i/data_len*100)}%, returning {len(results)} results so far")
+            break
+
         b = raw_bytes[i]
 
         # Check for array or map headers
-        is_container = False
         container_type = None
 
         # Array: fixarray 0x90-0x9F, array16 0xDC, array32 0xDD
         if 0x90 <= b <= 0x9F or b == 0xDC or b == 0xDD:
-            is_container = True
             container_type = "array"
         # Map: fixmap 0x80-0x8F, map16 0xDE, map32 0xDF
         elif 0x80 <= b <= 0x8F or b == 0xDE or b == 0xDF:
-            is_container = True
             container_type = "map"
 
-        if not is_container:
+        if not container_type:
+            i += 1
             continue
 
+        # Quick size check: skip tiny containers (fixarray/fixmap with 0-1 items)
+        if container_type == "array" and 0x90 <= b <= 0x91:
+            i += 1
+            continue
+        if container_type == "map" and 0x80 <= b <= 0x81:
+            i += 1
+            continue
+
+        attempts += 1
         try:
+            chunk = raw_bytes[i:min(i + 25 * 1024 * 1024, data_len)]
             unpacker = msgpack.Unpacker(raw=False, max_buffer_size=50 * 1024 * 1024)
-            unpacker.feed(raw_bytes[i:min(i + 25 * 1024 * 1024, data_len)])
+            unpacker.feed(chunk)
             decoded = unpacker.unpack()
 
             if decoded is None:
+                i += 1
                 continue
 
             # For maps/lists, check size
             if isinstance(decoded, (list, dict)) and len(decoded) == 0:
+                i += 1
                 continue
 
             # Deep search for known IDs anywhere in the structure
             found_ids = deep_find_ids(decoded, known_set)
 
-            if len(found_ids) >= 2:
+            if len(found_ids) == len(known_set):
                 # Describe what we found
                 if isinstance(decoded, list):
                     desc = f"array[{len(decoded)}]"
@@ -408,6 +441,8 @@ def find_msgpack_structures(raw_bytes, known_ids):
                     desc = f"map[{len(decoded)} keys]"
                 else:
                     desc = type(decoded).__name__
+
+                print(f"    ✅ HIT at offset {i}: {desc} with {len(found_ids)} IDs: {sorted(found_ids)}")
 
                 results.append({
                     "offset": i,
@@ -418,8 +453,28 @@ def find_msgpack_structures(raw_bytes, known_ids):
                     "data": decoded,
                 })
 
-        except Exception:
+                # Skip past this entire structure to avoid finding subsets
+                # Estimate consumed bytes from the unpacker
+                try:
+                    consumed = unpacker.tell()
+                    if consumed > 10:
+                        i += consumed
+                        skipped += consumed
+                        continue
+                except Exception:
+                    pass
+
+            i += 1
+
+        except (msgpack.UnpackValueError, msgpack.FormatError, msgpack.StackError):
+            i += 1
             continue
+        except Exception:
+            i += 1
+            continue
+
+    elapsed = time.time() - start_time
+    print(f"    Done: {attempts} attempts, {len(results)} structures found in {elapsed:.1f}s")
 
     # Sort by how many known IDs were found
     results.sort(key=lambda r: r["found_count"], reverse=True)
@@ -569,9 +624,9 @@ def main():
 
     best_result = None
 
-    for meta, raw in region_chunks:
+    for chunk_idx, (meta, raw) in enumerate(region_chunks):
         region_idx = meta.get("region_index")
-        print(f"\n[*] Analyzing region #{region_idx} ({len(raw)} bytes)...")
+        print(f"\n[*] Analyzing region #{region_idx} (chunk {chunk_idx+1}/{len(region_chunks)}, {len(raw):,} bytes)...")
 
         structures = find_msgpack_structures(raw, KNOWN_IDS)
 
