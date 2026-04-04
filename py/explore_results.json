@@ -1,0 +1,898 @@
+{
+  "summary": {
+    "total_matches": 36939,
+    "total_keys": 119,
+    "array_key_count": 25,
+    "map_key_count": 4,
+    "scalar_key_count": 90
+  },
+  "array_keys": [
+    {
+      "name": "cygames_id_serial_code_reward_info_array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "disable_command_id_array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "login_bonus_list",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "talk_gallery_list",
+      "arrayLen": 191,
+      "subKeys": [
+        "home_story_trigger_id",
+        "new_flag"
+      ]
+    },
+    {
+      "name": "nickname_id_array",
+      "arrayLen": 80,
+      "subKeys": []
+    },
+    {
+      "name": "race_result_list",
+      "arrayLen": 14,
+      "subKeys": [
+        "turn",
+        "program_id",
+        "weather",
+        "ground_condition",
+        "weather"
+      ]
+    },
+    {
+      "name": "win_saddle_id_array",
+      "arrayLen": 13,
+      "subKeys": []
+    },
+    {
+      "name": "race_condition_array",
+      "arrayLen": 12,
+      "subKeys": [
+        "program_id",
+        "weather",
+        "ground_condition"
+      ]
+    },
+    {
+      "name": "skill_array",
+      "arrayLen": 10,
+      "subKeys": [
+        "skill_id",
+        "level"
+      ]
+    },
+    {
+      "name": "succession_chara_array",
+      "arrayLen": 6,
+      "subKeys": [
+        "position_id",
+        "card_id",
+        "rank",
+        "rarity",
+        "talent_level",
+        "factor_id_array",
+        "factor_info_array",
+        "factor_id",
+        "level"
+      ]
+    },
+    {
+      "name": "support_card_list",
+      "arrayLen": 6,
+      "subKeys": [
+        "position",
+        "support_card_id",
+        "exp",
+        "limit_break_count"
+      ]
+    },
+    {
+      "name": "factor_id_array",
+      "arrayLen": 5,
+      "subKeys": []
+    },
+    {
+      "name": "factor_info_array",
+      "arrayLen": 5,
+      "subKeys": [
+        "factor_id",
+        "level"
+      ]
+    },
+    {
+      "name": "params_inc_dec_info_array",
+      "arrayLen": 4,
+      "subKeys": [
+        "target_type",
+        "value"
+      ]
+    },
+    {
+      "name": "single_mode_scenario_id_array",
+      "arrayLen": 3,
+      "subKeys": []
+    },
+    {
+      "name": "story_event_mission_list",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "succession_history_array",
+      "arrayLen": 1,
+      "subKeys": [
+        "id",
+        "viewer_id",
+        "trained_chara_id",
+        "history_type",
+        "succession_card_id",
+        "date"
+      ]
+    },
+    {
+      "name": "chara_id_array",
+      "arrayLen": 1,
+      "subKeys": []
+    },
+    {
+      "name": "tips_event_partner_array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "training_partner_array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "unchecked_event_array",
+      "arrayLen": 1,
+      "subKeys": [
+        "event_id",
+        "chara_id",
+        "story_id",
+        "play_timing",
+        "event_contents_info",
+        "support_card_id",
+        "show_clear"
+      ]
+    },
+    {
+      "name": "story_favorite_array",
+      "arrayLen": 1,
+      "subKeys": [
+        "episode_type",
+        "episode_id",
+        "is_mark"
+      ]
+    },
+    {
+      "name": "choice_array",
+      "arrayLen": 1,
+      "subKeys": [
+        "select_index",
+        "receive_item_id",
+        "target_race_id"
+      ]
+    },
+    {
+      "name": "unread_announce_id_array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "valentine_campaign_received_array",
+      "arrayLen": 0,
+      "subKeys": []
+    }
+  ],
+  "map_keys": [
+    {
+      "name": "challenge_match_load_info",
+      "mapLen": 4
+    },
+    {
+      "name": "event_contents_info",
+      "mapLen": 4
+    },
+    {
+      "name": "limited_shop_info",
+      "mapLen": 5
+    },
+    {
+      "name": "team_building_load_info",
+      "mapLen": 3
+    }
+  ],
+  "scalar_keys": [
+    "OBJ_mc_num",
+    "added_gacha_stock_info",
+    "appear_flag",
+    "arrive_route_race_id",
+    "available_continue_num",
+    "available_free_continue_num",
+    "button_info",
+    "captain_id",
+    "card_id",
+    "challenge_match_id",
+    "chara_id",
+    "choice_number",
+    "circle_name",
+    "close_time",
+    "command_id",
+    "command_type",
+    "country_type",
+    "create_time",
+    "cygames_id_apply_product_flag",
+    "data_id",
+    "device_id",
+    "device_name",
+    "dmm_viewer_id",
+    "dress_id",
+    "episode_id",
+    "episode_type",
+    "event_effected_factor_array",
+    "event_id",
+    "factor_id",
+    "factor_id_arrap",
+    "factor_info_arraP",
+    "factor_info_arrap",
+    "fan_raid_first_flag",
+    "fan_raid_id",
+    "favorite_flag",
+    "free_continue_num",
+    "free_continue_time",
+    "graphics_device_name",
+    "history_type",
+    "home_story_trigger_id",
+    "honor_id",
+    "icon_type",
+    "limit_break_count",
+    "limited_exchange_id",
+    "mini_dress_id",
+    "new_flag",
+    "nickname_id",
+    "open_count",
+    "open_flag",
+    "owner_trained_chara_id",
+    "owner_viewer_id",
+    "position_id",
+    "possess_time",
+    "program_id",
+    "race_cloth_id",
+    "race_start_info",
+    "receive_item_id",
+    "register_time",
+    "rental_viewer_id",
+    "result_time",
+    "resume_trained_chara_id",
+    "route_id",
+    "scenario_id",
+    "show_clear_sort_id",
+    "single_mode_chara_id",
+    "skill_data_array",
+    "skill_id",
+    "steam_id",
+    "story_event_first_flag",
+    "story_event_id",
+    "story_event_roulette_coin_num",
+    "story_id",
+    "succession_card_id",
+    "succession_event_info",
+    "succession_num",
+    "succession_trained_chara_id_1",
+    "succession_trained_chara_id_2",
+    "succession_trained_chara_id_p",
+    "support_card_id",
+    "support_user_num",
+    "target_race_id",
+    "target_type",
+    "team_building_id",
+    "trained_chara_id",
+    "training_num",
+    "trophy_id",
+    "type1_reward_i",
+    "use_type",
+    "user_name",
+    "viewer_id"
+  ],
+  "all_keys": [
+    {
+      "name": "cygames_id_serial_code_reward_info_array",
+      "valueType": "array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "disable_command_id_array",
+      "valueType": "array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "login_bonus_list",
+      "valueType": "array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "talk_gallery_list",
+      "valueType": "array",
+      "arrayLen": 191,
+      "subKeys": [
+        "home_story_trigger_id",
+        "new_flag"
+      ]
+    },
+    {
+      "name": "nickname_id_array",
+      "valueType": "array",
+      "arrayLen": 80,
+      "subKeys": []
+    },
+    {
+      "name": "race_result_list",
+      "valueType": "array",
+      "arrayLen": 14,
+      "subKeys": [
+        "turn",
+        "program_id",
+        "weather",
+        "ground_condition",
+        "weather"
+      ]
+    },
+    {
+      "name": "win_saddle_id_array",
+      "valueType": "array",
+      "arrayLen": 13,
+      "subKeys": []
+    },
+    {
+      "name": "race_condition_array",
+      "valueType": "array",
+      "arrayLen": 12,
+      "subKeys": [
+        "program_id",
+        "weather",
+        "ground_condition"
+      ]
+    },
+    {
+      "name": "skill_array",
+      "valueType": "array",
+      "arrayLen": 10,
+      "subKeys": [
+        "skill_id",
+        "level"
+      ]
+    },
+    {
+      "name": "succession_chara_array",
+      "valueType": "array",
+      "arrayLen": 6,
+      "subKeys": [
+        "position_id",
+        "card_id",
+        "rank",
+        "rarity",
+        "talent_level",
+        "factor_id_array",
+        "factor_info_array",
+        "factor_id",
+        "level"
+      ]
+    },
+    {
+      "name": "support_card_list",
+      "valueType": "array",
+      "arrayLen": 6,
+      "subKeys": [
+        "position",
+        "support_card_id",
+        "exp",
+        "limit_break_count"
+      ]
+    },
+    {
+      "name": "factor_id_array",
+      "valueType": "array",
+      "arrayLen": 5,
+      "subKeys": []
+    },
+    {
+      "name": "factor_info_array",
+      "valueType": "array",
+      "arrayLen": 5,
+      "subKeys": [
+        "factor_id",
+        "level"
+      ]
+    },
+    {
+      "name": "params_inc_dec_info_array",
+      "valueType": "array",
+      "arrayLen": 4,
+      "subKeys": [
+        "target_type",
+        "value"
+      ]
+    },
+    {
+      "name": "single_mode_scenario_id_array",
+      "valueType": "array",
+      "arrayLen": 3,
+      "subKeys": []
+    },
+    {
+      "name": "story_event_mission_list",
+      "valueType": "array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "succession_history_array",
+      "valueType": "array",
+      "arrayLen": 1,
+      "subKeys": [
+        "id",
+        "viewer_id",
+        "trained_chara_id",
+        "history_type",
+        "succession_card_id",
+        "date"
+      ]
+    },
+    {
+      "name": "chara_id_array",
+      "valueType": "array",
+      "arrayLen": 1,
+      "subKeys": []
+    },
+    {
+      "name": "tips_event_partner_array",
+      "valueType": "array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "training_partner_array",
+      "valueType": "array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "unchecked_event_array",
+      "valueType": "array",
+      "arrayLen": 1,
+      "subKeys": [
+        "event_id",
+        "chara_id",
+        "story_id",
+        "play_timing",
+        "event_contents_info",
+        "support_card_id",
+        "show_clear"
+      ]
+    },
+    {
+      "name": "story_favorite_array",
+      "valueType": "array",
+      "arrayLen": 1,
+      "subKeys": [
+        "episode_type",
+        "episode_id",
+        "is_mark"
+      ]
+    },
+    {
+      "name": "choice_array",
+      "valueType": "array",
+      "arrayLen": 1,
+      "subKeys": [
+        "select_index",
+        "receive_item_id",
+        "target_race_id"
+      ]
+    },
+    {
+      "name": "unread_announce_id_array",
+      "valueType": "array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "valentine_campaign_received_array",
+      "valueType": "array",
+      "arrayLen": 0,
+      "subKeys": []
+    },
+    {
+      "name": "challenge_match_load_info",
+      "valueType": "map",
+      "mapLen": 4
+    },
+    {
+      "name": "event_contents_info",
+      "valueType": "map",
+      "mapLen": 4
+    },
+    {
+      "name": "limited_shop_info",
+      "valueType": "map",
+      "mapLen": 5
+    },
+    {
+      "name": "team_building_load_info",
+      "valueType": "map",
+      "mapLen": 3
+    },
+    {
+      "name": "OBJ_mc_num",
+      "valueType": "scalar"
+    },
+    {
+      "name": "added_gacha_stock_info",
+      "valueType": "scalar"
+    },
+    {
+      "name": "appear_flag",
+      "valueType": "scalar"
+    },
+    {
+      "name": "arrive_route_race_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "available_continue_num",
+      "valueType": "scalar"
+    },
+    {
+      "name": "available_free_continue_num",
+      "valueType": "scalar"
+    },
+    {
+      "name": "button_info",
+      "valueType": "scalar"
+    },
+    {
+      "name": "captain_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "card_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "challenge_match_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "chara_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "choice_number",
+      "valueType": "scalar"
+    },
+    {
+      "name": "circle_name",
+      "valueType": "scalar"
+    },
+    {
+      "name": "close_time",
+      "valueType": "scalar"
+    },
+    {
+      "name": "command_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "command_type",
+      "valueType": "scalar"
+    },
+    {
+      "name": "country_type",
+      "valueType": "scalar"
+    },
+    {
+      "name": "create_time",
+      "valueType": "scalar"
+    },
+    {
+      "name": "cygames_id_apply_product_flag",
+      "valueType": "scalar"
+    },
+    {
+      "name": "data_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "device_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "device_name",
+      "valueType": "scalar"
+    },
+    {
+      "name": "dmm_viewer_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "dress_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "episode_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "episode_type",
+      "valueType": "scalar"
+    },
+    {
+      "name": "event_effected_factor_array",
+      "valueType": "scalar"
+    },
+    {
+      "name": "event_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "factor_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "factor_id_arrap",
+      "valueType": "scalar"
+    },
+    {
+      "name": "factor_info_arraP",
+      "valueType": "scalar"
+    },
+    {
+      "name": "factor_info_arrap",
+      "valueType": "scalar"
+    },
+    {
+      "name": "fan_raid_first_flag",
+      "valueType": "scalar"
+    },
+    {
+      "name": "fan_raid_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "favorite_flag",
+      "valueType": "scalar"
+    },
+    {
+      "name": "free_continue_num",
+      "valueType": "scalar"
+    },
+    {
+      "name": "free_continue_time",
+      "valueType": "scalar"
+    },
+    {
+      "name": "graphics_device_name",
+      "valueType": "scalar"
+    },
+    {
+      "name": "history_type",
+      "valueType": "scalar"
+    },
+    {
+      "name": "home_story_trigger_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "honor_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "icon_type",
+      "valueType": "scalar"
+    },
+    {
+      "name": "limit_break_count",
+      "valueType": "scalar"
+    },
+    {
+      "name": "limited_exchange_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "mini_dress_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "new_flag",
+      "valueType": "scalar"
+    },
+    {
+      "name": "nickname_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "open_count",
+      "valueType": "scalar"
+    },
+    {
+      "name": "open_flag",
+      "valueType": "scalar"
+    },
+    {
+      "name": "owner_trained_chara_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "owner_viewer_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "position_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "possess_time",
+      "valueType": "scalar"
+    },
+    {
+      "name": "program_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "race_cloth_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "race_start_info",
+      "valueType": "scalar"
+    },
+    {
+      "name": "receive_item_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "register_time",
+      "valueType": "scalar"
+    },
+    {
+      "name": "rental_viewer_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "result_time",
+      "valueType": "scalar"
+    },
+    {
+      "name": "resume_trained_chara_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "route_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "scenario_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "show_clear_sort_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "single_mode_chara_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "skill_data_array",
+      "valueType": "scalar"
+    },
+    {
+      "name": "skill_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "steam_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "story_event_first_flag",
+      "valueType": "scalar"
+    },
+    {
+      "name": "story_event_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "story_event_roulette_coin_num",
+      "valueType": "scalar"
+    },
+    {
+      "name": "story_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "succession_card_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "succession_event_info",
+      "valueType": "scalar"
+    },
+    {
+      "name": "succession_num",
+      "valueType": "scalar"
+    },
+    {
+      "name": "succession_trained_chara_id_1",
+      "valueType": "scalar"
+    },
+    {
+      "name": "succession_trained_chara_id_2",
+      "valueType": "scalar"
+    },
+    {
+      "name": "succession_trained_chara_id_p",
+      "valueType": "scalar"
+    },
+    {
+      "name": "support_card_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "support_user_num",
+      "valueType": "scalar"
+    },
+    {
+      "name": "target_race_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "target_type",
+      "valueType": "scalar"
+    },
+    {
+      "name": "team_building_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "trained_chara_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "training_num",
+      "valueType": "scalar"
+    },
+    {
+      "name": "trophy_id",
+      "valueType": "scalar"
+    },
+    {
+      "name": "type1_reward_i",
+      "valueType": "scalar"
+    },
+    {
+      "name": "use_type",
+      "valueType": "scalar"
+    },
+    {
+      "name": "user_name",
+      "valueType": "scalar"
+    },
+    {
+      "name": "viewer_id",
+      "valueType": "scalar"
+    }
+  ]
+}
