@@ -6,12 +6,15 @@
 # ]
 # ///
 """
-Uma Musume Array Hunter v2
-============================
-Scans game memory for arrays/structures containing specific known IDs.
-Uses targeted analysis instead of brute-force byte scanning.
+Uma Musume Skill Array Extractor
+==================================
+Finds acquirable skill IDs in game memory by scanning for raw LE32 integers.
 
-All output is written to both the console AND hunt_debug.log for later review.
+The game stores skill data as native IL2CPP objects, NOT MsgPack. This script:
+  1. Scans memory for known skill IDs (raw little-endian 32-bit)
+  2. Identifies the tightest cluster where multiple known IDs sit nearby
+  3. Scans that entire region for ALL uint32 values in the skill ID range
+  4. Analyzes struct layout patterns and extracts the full skill list
 
 Usage:
   python hunt_array.py
@@ -23,10 +26,9 @@ import sys
 import time
 import traceback
 import logging
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 import frida
-import msgpack
 
 # ── Config ─────────────────────────────────────────────────────────────────
 
@@ -35,11 +37,18 @@ TARGET_PROCESS_NAMES = [
     "UmamusumePrettyDerby",
 ]
 PROCESS_KEYWORDS = ["uma", "musume", "derby", "cygames"]
-MAX_WAIT_SECONDS = 30000
+MAX_WAIT_SECONDS = 300
 
-KNOWN_IDS = [200154, 200152, 200441, 200652, 200722, 201152]
+# Known skill IDs visible on the acquire screen.
+# Only used as anchors to find the right memory region.
+# The script will extract ALL skill-range IDs it finds nearby.
+KNOWN_SKILL_IDS = [200154, 200152, 200441, 200652, 200722, 201152]
 
-# ── Debug log setup ────────────────────────────────────────────────────────
+# Integer range that looks like a skill ID
+SKILL_ID_MIN = 100000
+SKILL_ID_MAX = 999999
+
+# ── Logging ────────────────────────────────────────────────────────────────
 
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_FILE = os.path.join(_SCRIPT_DIR, "hunt_debug.log")
@@ -66,147 +75,152 @@ def log_debug(msg=""):
     logger.debug(str(msg))
 
 
-# ── Frida JS script ───────────────────────────────────────────────────────
+# ── Frida JS ───────────────────────────────────────────────────────────────
 
-def build_hunt_script(known_ids):
+def build_scan_script(known_ids):
+    """Scan memory for known skill IDs as raw LE32 and send back regions."""
     ids_json = json.dumps(known_ids)
     return r"""
-console.log("=== Uma Musume Array Hunter v2 ===");
-console.log("Searching for arrays containing known IDs...");
-
 (function() {
     const knownIds = """ + ids_json + r""";
     const scanProtection = "rw-";
     const minRangeSize = 16 * 1024;
     const maxRangeSize = 500 * 1024 * 1024;
 
-    function intToMsgPackPatterns(val) {
-        const patterns = [];
-        if (val >= 0 && val <= 0xFFFFFFFF) {
-            const b3 = (val >>> 24) & 0xFF, b2 = (val >>> 16) & 0xFF;
-            const b1 = (val >>> 8) & 0xFF,  b0 = val & 0xFF;
-            patterns.push({ label: `msgpack_uint32(${val})`, hex: `CE ${hex(b3)} ${hex(b2)} ${hex(b1)} ${hex(b0)}`, size: 5 });
-        }
-        if (val >= 0 && val <= 0xFFFF) {
-            patterns.push({ label: `msgpack_uint16(${val})`, hex: `CD ${hex((val>>>8)&0xFF)} ${hex(val&0xFF)}`, size: 3 });
-        }
-        if (val >= 0 && val <= 0xFF) {
-            patterns.push({ label: `msgpack_uint8(${val})`, hex: `CC ${hex(val)}`, size: 2 });
-        }
-        if (val >= 0 && val <= 127) {
-            patterns.push({ label: `msgpack_fixint(${val})`, hex: hex(val), size: 1 });
-        }
-        if (val >= -2147483648 && val <= 2147483647) {
-            const v = val < 0 ? val + 0x100000000 : val;
-            const b3 = (v >>> 24) & 0xFF, b2 = (v >>> 16) & 0xFF;
-            const b1 = (v >>> 8) & 0xFF,  b0 = v & 0xFF;
-            patterns.push({ label: `msgpack_int32(${val})`, hex: `D2 ${hex(b3)} ${hex(b2)} ${hex(b1)} ${hex(b0)}`, size: 5 });
-        }
-        if (val >= 0 && val <= 0xFFFFFFFF) {
-            const b0 = val & 0xFF, b1 = (val >>> 8) & 0xFF;
-            const b2 = (val >>> 16) & 0xFF, b3 = (val >>> 24) & 0xFF;
-            patterns.push({ label: `raw_le32(${val})`, hex: `${hex(b0)} ${hex(b1)} ${hex(b2)} ${hex(b3)}`, size: 4 });
-        }
-        return patterns;
-    }
-
     function hex(b) { return ('0' + b.toString(16).toUpperCase()).slice(-2); }
 
-    const rawRanges = Process.enumerateRanges({protection: scanProtection, coalesce: true});
-    const ranges = [];
-    for (const r of rawRanges) {
-        if (r.size >= minRangeSize && r.size <= maxRangeSize) ranges.push(r);
+    // Build raw LE32 patterns for each known ID
+    const patterns = [];
+    for (const id of knownIds) {
+        const b0 = id & 0xFF, b1 = (id >>> 8) & 0xFF;
+        const b2 = (id >>> 16) & 0xFF, b3 = (id >>> 24) & 0xFF;
+        patterns.push({
+            id: id,
+            pattern: `${hex(b0)} ${hex(b1)} ${hex(b2)} ${hex(b3)}`,
+        });
     }
-    ranges.sort((a, b) => b.size - a.size);
-    console.log(`${ranges.length} scannable regions (from ${rawRanges.length} total)`);
 
+    const rawRanges = Process.enumerateRanges({protection: scanProtection, coalesce: true});
+    const ranges = rawRanges.filter(r => r.size >= minRangeSize && r.size <= maxRangeSize);
+    ranges.sort((a, b) => b.size - a.size);
+
+    console.log(`Scanning ${ranges.length} regions for ${patterns.length} skill IDs (raw LE32)...`);
+    send({ type: 'status', message: `Scanning ${ranges.length} regions...` });
+
+    // Scan all regions, collect hits by region index
     const regionHits = {};
     let totalScans = 0;
-    const allPatterns = [];
-    for (const id of knownIds) {
-        for (const p of intToMsgPackPatterns(id)) allPatterns.push({ id, ...p });
-    }
-    const totalWork = allPatterns.length * ranges.length;
-    console.log(`Scanning ${allPatterns.length} patterns x ${ranges.length} regions = ${totalWork} scans...`);
-    send({ type: 'status', message: `Hunting for ${knownIds.length} IDs across ${ranges.length} regions...` });
+    const totalWork = patterns.length * ranges.length;
 
-    for (const pat of allPatterns) {
+    for (const pat of patterns) {
         for (let ri = 0; ri < ranges.length; ri++) {
             totalScans++;
             if (totalScans % 500 === 0) {
-                send({ type: 'progress', pct: Math.round(totalScans / totalWork * 100), scanned: totalScans, total: totalWork });
+                send({ type: 'progress', pct: Math.round(totalScans / totalWork * 100) });
             }
-            const range = ranges[ri];
             try {
-                const results = Memory.scanSync(range.base, range.size, pat.hex);
+                const results = Memory.scanSync(ranges[ri].base, ranges[ri].size, pat.pattern);
                 if (results.length > 0) {
-                    if (!regionHits[ri]) regionHits[ri] = { ids: new Set(), addresses: [], rangeBase: range.base, rangeSize: range.size };
+                    if (!regionHits[ri]) {
+                        regionHits[ri] = {
+                            ids: new Set(), addresses: [],
+                            rangeBase: ranges[ri].base, rangeSize: ranges[ri].size
+                        };
+                    }
                     regionHits[ri].ids.add(pat.id);
                     for (const r of results) {
-                        regionHits[ri].addresses.push({ id: pat.id, address: r.address, encoding: pat.label, encodingSize: pat.size });
+                        regionHits[ri].addresses.push({
+                            id: pat.id, address: r.address,
+                            byteOffset: r.address.sub(ranges[ri].base).toInt32()
+                        });
                     }
                 }
             } catch(e) { continue; }
         }
     }
 
-    const regionScores = Object.entries(regionHits)
+    // Rank regions by how many distinct IDs they contain
+    const ranked = Object.entries(regionHits)
         .map(([ri, info]) => ({
-            regionIndex: parseInt(ri), matchedIdCount: info.ids.size, matchedIds: Array.from(info.ids),
-            totalHits: info.addresses.length, rangeBase: info.rangeBase, rangeSize: info.rangeSize, addresses: info.addresses
+            regionIndex: parseInt(ri),
+            matchedIdCount: info.ids.size,
+            matchedIds: Array.from(info.ids),
+            totalHits: info.addresses.length,
+            rangeBase: info.rangeBase,
+            rangeSize: info.rangeSize,
+            addresses: info.addresses
         }))
         .sort((a, b) => b.matchedIdCount - a.matchedIdCount || b.totalHits - a.totalHits);
 
-    console.log(`\nRESULTS: ${regionScores.length} regions contain at least one target ID\n`);
-    for (const region of regionScores.slice(0, 10)) {
-        console.log(`Region #${region.regionIndex}: ${region.matchedIdCount}/${knownIds.length} IDs, ${region.totalHits} hits, size=${region.rangeSize}`);
-        for (const addr of region.addresses.slice(0, 20))
-            console.log(`  ID ${addr.id} (${addr.encoding}) at ${addr.address}`);
+    console.log(`\n${ranked.length} regions contain at least one known ID`);
+    for (const r of ranked.slice(0, 5)) {
+        console.log(`  Region #${r.regionIndex}: ${r.matchedIdCount}/${knownIds.length} IDs, ` +
+            `${r.totalHits} hits, size=${r.rangeSize}`);
     }
 
-    let bestRegions = regionScores.filter(r => r.matchedIdCount === knownIds.length).slice(0, 5);
-    if (bestRegions.length === 0) {
-        const fallback = regionScores.filter(r => r.matchedIdCount >= Math.max(2, knownIds.length - 1)).slice(0, 5);
-        if (fallback.length > 0) { console.log(`Falling back to best partial matches...`); bestRegions = fallback; }
-        else if (regionScores.length > 0) { console.log(`Sending best available...`); bestRegions = regionScores.slice(0, 3); }
+    // Send back the top regions (up to 5) with the most ID coverage
+    const toSend = ranked.filter(r => r.matchedIdCount >= 2).slice(0, 5);
+    if (toSend.length === 0 && ranked.length > 0) {
+        toSend.push(ranked[0]);
     }
 
-    for (const region of bestRegions) {
-        let minAddr = region.addresses[0].address, maxAddr = region.addresses[0].address;
-        for (const a of region.addresses) {
-            if (a.address.compare(minAddr) < 0) minAddr = a.address;
-            if (a.address.compare(maxAddr) > 0) maxAddr = a.address;
-        }
-        const readBefore = 64 * 1024, readAfter = 2 * 1024 * 1024;
-        const readStart = minAddr.sub(readBefore);
-        const clampedStart = readStart.compare(region.rangeBase) < 0 ? region.rangeBase : readStart;
-        const span = maxAddr.sub(clampedStart).toInt32() + readAfter;
-        const maxRead = Math.min(span, region.rangeSize - clampedStart.sub(region.rangeBase).toInt32(), 25 * 1024 * 1024);
-        if (maxRead <= 0) continue;
+    for (const region of toSend) {
+        // For each region, find the tightest cluster of known IDs
+        // and read a generous window around it
+        const addrs = region.addresses.sort((a, b) => a.byteOffset - b.byteOffset);
+        const minOff = addrs[0].byteOffset;
+        const maxOff = addrs[addrs.length - 1].byteOffset;
+
+        // Read: 64KB before first hit, everything through last hit + 64KB after
+        const readBefore = 64 * 1024;
+        const readAfter = 64 * 1024;
+        const readStart = Math.max(0, minOff - readBefore);
+        const readEnd = Math.min(region.rangeSize, maxOff + readAfter);
+        const readSize = readEnd - readStart;
+
+        if (readSize <= 0 || readSize > 50 * 1024 * 1024) continue;
+
         try {
-            const data = clampedStart.readByteArray(maxRead);
-            console.log(`\nSending ${maxRead} bytes from region #${region.regionIndex}`);
-            const hitOffsets = region.addresses.map(a => ({
-                id: a.id, encoding: a.encoding, encodingSize: a.encodingSize,
-                byteOffset: a.address.sub(clampedStart).toInt32()
-            })).filter(h => h.byteOffset >= 0 && h.byteOffset < maxRead);
+            const readBase = region.rangeBase.add(readStart);
+            const data = readBase.readByteArray(readSize);
+
+            // Adjust hit offsets relative to what we read
+            const adjustedHits = addrs.map(a => ({
+                id: a.id,
+                byteOffset: a.byteOffset - readStart
+            }));
+
+            console.log(`Sending ${readSize} bytes from region #${region.regionIndex} ` +
+                `(offsets ${readStart}-${readEnd})`);
+
             send({
-                type: 'region_data', region_index: region.regionIndex,
-                matched_id_count: region.matchedIdCount, matched_ids: region.matchedIds,
-                total_hits: region.totalHits, range_size: region.rangeSize,
-                read_size: maxRead, read_base: clampedStart.toString(), hit_offsets: hitOffsets
+                type: 'region_data',
+                region_index: region.regionIndex,
+                matched_id_count: region.matchedIdCount,
+                matched_ids: region.matchedIds,
+                total_hits: region.totalHits,
+                range_size: region.rangeSize,
+                read_size: readSize,
+                read_start: readStart,
+                hit_offsets: adjustedHits,
             }, data);
-        } catch(e) { console.log(`Failed to read region #${region.regionIndex}: ${e}`); }
+        } catch(e) {
+            console.log(`Failed to read region #${region.regionIndex}: ${e}`);
+        }
     }
 
     send({
-        type: 'done', regions_with_hits: regionScores.length,
-        top_regions: regionScores.slice(0, 20).map(r => ({
-            regionIndex: r.regionIndex, matchedIdCount: r.matchedIdCount,
-            matchedIds: r.matchedIds, totalHits: r.totalHits, rangeSize: r.rangeSize
+        type: 'done',
+        regions_with_hits: ranked.length,
+        top_regions: ranked.slice(0, 15).map(r => ({
+            regionIndex: r.regionIndex,
+            matchedIdCount: r.matchedIdCount,
+            matchedIds: r.matchedIds,
+            totalHits: r.totalHits,
+            rangeSize: r.rangeSize,
         }))
     });
-    console.log("\nHunt complete!");
+    console.log("Scan complete.");
 })();
 """
 
@@ -258,489 +272,337 @@ def attach_to_game():
     return None
 
 
-# ── Smart analysis functions ───────────────────────────────────────────────
+# ── Analysis ───────────────────────────────────────────────────────────────
 
-def deep_find_ids(obj, known_set, found=None, depth=0):
-    if found is None:
-        found = set()
-    if depth > 20:
-        return found
-    if isinstance(obj, int) and obj in known_set:
-        found.add(obj)
-    elif isinstance(obj, dict):
-        for k, v in obj.items():
-            if isinstance(k, int) and k in known_set:
-                found.add(k)
-            deep_find_ids(v, known_set, found, depth + 1)
-    elif isinstance(obj, (list, tuple)):
-        for item in obj:
-            deep_find_ids(item, known_set, found, depth + 1)
-    return found
+def scan_for_skill_range_ids(raw_bytes, align=4):
+    """Scan raw bytes for all 4-byte LE uint32 values in the skill ID range.
+    Returns list of (offset, value) sorted by offset."""
+    hits = []
+    end = len(raw_bytes) - 3
+    for off in range(0, end, align):
+        val = struct.unpack_from("<I", raw_bytes, off)[0]
+        if SKILL_ID_MIN <= val <= SKILL_ID_MAX:
+            hits.append((off, val))
+    return hits
 
 
-def try_msgpack_at(raw_bytes, offset, known_set, max_read=10 * 1024 * 1024):
-    if offset < 0 or offset >= len(raw_bytes):
-        return None
-    chunk = raw_bytes[offset:min(offset + max_read, len(raw_bytes))]
-    try:
-        unpacker = msgpack.Unpacker(raw=False, max_buffer_size=50 * 1024 * 1024)
-        unpacker.feed(chunk)
-        decoded = unpacker.unpack()
-        if decoded is None:
-            return None
-        if isinstance(decoded, (list, dict)) and len(decoded) == 0:
-            return None
-        consumed = unpacker.tell()
-        found_ids = deep_find_ids(decoded, known_set)
-        return {
-            "offset": offset,
-            "decoded": decoded,
-            "consumed": consumed,
-            "found_ids": found_ids,
-        }
-    except Exception:
-        return None
-
-
-def targeted_msgpack_search(raw_bytes, hit_offsets, known_ids):
-    known_set = set(known_ids)
-    results = []
-    seen_offsets = set()
-
-    msgpack_hits = [h for h in hit_offsets if "msgpack" in h["encoding"]]
-    sorted_hits = sorted(msgpack_hits, key=lambda h: h["byteOffset"])
-
-    if not sorted_hits:
-        log("    No MsgPack-encoded hits to search backwards from")
-        return results
-
-    log(f"    Targeted MsgPack search from {len(sorted_hits)} hit locations...")
-    log_debug(f"    MsgPack hit offsets: {[h['byteOffset'] for h in sorted_hits[:20]]}")
-
-    for hit in sorted_hits:
-        offset = hit["byteOffset"]
-        max_back = 256 * 1024
-        start_search = max(0, offset - max_back)
-        containers_checked = 0
-
-        for back_offset in range(offset - 1, start_search - 1, -1):
-            if back_offset in seen_offsets:
-                continue
-            if back_offset < 0:
-                break
-
-            b = raw_bytes[back_offset]
-
-            is_container = False
-            if 0x92 <= b <= 0x9F:
-                is_container = True
-            elif b in (0xDC, 0xDD):
-                is_container = True
-            elif 0x82 <= b <= 0x8F:
-                is_container = True
-            elif b in (0xDE, 0xDF):
-                is_container = True
-
-            if not is_container:
-                continue
-
-            seen_offsets.add(back_offset)
-            containers_checked += 1
-            result = try_msgpack_at(raw_bytes, back_offset, known_set)
-            if result is None:
-                continue
-
-            found_count = len(result["found_ids"])
-            if found_count < 2:
-                continue
-
-            decoded = result["decoded"]
-            if isinstance(decoded, list):
-                desc = f"array[{len(decoded)}]"
-            elif isinstance(decoded, dict):
-                desc = f"map[{len(decoded)} keys]"
-            else:
-                desc = type(decoded).__name__
-
-            log(f"    HIT: MsgPack {desc} at offset {back_offset} "
-                f"({found_count}/{len(known_ids)} IDs, consumed {result['consumed']} bytes)")
-            log_debug(f"    Found IDs: {sorted(result['found_ids'])}")
-            results.append({
-                "offset": back_offset,
-                "description": desc,
-                "found_ids": sorted(result["found_ids"]),
-                "found_count": found_count,
-                "data": decoded,
-                "consumed": result["consumed"],
-                "source": "targeted_backward_search",
-            })
-
-            if found_count == len(known_ids):
-                break
-
-        log_debug(f"    Hit at {offset}: checked {containers_checked} container headers backwards")
-
-    # Deduplicate by offset
-    unique = {}
-    for r in results:
-        off = r["offset"]
-        if off not in unique or r["found_count"] > unique[off]["found_count"]:
-            unique[off] = r
-    results = sorted(unique.values(), key=lambda r: r["found_count"], reverse=True)
-    return results
-
-
-def analyze_raw_layout(raw_bytes, hit_offsets, known_ids):
-    by_encoding = defaultdict(list)
-    for h in hit_offsets:
-        enc_type = "msgpack" if "msgpack" in h["encoding"] else "raw_le32"
-        by_encoding[enc_type].append(h)
-
-    log(f"    Hit breakdown: {len(by_encoding.get('msgpack', []))} MsgPack, "
-        f"{len(by_encoding.get('raw_le32', []))} raw LE32")
-
-    raw_hits = by_encoding.get("raw_le32", [])
-    if not raw_hits:
-        raw_hits = hit_offsets
-
-    if not raw_hits:
-        log("    No hits to analyze")
+def find_clusters(skill_hits, max_gap=8192):
+    """Group skill ID hits into clusters where consecutive hits are within
+    max_gap bytes of each other."""
+    if not skill_hits:
         return []
-
-    id_locations = defaultdict(list)
-    for h in raw_hits:
-        id_locations[h["id"]].append(h["byteOffset"])
-
-    log("\n    Per-ID raw locations:")
-    for id_val in known_ids:
-        locs = sorted(id_locations.get(id_val, []))
-        if locs:
-            log(f"      ID {id_val}: {len(locs)} occurrences at offsets {locs[:10]}{'...' if len(locs) > 10 else ''}")
-            log_debug(f"      ID {id_val}: ALL offsets = {locs}")
-        else:
-            log(f"      ID {id_val}: not found as raw LE32")
-
-    # Spacing analysis
-    log("\n    Spacing analysis (looking for regular struct patterns):")
-    struct_size_candidates = defaultdict(int)
-
-    for id_val, locs in id_locations.items():
-        if len(locs) < 2:
-            continue
-        sorted_locs = sorted(locs)
-        spacings = [sorted_locs[i + 1] - sorted_locs[i] for i in range(len(sorted_locs) - 1)]
-
-        spacing_freq = defaultdict(int)
-        for s in spacings:
-            if 8 <= s <= 4096:
-                spacing_freq[s] += 1
-
-        if spacing_freq:
-            most_common = sorted(spacing_freq.items(), key=lambda x: -x[1])[:3]
-            log(f"      ID {id_val}: spacings = {most_common}")
-            log_debug(f"      ID {id_val}: all spacings = {spacings}")
-            for spacing, count in most_common:
-                if count >= 2:
-                    struct_size_candidates[spacing] += count
-
-    if struct_size_candidates:
-        best_sizes = sorted(struct_size_candidates.items(), key=lambda x: -x[1])[:5]
-        log(f"\n    Most likely struct sizes: {best_sizes}")
-    else:
-        log("    No regular spacing detected (data may not be a struct array)")
-
-    # Cross-ID proximity analysis
-    log("\n    Cross-ID proximity (IDs that appear near each other):")
-    all_hits_sorted = sorted(raw_hits, key=lambda h: h["byteOffset"])
-
     clusters = []
-    current_cluster = [all_hits_sorted[0]] if all_hits_sorted else []
-
-    for i in range(1, len(all_hits_sorted)):
-        h = all_hits_sorted[i]
-        prev = all_hits_sorted[i - 1]
-        if h["byteOffset"] - prev["byteOffset"] <= 4096:
-            current_cluster.append(h)
+    current = [skill_hits[0]]
+    for i in range(1, len(skill_hits)):
+        off, val = skill_hits[i]
+        prev_off = current[-1][0]
+        if off - prev_off <= max_gap:
+            current.append(skill_hits[i])
         else:
-            if len(current_cluster) >= 2:
-                clusters.append(current_cluster)
-            current_cluster = [h]
-
-    if len(current_cluster) >= 2:
-        clusters.append(current_cluster)
-
-    multi_id_clusters = [c for c in clusters if len(set(h["id"] for h in c)) >= 2]
-    log(f"    Found {len(multi_id_clusters)} clusters with 2+ different IDs nearby:")
-
-    for ci, cluster in enumerate(multi_id_clusters[:5]):
-        cluster_ids = set(h["id"] for h in cluster)
-        min_off = min(h["byteOffset"] for h in cluster)
-        max_off = max(h["byteOffset"] for h in cluster)
-        log(f"      Cluster {ci}: offsets {min_off}-{max_off} ({max_off - min_off} bytes span), "
-            f"IDs: {sorted(cluster_ids)}")
-        log_debug(f"      Cluster {ci} detail: {[(h['id'], h['byteOffset'], h['encoding']) for h in cluster]}")
-
-    return multi_id_clusters
+            clusters.append(current)
+            current = [skill_hits[i]]
+    clusters.append(current)
+    return clusters
 
 
-def dump_hex_context(raw_bytes, hit_offsets, known_ids, context_bytes=128):
-    log(f"\n    Hex context around each hit (+/-{context_bytes} bytes):")
-
-    seen = set()
-    unique_hits = []
-    for h in sorted(hit_offsets, key=lambda x: x["byteOffset"]):
-        key = (h["id"], h["byteOffset"])
-        if key not in seen:
-            seen.add(key)
-            unique_hits.append(h)
-
-    for h in unique_hits[:20]:
-        offset = h["byteOffset"]
-        id_val = h["id"]
-        encoding = h["encoding"]
-        enc_size = h.get("encodingSize", 4)
-
-        start = max(0, offset - context_bytes)
-        end = min(len(raw_bytes), offset + context_bytes)
-        snippet = raw_bytes[start:end]
-
-        hex_lines = []
-        ascii_lines = []
-        line_size = 32
-        for row_start in range(0, len(snippet), line_size):
-            row = snippet[row_start:row_start + line_size]
-            abs_offset = start + row_start
-
-            hex_parts = []
-            ascii_parts = []
-            for bi, b in enumerate(row):
-                abs_pos = abs_offset + bi
-                if abs_pos == offset:
-                    hex_parts.append(f"[{b:02X}")
-                elif abs_pos == offset + enc_size - 1:
-                    hex_parts.append(f"{b:02X}]")
-                else:
-                    hex_parts.append(f"{b:02X}")
-                ascii_parts.append(chr(b) if 32 <= b < 127 else ".")
-
-            hex_lines.append(f"      {abs_offset:08X}: {' '.join(hex_parts)}")
-            ascii_lines.append("".join(ascii_parts))
-
-        log(f"\n    -- ID {id_val} ({encoding}) at offset {offset} --")
-        for hl, al in zip(hex_lines, ascii_lines):
-            log(f"{hl}  |{al}|")
+def score_cluster(cluster, known_set):
+    """Score a cluster by how many known IDs it contains and how dense it is."""
+    offsets = [off for off, _ in cluster]
+    values = {val for _, val in cluster}
+    known_found = values & known_set
+    span = max(offsets) - min(offsets) + 4 if len(offsets) > 1 else 4
+    density = len(cluster) / max(span, 1)
+    return (len(known_found), len(cluster), density)
 
 
-def find_nearby_strings(raw_bytes, offset, search_range=512):
-    start = max(0, offset - search_range)
-    end = min(len(raw_bytes), offset + search_range)
-    chunk = raw_bytes[start:end]
-
-    strings = []
-    current = []
-    current_start = 0
-
-    for i, b in enumerate(chunk):
-        if 32 <= b < 127:
-            if not current:
-                current_start = i
-            current.append(chr(b))
-        else:
-            if len(current) >= 4:
-                strings.append({
-                    "text": "".join(current),
-                    "offset": start + current_start,
-                    "rel_offset": (start + current_start) - offset,
-                })
-            current = []
-    if len(current) >= 4:
-        strings.append({
-            "text": "".join(current),
-            "offset": start + current_start,
-            "rel_offset": (start + current_start) - offset,
-        })
-    return strings
-
-
-def try_extract_structs(raw_bytes, hit_offsets, known_ids, struct_size):
-    anchor = None
-    for h in hit_offsets:
-        if "raw_le32" in h["encoding"]:
-            anchor = h
-            break
-    if not anchor:
+def analyze_struct_layout(cluster, raw_bytes, known_set):
+    """Analyze the byte layout around skill IDs in a cluster to find
+    struct patterns."""
+    offsets = [off for off, _ in cluster]
+    if len(offsets) < 2:
         return None
 
-    anchor_off = anchor["byteOffset"]
+    # Compute spacings between consecutive skill ID hits
+    spacings = []
+    for i in range(len(offsets) - 1):
+        spacings.append(offsets[i + 1] - offsets[i])
 
-    test_off = anchor_off
-    while test_off - struct_size >= 0:
-        prev_off = test_off - struct_size
-        if prev_off < 0:
+    spacing_counts = Counter(spacings)
+    log(f"    Spacing frequency: {spacing_counts.most_common(10)}")
+
+    # The most common spacing likely indicates struct size or field stride
+    most_common_spacing, count = spacing_counts.most_common(1)[0]
+    log(f"    Most common spacing: {most_common_spacing} bytes ({count} times)")
+
+    # Check if the common spacing is consistent enough to be a struct array
+    if count >= max(2, len(offsets) // 3):
+        log(f"    → Looks like a struct array with stride {most_common_spacing}")
+        return most_common_spacing
+
+    # Try to find a stride that aligns multiple known IDs
+    for stride in sorted(spacing_counts.keys()):
+        if stride < 8 or stride > 4096:
+            continue
+        # Check: starting from each known ID offset, do we find other known IDs
+        # at multiples of this stride?
+        for base_off, base_val in cluster:
+            if base_val not in known_set:
+                continue
+            aligned_count = 0
+            for test_off, test_val in cluster:
+                if test_val in known_set and (test_off - base_off) % stride == 0:
+                    aligned_count += 1
+            if aligned_count >= 3:
+                log(f"    → Stride {stride} aligns {aligned_count} known IDs")
+                return stride
+
+    return None
+
+
+def extract_skill_ids_simple(cluster, known_set):
+    """Simple extraction: just return all unique skill-range IDs found."""
+    all_ids = sorted({val for _, val in cluster})
+    known_found = sorted(known_set & set(all_ids))
+    unknown = sorted(set(all_ids) - known_set)
+    return all_ids, known_found, unknown
+
+
+def extract_skill_ids_strided(cluster, raw_bytes, stride, known_set):
+    """Extract skill IDs assuming a struct array with the given stride.
+    Finds which field offset within each struct holds the skill ID,
+    then reads that field from every struct."""
+    offsets = [off for off, _ in cluster]
+    values = {off: val for off, val in cluster}
+
+    # Find which byte offset within the stride holds known skill IDs
+    known_field_offsets = Counter()
+    for off, val in cluster:
+        if val in known_set:
+            field_off = off % stride
+            known_field_offsets[field_off] += 1
+
+    if not known_field_offsets:
+        return None
+
+    best_field, _ = known_field_offsets.most_common(1)[0]
+    log(f"    Skill ID field is at offset {best_field} within each {stride}-byte struct")
+
+    # Find array bounds
+    # Start from earliest known ID, walk backward/forward by stride
+    anchor = None
+    for off, val in cluster:
+        if val in known_set and off % stride == best_field:
+            anchor = off
             break
-        chunk = raw_bytes[prev_off:prev_off + min(struct_size, 32)]
-        if len(chunk) < 8:
+    if anchor is None:
+        return None
+
+    # Walk backward
+    start = anchor
+    while start - stride >= 0:
+        prev = start - stride
+        val = struct.unpack_from("<I", raw_bytes, prev)[0]
+        if SKILL_ID_MIN <= val <= SKILL_ID_MAX:
+            start = prev
+        else:
+            # Check if the struct has other nonzero content (not just the ID field)
+            struct_bytes = raw_bytes[prev:prev + stride]
+            if all(b == 0 for b in struct_bytes):
+                break
+            # Check if at least the ID field looks valid
             break
-        if all(b == 0 for b in chunk) or all(b == 0xFF for b in chunk):
+
+    # Walk forward
+    end = anchor
+    while end + stride <= len(raw_bytes) - 4:
+        nxt = end + stride
+        val = struct.unpack_from("<I", raw_bytes, nxt)[0]
+        if SKILL_ID_MIN <= val <= SKILL_ID_MAX:
+            end = nxt
+        else:
             break
-        test_off = prev_off
 
-    array_start = test_off
+    item_count = (end - start) // stride + 1
+    log(f"    Array: {item_count} items, offsets {start}–{end}, stride {stride}")
 
-    test_off = anchor_off + struct_size
-    while test_off + struct_size <= len(raw_bytes):
-        chunk = raw_bytes[test_off:test_off + min(struct_size, 32)]
-        if len(chunk) < 8:
-            break
-        if all(b == 0 for b in chunk) or all(b == 0xFF for b in chunk):
-            break
-        test_off += struct_size
+    # Extract the skill ID from each struct
+    extracted = []
+    for i in range(item_count):
+        item_off = start + i * stride
+        val = struct.unpack_from("<I", raw_bytes, item_off)[0]
+        if SKILL_ID_MIN <= val <= SKILL_ID_MAX:
+            extracted.append(val)
 
-    array_end = test_off
-    item_count = (array_end - array_start) // struct_size
-
-    log(f"\n    Struct array extraction (struct_size={struct_size}):")
-    log(f"      Range: offset {array_start} - {array_end} ({item_count} items)")
-
-    items = []
-    for i in range(min(item_count, 200)):
-        off = array_start + i * struct_size
-        item_bytes = raw_bytes[off:off + struct_size]
-        fields = []
-        for fi in range(0, len(item_bytes) - 3, 4):
-            val = struct.unpack_from("<I", item_bytes, fi)[0]
-            fields.append(val)
-        items.append({
-            "offset": off,
-            "fields_u32": fields,
-            "raw": item_bytes.hex(),
-        })
-
-    return {
-        "struct_size": struct_size,
-        "array_start": array_start,
-        "array_end": array_end,
-        "item_count": item_count,
-        "items": items,
-    }
+    return extracted
 
 
-def analyze_region(raw_bytes, meta, known_ids):
+def hex_dump_around(raw_bytes, offset, context=64, highlight_len=4):
+    """Return hex dump lines around an offset."""
+    start = max(0, offset - context)
+    end = min(len(raw_bytes), offset + highlight_len + context)
+    lines = []
+    for row in range(start, end, 16):
+        row_bytes = raw_bytes[row:row + 16]
+        hex_parts = []
+        ascii_parts = []
+        for i, b in enumerate(row_bytes):
+            pos = row + i
+            if offset <= pos < offset + highlight_len:
+                hex_parts.append(f"[{b:02X}]")
+            else:
+                hex_parts.append(f" {b:02X} ")
+            ascii_parts.append(chr(b) if 32 <= b < 127 else ".")
+        hex_str = "".join(hex_parts)
+        ascii_str = "".join(ascii_parts)
+        lines.append(f"  {row:08X}: {hex_str}  |{ascii_str}|")
+    return lines
+
+
+def analyze_region(raw_bytes, meta):
+    """Main analysis: find all skill IDs, cluster them, extract the array."""
+    known_set = set(KNOWN_SKILL_IDS)
     hit_offsets = meta.get("hit_offsets", [])
     region_idx = meta.get("region_index")
-    known_set = set(known_ids)
 
-    if not hit_offsets:
-        log(f"  [!] No hit offsets received for region #{region_idx}")
-        log("      Falling back to raw ID search in bytes...")
-        for id_val in known_ids:
-            target = struct.pack("<I", id_val)
-            pos = 0
-            while True:
-                idx = raw_bytes.find(target, pos)
-                if idx == -1:
-                    break
-                hit_offsets.append({
-                    "id": id_val,
-                    "encoding": f"raw_le32({id_val})",
-                    "encodingSize": 4,
-                    "byteOffset": idx,
-                })
-                pos = idx + 4
+    log(f"\n  Region #{region_idx}: {len(raw_bytes):,} bytes, "
+        f"{len(hit_offsets)} known-ID hits")
 
-    log(f"  Working with {len(hit_offsets)} hit locations in {len(raw_bytes):,} bytes")
-    log_debug(f"  All hit encodings: {[(h['id'], h['encoding'], h['byteOffset']) for h in hit_offsets[:50]]}")
+    # Step 1: Verify known IDs are where we expect them
+    known_found_here = set()
+    for h in hit_offsets:
+        off = h["byteOffset"]
+        if 0 <= off <= len(raw_bytes) - 4:
+            val = struct.unpack_from("<I", raw_bytes, off)[0]
+            if val == h["id"]:
+                known_found_here.add(val)
+            else:
+                log_debug(f"    Warning: expected {h['id']} at offset {off}, "
+                          f"got {val}")
+    log(f"  Verified known IDs: {sorted(known_found_here)}")
 
-    best_result = None
+    # Step 2: Scan the ENTIRE region for all skill-range uint32s
+    log(f"  Scanning {len(raw_bytes):,} bytes for all skill-range integers...")
+    all_skill_hits = scan_for_skill_range_ids(raw_bytes, align=4)
+    log(f"  Found {len(all_skill_hits)} skill-range integers "
+        f"({len(set(v for _, v in all_skill_hits))} unique values)")
 
-    # Strategy 1: Targeted MsgPack backward search
-    log("\n  > Strategy 1: Targeted MsgPack search (backward from hits)...")
-    msgpack_results = targeted_msgpack_search(raw_bytes, hit_offsets, known_ids)
-    if msgpack_results:
-        for r in msgpack_results[:3]:
-            log(f"    Found {r['description']} with {r['found_count']}/{len(known_ids)} IDs")
-        best = msgpack_results[0]
-        if best["found_count"] >= len(known_ids):
-            log("    Perfect MsgPack match found!")
-            best_result = best
-    else:
-        log("    No MsgPack containers found enclosing the target IDs")
+    if not all_skill_hits:
+        log("  No skill-range integers found!")
+        return None
 
-    # Strategy 2: Raw struct layout analysis
-    log("\n  > Strategy 2: Raw struct layout analysis...")
-    multi_id_clusters = analyze_raw_layout(raw_bytes, hit_offsets, known_ids)
+    # Step 3: Cluster the hits
+    clusters = find_clusters(all_skill_hits, max_gap=8192)
+    log(f"  {len(clusters)} clusters (max gap 8KB)")
 
-    # Strategy 3: Try MsgPack at various offsets before clusters
-    if not best_result and multi_id_clusters:
-        log("\n  > Strategy 3: MsgPack probe from cluster starts...")
-        for ci, cluster in enumerate(multi_id_clusters[:3]):
-            min_off = min(h["byteOffset"] for h in cluster)
-            for probe_back in [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512,
-                               1024, 2048, 4096, 8192, 16384, 32768, 65536]:
-                probe_off = max(0, min_off - probe_back)
-                result = try_msgpack_at(raw_bytes, probe_off, known_set)
-                if result and len(result["found_ids"]) >= 2:
-                    decoded = result["decoded"]
-                    if isinstance(decoded, list):
-                        desc = f"array[{len(decoded)}]"
-                    elif isinstance(decoded, dict):
-                        desc = f"map[{len(decoded)} keys]"
-                    else:
-                        desc = type(decoded).__name__
-                    found_count = len(result["found_ids"])
-                    log(f"    MsgPack {desc} at offset {probe_off} "
-                        f"({found_count}/{len(known_ids)} IDs)")
-                    log_debug(f"    Probe found IDs: {sorted(result['found_ids'])}")
-                    if not best_result or found_count > best_result.get("found_count", 0):
-                        best_result = {
-                            "offset": probe_off,
-                            "description": desc,
-                            "found_ids": sorted(result["found_ids"]),
-                            "found_count": found_count,
-                            "data": decoded,
-                            "consumed": result["consumed"],
-                            "source": "cluster_probe",
-                        }
-                    if found_count == len(known_ids):
-                        break
+    # Score clusters by how many known IDs they contain
+    scored = []
+    for ci, cluster in enumerate(clusters):
+        known_count, total, density = score_cluster(cluster, known_set)
+        offsets = [off for off, _ in cluster]
+        span = max(offsets) - min(offsets) + 4 if len(offsets) > 1 else 4
+        unique_vals = len(set(v for _, v in cluster))
+        scored.append((known_count, total, density, ci, cluster,
+                        span, unique_vals))
+        if known_count > 0 or total >= 5:
+            log(f"    Cluster {ci}: {total} hits, {unique_vals} unique IDs, "
+                f"span {span} bytes, {known_count}/{len(known_set)} known IDs")
 
-    # Strategy 4: Nearby strings analysis
-    log("\n  > Strategy 4: Nearby strings analysis...")
-    all_nearby_strings = set()
-    for h in hit_offsets[:12]:
-        strings = find_nearby_strings(raw_bytes, h["byteOffset"], search_range=256)
-        for s in strings:
-            if len(s["text"]) >= 4:
-                all_nearby_strings.add(s["text"])
+    scored.sort(reverse=True)
 
-    if all_nearby_strings:
-        interesting = [s for s in all_nearby_strings
-                       if not all(c in "0123456789" for c in s)
-                       and len(s) <= 100]
-        interesting.sort()
-        log(f"    Found {len(interesting)} unique strings near ID locations:")
-        for s in interesting[:30]:
-            log(f'      "{s}"')
-        log_debug(f"    ALL nearby strings: {interesting}")
-    else:
-        log("    No readable strings found near ID locations")
+    if not scored:
+        log("  No clusters found!")
+        return None
 
-    # Hex dumps
-    dump_hex_context(raw_bytes, hit_offsets, known_ids, context_bytes=64)
+    # Step 4: Analyze the best cluster
+    best = scored[0]
+    best_known, best_total, _, best_ci, best_cluster, best_span, best_unique = best
+    log(f"\n  ═══ Best cluster: #{best_ci} ═══")
+    log(f"  {best_total} skill-range hits, {best_unique} unique values, "
+        f"span {best_span} bytes, {best_known}/{len(known_set)} known IDs")
 
-    return best_result
+    # Show all values in this cluster
+    cluster_values = sorted(set(v for _, v in best_cluster))
+    known_in_cluster = sorted(set(cluster_values) & known_set)
+    unknown_in_cluster = sorted(set(cluster_values) - known_set)
+    log(f"  Known IDs in cluster:   {known_in_cluster}")
+    log(f"  Unknown IDs in cluster: {unknown_in_cluster}")
+
+    # Step 5: Analyze struct layout
+    log(f"\n  Analyzing struct layout...")
+    stride = analyze_struct_layout(best_cluster, raw_bytes, known_set)
+
+    # Step 6: Extract skill IDs
+    extracted = None
+    if stride:
+        log(f"\n  Extracting with stride {stride}...")
+        extracted = extract_skill_ids_strided(
+            best_cluster, raw_bytes, stride, known_set)
+        if extracted:
+            log(f"  Extracted {len(extracted)} skill IDs via strided scan")
+
+    # Fallback: simple extraction of all unique IDs in the cluster
+    all_ids, known_found, unknown = extract_skill_ids_simple(
+        best_cluster, known_set)
+
+    # Step 7: Hex dumps around known IDs for manual inspection
+    log(f"\n  Hex context around known IDs:")
+    for h in hit_offsets[:6]:
+        off = h["byteOffset"]
+        log(f"\n    ── ID {h['id']} at offset {off} ──")
+        for line in hex_dump_around(raw_bytes, off, context=48):
+            log(line)
+
+    # Step 8: Also look at a few unknown IDs for comparison
+    unknown_hits = [(off, val) for off, val in best_cluster
+                    if val not in known_set]
+    if unknown_hits:
+        log(f"\n  Hex context around unknown skill-range IDs (first 3):")
+        for off, val in unknown_hits[:3]:
+            log(f"\n    ── Unknown ID {val} at offset {off} ──")
+            for line in hex_dump_around(raw_bytes, off, context=48):
+                log(line)
+
+    # Build result
+    result = {
+        "region_index": region_idx,
+        "cluster_index": best_ci,
+        "known_ids_found": known_in_cluster,
+        "known_id_coverage": f"{len(known_in_cluster)}/{len(known_set)}",
+        "all_skill_ids_in_cluster": cluster_values,
+        "total_unique_skill_ids": len(cluster_values),
+        "cluster_span_bytes": best_span,
+        "cluster_hits": best_total,
+    }
+
+    if extracted:
+        result["extracted_strided"] = extracted
+        result["stride"] = stride
+
+    # Also check other high-scoring clusters
+    alt_results = []
+    for rank, (kc, total, _, ci, cluster, span, uniq) in enumerate(scored[1:5]):
+        if kc > 0:
+            vals = sorted(set(v for _, v in cluster))
+            alt_results.append({
+                "cluster_index": ci,
+                "known_count": kc,
+                "unique_ids": vals,
+                "total_hits": total,
+                "span": span,
+            })
+    if alt_results:
+        result["alternative_clusters"] = alt_results
+
+    return result
 
 
 # ── Main ───────────────────────────────────────────────────────────────────
 
-PII_FIELDS = ["viewer_id", "owner_viewer_id", "dmm_viewer_id"]
-
-
 def main():
     log("=" * 60)
-    log("  Uma Musume Array Hunter v2")
-    log(f"  Looking for arrays containing: {KNOWN_IDS}")
-    log(f"  Debug log: {LOG_FILE}")
+    log("  Uma Musume Skill Array Extractor")
+    log(f"  Anchor IDs: {KNOWN_SKILL_IDS}")
+    log(f"  Scanning for all integers in range {SKILL_ID_MIN}–{SKILL_ID_MAX}")
     log("=" * 60)
     log()
 
@@ -750,11 +612,11 @@ def main():
 
     region_chunks = []
     done = False
-    script_error = None
     done_payload = None
+    script_error = None
 
     def on_message(message, data):
-        nonlocal done, script_error, done_payload
+        nonlocal done, done_payload, script_error
 
         msg_type = message.get("type")
         if msg_type == "send":
@@ -763,198 +625,116 @@ def main():
                 ptype = payload.get("type")
 
                 if ptype == "region_data" and data:
-                    log(f"\n[OK] Received {len(data):,} bytes from region #{payload.get('region_index')}")
-                    log(f"     Matched {payload.get('matched_id_count')}/{len(KNOWN_IDS)} IDs: {payload.get('matched_ids')}")
-                    hit_offsets = payload.get("hit_offsets", [])
-                    by_enc = defaultdict(int)
-                    for h in hit_offsets:
-                        enc_type = "msgpack" if "msgpack" in h["encoding"] else "raw_le32"
-                        by_enc[enc_type] += 1
-                    log(f"     Hit offsets: {len(hit_offsets)} ({dict(by_enc)})")
-                    log_debug(f"     All hit offsets: {hit_offsets[:30]}")
+                    log(f"\n  Received {len(data):,} bytes from region "
+                        f"#{payload.get('region_index')} "
+                        f"({payload.get('matched_id_count')}/{len(KNOWN_SKILL_IDS)} IDs)")
                     region_chunks.append((payload, data))
 
                 elif ptype == "progress":
                     pct = payload.get("pct", 0)
-                    print(f"[*] Hunting... {pct}%", end="\r")
-                    log_debug(f"Progress: {pct}%")
+                    print(f"\r  Scanning... {pct}%", end="", flush=True)
 
                 elif ptype == "status":
-                    log(f"[*] {payload.get('message', '')}")
+                    log(f"  {payload.get('message', '')}")
 
                 elif ptype == "done":
                     done = True
                     done_payload = payload
-                    log_debug(f"Done payload: {json.dumps(payload, indent=2)}")
                     print()
 
             elif isinstance(payload, str):
-                log(f"[JS] {payload}")
+                log(f"  [JS] {payload}")
 
         elif msg_type == "error":
             script_error = message
-            log(f"\n[X] JS Error: {message.get('description', 'unknown')}")
+            log(f"\n  [X] JS Error: {message.get('description', 'unknown')}")
             stack = message.get("stack")
             if stack:
                 for line in str(stack).splitlines():
-                    log(f"    {line}")
+                    log(f"      {line}")
 
         elif msg_type == "log":
-            log(f"[JS] {message.get('payload', '')}")
+            log(f"  [JS] {message.get('payload', '')}")
 
-    hunt_script = build_hunt_script(KNOWN_IDS)
-    log_debug(f"Generated JS script length: {len(hunt_script)} chars")
-
+    scan_js = build_scan_script(KNOWN_SKILL_IDS)
     try:
-        script = session.create_script(hunt_script, runtime="v8")
+        script = session.create_script(scan_js, runtime="v8")
         script.on("message", on_message)
-        log("[*] Loading hunter script...")
+        log("[*] Scanning game memory...")
         try:
             script.load()
         except Exception as e:
             if "timeout" in str(e).lower():
-                log("[*] Script load timed out, hunt continues in background...")
+                log("[*] Scan still running...")
             else:
                 raise
     except Exception as e:
-        log(f"[X] Failed to load script: {type(e).__name__}: {e}")
+        log(f"[X] Failed: {type(e).__name__}: {e}")
         traceback.print_exc()
-        logger.debug(traceback.format_exc())
         sys.exit(1)
 
-    log(f"[*] Hunting (up to {MAX_WAIT_SECONDS}s)...")
     for i in range(MAX_WAIT_SECONDS):
         time.sleep(1)
         if done or script_error:
             break
         if (i + 1) % 30 == 0:
-            log(f"\n[*] Still running... {i + 1}s elapsed")
+            log(f"\n  Still scanning... {i + 1}s")
 
-    # Show summary from JS side
     if done_payload:
         top = done_payload.get("top_regions", [])
-        log()
-        log("=" * 60)
-        log("  REGION SUMMARY (ranked by how many target IDs found)")
-        log("=" * 60)
-        for r in top[:10]:
-            ids = r.get("matchedIds", [])
-            log(f"  Region #{r['regionIndex']}: {r['matchedIdCount']}/{len(KNOWN_IDS)} IDs, "
-                f"{r['totalHits']} hits, size={r['rangeSize']}")
-            log(f"    IDs found: {ids}")
+        if top:
+            log()
+            log("  Region ranking:")
+            for r in top[:8]:
+                log(f"    #{r['regionIndex']}: {r['matchedIdCount']}/{len(KNOWN_SKILL_IDS)} IDs, "
+                    f"{r['totalHits']} hits, size={r['rangeSize']:,}")
 
     if not region_chunks:
-        log("\n[X] No matching regions found.")
-        if script_error:
-            log("    A script error occurred - see above.")
-        log("    Try adding more known IDs or checking you're on the right page.")
+        log("\n[X] No regions found containing the known skill IDs.")
         sys.exit(1)
 
     # Analyze each region
+    best_result = None
+    for chunk_idx, (meta, raw) in enumerate(region_chunks):
+        log()
+        log("=" * 60)
+        result = analyze_region(raw, meta)
+        if result:
+            known_count = len(result.get("known_ids_found", []))
+            if not best_result or known_count > len(best_result.get("known_ids_found", [])):
+                best_result = result
+
+    # Final output
     log()
     log("=" * 60)
-    log("  ANALYZING REGIONS (targeted search, no brute-force)")
+    log("  RESULTS")
     log("=" * 60)
-
-    best_result = None
-
-    for chunk_idx, (meta, raw) in enumerate(region_chunks):
-        region_idx = meta.get("region_index")
-        log(f"\n{'=' * 60}")
-        log(f"  Region #{region_idx} (chunk {chunk_idx + 1}/{len(region_chunks)}, {len(raw):,} bytes)")
-        log(f"{'=' * 60}")
-
-        result = analyze_region(raw, meta, KNOWN_IDS)
-
-        if result and (not best_result or result.get("found_count", 0) > best_result.get("found_count", 0)):
-            best_result = result
 
     if not best_result:
-        log()
-        log("=" * 60)
-        log("  NO MSGPACK STRUCTURE FOUND")
-        log("=" * 60)
-        log()
-        log("  The target IDs were found in memory but NOT inside MsgPack containers.")
-        log("  This likely means the data is stored as:")
-        log("    - Native C# objects on Unity's managed heap")
-        log("    - A different serialization format (protobuf, flatbuffers, etc.)")
-        log()
-        log("  Next steps:")
-        log("    1. Check hunt_debug.log for full hex dumps and nearby strings")
-        log("    2. If you see regular struct spacing, try struct extraction")
-        log("    3. Consider hooking the game's API response handler with Frida")
-
-        # Save raw analysis data
-        analysis_file = os.path.join(_SCRIPT_DIR, "hunt_analysis.json")
-        analysis = {
-            "known_ids": KNOWN_IDS,
-            "regions_analyzed": len(region_chunks),
-            "region_summaries": [],
-        }
-        for meta, raw in region_chunks:
-            hit_offsets = meta.get("hit_offsets", [])
-            summary = {
-                "region_index": meta.get("region_index"),
-                "matched_ids": meta.get("matched_ids"),
-                "matched_id_count": meta.get("matched_id_count"),
-                "read_size": len(raw),
-                "hit_count": len(hit_offsets),
-                "hits_by_encoding": {},
-            }
-            for h in hit_offsets:
-                enc = h["encoding"]
-                if enc not in summary["hits_by_encoding"]:
-                    summary["hits_by_encoding"][enc] = []
-                summary["hits_by_encoding"][enc].append(h["byteOffset"])
-            analysis["region_summaries"].append(summary)
-
-        with open(analysis_file, "w", encoding="utf-8") as f:
-            json.dump(analysis, f, indent=2)
-        log(f"\n  Analysis saved to: {analysis_file}")
-        log(f"  Debug log saved to: {LOG_FILE}")
+        log("  No skill IDs extracted.")
+        log(f"  Check {LOG_FILE} for hex dumps and details.")
         sys.exit(1)
 
-    # Save the best result
-    data = best_result["data"]
+    log(f"  Known ID coverage: {best_result['known_id_coverage']}")
+    log(f"  Known IDs found:   {best_result['known_ids_found']}")
 
-    if isinstance(data, list):
-        for item in data:
-            if isinstance(item, dict):
-                for pii in PII_FIELDS:
-                    item.pop(pii, None)
-    elif isinstance(data, dict):
-        for pii in PII_FIELDS:
-            data.pop(pii, None)
-        for v in data.values():
-            if isinstance(v, dict):
-                for pii in PII_FIELDS:
-                    v.pop(pii, None)
+    all_ids = best_result["all_skill_ids_in_cluster"]
+    log(f"  Total unique skill-range IDs in cluster: {len(all_ids)}")
+    log(f"  All IDs: {all_ids}")
 
-    output_file = os.path.join(_SCRIPT_DIR, "hunted_data.json")
+    if "extracted_strided" in best_result:
+        strided = best_result["extracted_strided"]
+        log(f"\n  Strided extraction ({best_result['stride']}-byte stride): "
+            f"{len(strided)} IDs")
+        log(f"  {strided}")
+
+    # Save output
+    output_file = os.path.join(_SCRIPT_DIR, "skill_extraction.json")
     with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-
-    log()
+        json.dump(best_result, f, indent=2)
+    log(f"\n  Saved: {output_file}")
+    log(f"  Debug: {LOG_FILE}")
     log("=" * 60)
-    log(f"  SAVED: {output_file}")
-    log(f"  Type: {best_result['description']}")
-    log(f"  Contains {best_result['found_count']}/{len(KNOWN_IDS)} known IDs")
-    log(f"  Debug log: {LOG_FILE}")
-    log("=" * 60)
-
-    item_count = len(data) if isinstance(data, (list, dict)) else 1
-    if item_count <= 50:
-        log()
-        log(json.dumps(data, indent=2, ensure_ascii=False))
-
-    if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict):
-        log(f"\n  Keys in each item: {list(data[0].keys())}")
-    elif isinstance(data, dict):
-        log(f"\n  Top-level keys ({len(data)}): {list(data.keys())[:30]}")
-        first_val = next(iter(data.values()), None)
-        if isinstance(first_val, dict):
-            log(f"  Keys in first value: {list(first_val.keys())}")
 
 
 if __name__ == "__main__":
