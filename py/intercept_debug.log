@@ -1,48 +1,37 @@
-2026-04-05 01:51:22,263 [INFO] ============================================================
-2026-04-05 01:51:22,264 [INFO]   Uma Musume API Interceptor
-2026-04-05 01:51:22,264 [INFO]   Looking for IDs: [200154, 200152, 200441, 200652, 200722, 201152]
-2026-04-05 01:51:22,264 [INFO]   Debug log: C:\Users\nikit\Documents\UmaExtractor\py\intercept_debug.log
-2026-04-05 01:51:22,264 [INFO]   Output dir: C:\Users\nikit\Documents\UmaExtractor\py\intercepted_responses
-2026-04-05 01:51:22,264 [INFO] ============================================================
-2026-04-05 01:51:22,264 [INFO] 
-2026-04-05 01:51:22,265 [INFO]   HOW TO USE:
-2026-04-05 01:51:22,265 [INFO]   1. Start this script while on a DIFFERENT page (e.g. home)
-2026-04-05 01:51:22,265 [INFO]   2. Wait for 'Interceptor ready' message
-2026-04-05 01:51:22,265 [INFO]   3. THEN navigate to the skills/target page in-game
-2026-04-05 01:51:22,265 [INFO]      (the script detects NEW MsgPack data appearing in memory)
-2026-04-05 01:51:22,265 [INFO]   4. If the page was already open, go to home first, then back
-2026-04-05 01:51:22,265 [INFO]   5. Results saved to intercepted_responses/
-2026-04-05 01:51:22,265 [INFO] 
-2026-04-05 01:51:22,457 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
-2026-04-05 01:51:22,463 [INFO] [*] Loading interceptor...
-2026-04-05 01:51:22,465 [INFO] [*] Found GameAssembly.dll, scanning for hooks...
-2026-04-05 01:51:47,464 [INFO] [*] Script load timed out, interceptor continues in background...
-2026-04-05 01:51:47,464 [INFO] [*] Interceptor running (up to 600s)...
-2026-04-05 01:51:47,464 [INFO] [*] Navigate to the page with the data you need.
-2026-04-05 01:51:47,464 [INFO] [*] Press Ctrl+C to stop early.
-
-2026-04-05 01:51:51,810 [INFO] 
-[*] Interceptor ready. Navigate to the target page.
-2026-04-05 01:51:51,811 [INFO] [*] >>> Navigate to the target page in the game NOW <<<
-
-2026-04-05 01:52:33,110 [INFO] 
-[*] Stopped by user.
-2026-04-05 01:52:33,110 [INFO] 
-2026-04-05 01:52:33,110 [INFO] ============================================================
-2026-04-05 01:52:33,110 [INFO]   INTERCEPT SUMMARY
-2026-04-05 01:52:33,110 [INFO] ============================================================
-2026-04-05 01:52:33,110 [INFO]   Total MsgPack blobs captured: 0
-2026-04-05 01:52:33,110 [INFO]   STATUS: No MsgPack-encoded target IDs detected
-2026-04-05 01:52:33,110 [INFO] 
-2026-04-05 01:52:33,110 [INFO]   Possible reasons:
-2026-04-05 01:52:33,110 [INFO]     - The page wasn't loaded during monitoring
-2026-04-05 01:52:33,110 [INFO]     - The data uses a different encoding (not MsgPack uint32)
-2026-04-05 01:52:33,110 [INFO]     - The response is compressed/encrypted before MsgPack parsing
-2026-04-05 01:52:33,110 [INFO] 
-2026-04-05 01:52:33,110 [INFO]   Try:
-2026-04-05 01:52:33,110 [INFO]     - Run this script, THEN navigate to the page
-2026-04-05 01:52:33,110 [INFO]     - Try navigating away and back to force a fresh API call
-2026-04-05 01:52:33,110 [INFO] 
-  Output: C:\Users\nikit\Documents\UmaExtractor\py\intercepted_responses
-2026-04-05 01:52:33,110 [INFO]   Debug log: C:\Users\nikit\Documents\UmaExtractor\py\intercept_debug.log
-2026-04-05 01:52:33,110 [INFO] ============================================================
+2026-04-05 02:42:08,574 [INFO] ============================================================
+2026-04-05 02:42:08,575 [INFO]   Uma Musume API Interceptor v2
+2026-04-05 02:42:08,575 [INFO]   Target IDs: [200154, 200152, 200441, 200652, 200722, 201152]
+2026-04-05 02:42:08,575 [INFO] ============================================================
+2026-04-05 02:42:08,575 [INFO] 
+2026-04-05 02:42:08,575 [INFO]   INSTRUCTIONS:
+2026-04-05 02:42:08,575 [INFO]   1. Be on the CAREER END screen (before tapping acquire skills)
+2026-04-05 02:42:08,575 [INFO]   2. Press Enter here to start the baseline scan
+2026-04-05 02:42:08,575 [INFO]   3. Wait for 'BASELINE DONE' message
+2026-04-05 02:42:08,575 [INFO]   4. THEN tap the 'acquire skills' button in-game
+2026-04-05 02:42:08,575 [INFO]   5. Wait ~10 seconds, then Ctrl+C to stop
+2026-04-05 02:42:08,575 [INFO] 
+2026-04-05 02:42:11,371 [INFO] 
+2026-04-05 02:42:11,670 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 02:42:11,670 [DEBUG] JS script: 5189 chars
+2026-04-05 02:42:11,682 [INFO] [*] Loading interceptor (baseline scan)...
+2026-04-05 02:42:36,684 [INFO] [*] Baseline scan still running in background...
+2026-04-05 02:42:36,684 [INFO] [*] Waiting for baseline scan to complete...
+2026-04-05 02:43:09,705 [INFO] 
+2026-04-05 02:43:09,705 [INFO] ============================================================
+2026-04-05 02:43:09,705 [INFO]   BASELINE DONE — tap 'acquire skills' in-game now!
+2026-04-05 02:43:09,705 [INFO]   Wait ~10s after the skills page loads, then Ctrl+C.
+2026-04-05 02:43:09,705 [INFO] ============================================================
+2026-04-05 02:43:09,705 [INFO] 
+2026-04-05 02:43:50,389 [INFO] 
+[*] Stopped.
+2026-04-05 02:43:50,389 [INFO] 
+2026-04-05 02:43:50,389 [INFO] ============================================================
+2026-04-05 02:43:50,389 [INFO]   SUMMARY
+2026-04-05 02:43:50,389 [INFO] ============================================================
+2026-04-05 02:43:50,389 [INFO]   Blobs captured: 0
+2026-04-05 02:43:50,389 [INFO]   STATUS: No MsgPack blobs detected
+2026-04-05 02:43:50,389 [INFO]   The data might be compressed before MsgPack encoding,
+2026-04-05 02:43:50,389 [INFO]   or the API response might not contain these IDs as MsgPack.
+2026-04-05 02:43:50,389 [INFO] 
+  Debug log: C:\Users\nikit\Documents\UmaExtractor\py\intercept_debug.log
+2026-04-05 02:43:50,389 [INFO] ============================================================
