@@ -3,3 +3,4 @@ build/
 releasecommands.md
 __pycache__/
 data.json
+skill_tree.json
