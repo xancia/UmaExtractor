@@ -5,6 +5,7 @@
 # ]
 # ///
 
+import argparse
 import json
 import os
 import sys
@@ -23,20 +24,28 @@ TARGET_PROCESS_NAMES = [
 PROCESS_KEYWORDS = ["uma", "musume", "derby", "cygames"]
 MAX_WAIT_SECONDS = 600
 
+# ── CLI ────────────────────────────────────────────────────────────────────
+
+_parser = argparse.ArgumentParser(description="Umamusume Skill Extractor")
+_parser.add_argument("--debug", action="store_true",
+                     help="Write a detailed log to skill_extract.log")
+_args = _parser.parse_args()
+DEBUG = _args.debug
+
 # ── Logging ────────────────────────────────────────────────────────────────
 
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_FILE = os.path.join(_SCRIPT_DIR, "skill_extract.log")
-OUTPUT_MAP = os.path.join(_SCRIPT_DIR, "skill_id_map.json")
 OUTPUT_TREE = os.path.join(_SCRIPT_DIR, "skill_tree.json")
 
 logger = logging.getLogger("skillextract")
 logger.setLevel(logging.DEBUG)
 
-_fh = logging.FileHandler(LOG_FILE, mode="w", encoding="utf-8")
-_fh.setLevel(logging.DEBUG)
-_fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
-logger.addHandler(_fh)
+if DEBUG:
+    _fh = logging.FileHandler(LOG_FILE, mode="w", encoding="utf-8")
+    _fh.setLevel(logging.DEBUG)
+    _fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
+    logger.addHandler(_fh)
 
 _ch = logging.StreamHandler(sys.stdout)
 _ch.setLevel(logging.WARNING)
@@ -797,7 +806,6 @@ def decode_and_save(all_events: list, skill_map: dict):
 
     # Extract skill_tree_full groups
     skill_tree_groups = []
-    available_set_skills = []
 
     for ev in all_events:
         if ev.get("type") == "skill_tree_full":
@@ -814,17 +822,8 @@ def decode_and_save(all_events: list, skill_map: dict):
                         "discountPercent": s.get("off_56", 0),
                         "hintLevel": s.get("off_60", 0),
                     })
-        elif ev.get("type") == "available_skill_set":
-            for s in ev.get("skills", []):
-                available_set_skills.append(s)
 
     # Dedup
-    seen = set()
-    available_set_skills = [
-        s for s in available_set_skills
-        if s["skillId"] not in seen and not seen.add(s["skillId"])
-    ]
-
     seen = set()
     skill_tree_groups = [
         s for s in skill_tree_groups
@@ -838,9 +837,6 @@ def decode_and_save(all_events: list, skill_map: dict):
         s["rarity"] = info.get("rarity", 0)
         s["desc"] = info.get("desc", "")
 
-    for s in available_set_skills:
-        info = lookup(s["skillId"])
-        s["name"] = info.get("name", "[not collected]")
 
     # ── Pretty-print ───────────────────────────────────────────────────
 
@@ -849,11 +845,6 @@ def decode_and_save(all_events: list, skill_map: dict):
     log("  DECODED SKILL TREE")
     log("=" * 60)
 
-    log(f"\n  CHARACTER-SPECIFIC (MasterAvailableSkillSet): "
-        f"{len(available_set_skills)}")
-    for s in available_set_skills:
-        log(f"    {s['skillId']:>8}  NeedRank={s.get('needRank', '?'):>1}  "
-            f"{s['name']}")
 
     acquired = [s for s in skill_tree_groups if s["isAcquired"]]
     buyable = [s for s in skill_tree_groups if not s["isAcquired"]]
@@ -875,7 +866,6 @@ def decode_and_save(all_events: list, skill_map: dict):
     # ── Save ───────────────────────────────────────────────────────────
 
     output = {
-        "available_skill_set": available_set_skills,
         "acquired_skills": [
             {"skillId": s["skillId"], "name": s["name"],
              "currentLevel": s["currentLevel"]}
@@ -992,7 +982,9 @@ def main():
         script.on("message", on_message)
         log("[*] Loading hooks...")
         print("[*] Running skill_extract — navigate to skill screen in-game.")
-        print("    Ctrl+C to stop. See skill_extract.log for live output.")
+        print("    Ctrl+C to stop.")
+        if DEBUG:
+            print(f"    Debug log: {LOG_FILE}")
         script.load()
     except Exception as e:
         log(f"[X] Failed: {type(e).__name__}: {e}")
@@ -1081,10 +1073,6 @@ def main():
             log(f"    {info.get('skillId', sid):>8}  r={info.get('rarity', '?')}  "
                 f"\"{info.get('name', '???')}\"")
 
-        with open(OUTPUT_MAP, "w", encoding="utf-8") as f:
-            json.dump(collected_skills, f, indent=2, ensure_ascii=False)
-        log(f"\n  Saved: {OUTPUT_MAP} ({len(collected_skills)} entries)")
-
     # Decode skill tree with names
     if all_events and collected_skills:
         decode_and_save(all_events, collected_skills)
@@ -1097,7 +1085,8 @@ def main():
                       ensure_ascii=False)
         log(f"  Saved: {OUTPUT_TREE}")
 
-    log(f"  Log: {LOG_FILE}")
+    if DEBUG:
+        log(f"  Log: {LOG_FILE}")
     log("=" * 60)
 
 
