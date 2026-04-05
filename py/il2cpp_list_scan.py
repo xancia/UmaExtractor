@@ -312,9 +312,10 @@ FRIDA_SCRIPT = r"""
                             // offset within the struct. Try continuing.
                             // But only allow a few misses
                             fwd += stride;
+                            if (fwd >= len - 4) break;
                             // Don't count, but don't break either
                             const nextV = view.getUint32(fwd, true);
-                            if (fwd < len - 4 && nextV >= SKILL_MIN && nextV <= SKILL_MAX) {
+                            if (nextV >= SKILL_MIN && nextV <= SKILL_MAX) {
                                 count++;
                                 fwd += stride;
                             } else {
@@ -342,7 +343,7 @@ FRIDA_SCRIPT = r"""
                     if (count >= 5) {
                         // Collect all values
                         const values = [];
-                        for (let off = startOff; off < fwd && off < len - 4; off += stride) {
+                        for (let off = startOff; off < fwd && off <= len - 4; off += stride) {
                             const v = view.getUint32(off, true);
                             if (v >= SKILL_MIN && v <= SKILL_MAX) {
                                 values.push(v);
@@ -353,7 +354,7 @@ FRIDA_SCRIPT = r"""
                         let arrayClassName = null;
                         let arrayLen = -1;
                         const headerOff = startOff - ARRAY_HEADER_SIZE;
-                        if (headerOff >= 0 && is64) {
+                        if (headerOff >= 0 && is64 && headerOff + ARRAY_HEADER_SIZE <= len) {
                             try {
                                 // Read klass pointer
                                 const lo = view.getUint32(headerOff, true);
