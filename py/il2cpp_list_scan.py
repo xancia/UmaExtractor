@@ -130,7 +130,21 @@ FRIDA_SCRIPT = r"""
     send({ type: "status", message: `Found ${gaMod.name}` });
 
     function resolve(name) {
-        return Module.findExportByName(gaMod.name, name);
+        try {
+            if (typeof gaMod.findExportByName === 'function') {
+                return gaMod.findExportByName(name) || null;
+            }
+        } catch(e) {}
+        try {
+            return Module.findExportByName(gaMod.name, name) || null;
+        } catch(e) {}
+        try {
+            const exports = gaMod.enumerateExports();
+            for (const exp of exports) {
+                if (exp.name === name) return exp.address;
+            }
+        } catch(e) {}
+        return null;
     }
 
     const api = {};

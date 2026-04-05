@@ -114,9 +114,24 @@ FRIDA_SCRIPT = r"""
 
     // Resolve IL2CPP exports
     function resolve(name) {
-        const addr = Module.findExportByName(gaMod.name, name);
-        if (!addr) return null;
-        return addr;
+        try {
+            // Try instance method first (newer Frida)
+            if (typeof gaMod.findExportByName === 'function') {
+                return gaMod.findExportByName(name) || null;
+            }
+        } catch(e) {}
+        try {
+            // Fallback to static method (older Frida)
+            return Module.findExportByName(gaMod.name, name) || null;
+        } catch(e) {}
+        try {
+            // Last resort: enumerate exports and search
+            const exports = gaMod.enumerateExports();
+            for (const exp of exports) {
+                if (exp.name === name) return exp.address;
+            }
+        } catch(e) {}
+        return null;
     }
 
     const api = {
