@@ -1,37 +1,137 @@
-2026-04-05 02:42:08,574 [INFO] ============================================================
-2026-04-05 02:42:08,575 [INFO]   Uma Musume API Interceptor v2
-2026-04-05 02:42:08,575 [INFO]   Target IDs: [200154, 200152, 200441, 200652, 200722, 201152]
-2026-04-05 02:42:08,575 [INFO] ============================================================
-2026-04-05 02:42:08,575 [INFO] 
-2026-04-05 02:42:08,575 [INFO]   INSTRUCTIONS:
-2026-04-05 02:42:08,575 [INFO]   1. Be on the CAREER END screen (before tapping acquire skills)
-2026-04-05 02:42:08,575 [INFO]   2. Press Enter here to start the baseline scan
-2026-04-05 02:42:08,575 [INFO]   3. Wait for 'BASELINE DONE' message
-2026-04-05 02:42:08,575 [INFO]   4. THEN tap the 'acquire skills' button in-game
-2026-04-05 02:42:08,575 [INFO]   5. Wait ~10 seconds, then Ctrl+C to stop
-2026-04-05 02:42:08,575 [INFO] 
-2026-04-05 02:42:11,371 [INFO] 
-2026-04-05 02:42:11,670 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
-2026-04-05 02:42:11,670 [DEBUG] JS script: 5189 chars
-2026-04-05 02:42:11,682 [INFO] [*] Loading interceptor (baseline scan)...
-2026-04-05 02:42:36,684 [INFO] [*] Baseline scan still running in background...
-2026-04-05 02:42:36,684 [INFO] [*] Waiting for baseline scan to complete...
-2026-04-05 02:43:09,705 [INFO] 
-2026-04-05 02:43:09,705 [INFO] ============================================================
-2026-04-05 02:43:09,705 [INFO]   BASELINE DONE — tap 'acquire skills' in-game now!
-2026-04-05 02:43:09,705 [INFO]   Wait ~10s after the skills page loads, then Ctrl+C.
-2026-04-05 02:43:09,705 [INFO] ============================================================
-2026-04-05 02:43:09,705 [INFO] 
-2026-04-05 02:43:50,389 [INFO] 
+2026-04-05 03:09:45,625 [INFO] ============================================================
+2026-04-05 03:09:45,625 [INFO]   Uma Musume API Discovery Tool
+2026-04-05 03:09:45,625 [INFO]   Captures ALL API traffic + memory diffs
+2026-04-05 03:09:45,625 [INFO] ============================================================
+2026-04-05 03:09:45,625 [INFO] 
+2026-04-05 03:09:45,625 [INFO]   INSTRUCTIONS:
+2026-04-05 03:09:45,625 [INFO]   1. Be on the screen BEFORE the action you want to capture
+2026-04-05 03:09:45,625 [INFO]   2. Press Enter to start the baseline scan
+2026-04-05 03:09:45,625 [INFO]   3. Wait for 'BASELINE DONE'
+2026-04-05 03:09:45,625 [INFO]   4. Perform the in-game action (tap button etc.)
+2026-04-05 03:09:45,625 [INFO]   5. Wait ~10-15 seconds, then Ctrl+C
+2026-04-05 03:09:45,625 [INFO]   6. Inspect intercepted_responses/ for all captured data
+2026-04-05 03:09:45,625 [INFO] 
+2026-04-05 03:09:52,406 [INFO] 
+2026-04-05 03:09:52,674 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 03:09:52,687 [INFO] [*] Loading discovery tool (baseline + hooks)...
+2026-04-05 03:10:17,690 [INFO] [*] Baseline scan still running...
+2026-04-05 03:10:17,690 [INFO] [*] Waiting for baseline...
+2026-04-05 03:10:59,215 [INFO] 
+2026-04-05 03:10:59,215 [INFO]   Baseline: 84 key names found in memory
+2026-04-05 03:10:59,215 [DEBUG]   Baseline keys: {
+  "factor_info_array": 186,
+  "win_saddle_id_array": 84,
+  "nickname_id_array": 9,
+  "factor_id_array": 95,
+  "succession_chara_array": 8,
+  "succession_history_array": 13,
+  "skill_array": 28,
+  "release_card_array": 1,
+  "stadium_race_chara_id_array": 1,
+  "entry_trained_chara_id_array": 1,
+  "practice_partner_chara_array": 1,
+  "cygames_id_serial_code_reward_info_array": 2,
+  "unread_announce_id_array": 1,
+  "disable_skill_id_array": 6,
+  "skill_tips_array": 4,
+  "support_card_array": 2,
+  "evaluation_info_array": 4,
+  "group_outing_info_array": 44,
+  "training_level_info_array": 4,
+  "chara_effect_id_array": 2,
+  "route_race_id_array": 2,
+  "guest_outing_info_array": 4,
+  "race_condition_array": 2,
+  "command_info_array": 4,
+  "training_partner_array": 18,
+  "tips_event_partner_array": 18,
+  "params_inc_dec_info_array": 36,
+  "disable_command_id_array": 2,
+  "unchecked_event_array": 2,
+  "effected_factor_array": 2,
+  "reserved_race_array": 2,
+  "race_array": 18,
+  "support_card_list": 12,
+  "race_result_list": 18,
+  "extra_story_data_list": 2,
+  "login_bonus_list": 1,
+  "mission_list": 2,
+  "story_event_mission_list": 2,
+  "story_event_chara_bonus_list": 2,
+  "Eye_kira_i": 2,
+  "Eye_small_": 3,
+  "Face_spec_": 1,
+  "Hair_spec_": 1,
+  "Eye_big_in": 3,
+  "Body_spec_": 1,
+  "type1_reward_i": 1,
+  "last_information_update_time": 1,
+  "champions_info": 1,
+  "limited_shop_info": 1,
+  "button_info": 2,
+  "unread_information_exists": 2,
+  "chara_info": 2,
+  "home_info": 2,
+  "race_start_info": 2,
+  "race_reward_info": 2,
+  "add_trophy_info": 2,
+  "trophy_reward_info": 2,
+  "race_add_reward_info": 2,
+  "start_dress_info": 2,
+  "txt_number": 1,
+  "OBJ_mc_num": 2,
+  "succession_num": 12,
+  "available_continue_num": 2,
+  "available_free_continue_num": 2,
+  "free_continue_num": 2,
+  "deck_num": 18,
+  "history_type": 34,
+  "use_type": 3,
+  "league_type": 1,
+  "lcondition_": 1,
+  "command_type": 18,
+  "target_type": 42,
+  "mission_type": 6,
+  "nice_": 1,
+  "limit_break_count": 75,
+  "open_count": 1,
+  "unchecked_new_follower_count": 2,
+  "exec_count": 6,
+  "open_flag": 1,
+  "appear_flag": 1,
+  "trophy_badge_flag": 2,
+  "mission_status": 6,
+  "skill_id": 161,
+  "skill_point": 2
+}
+2026-04-05 03:10:59,215 [INFO]   Saved baseline key list: C:\Users\nikit\Documents\UmaExtractor\py\intercepted_responses\baseline_keys.json
+2026-04-05 03:10:59,215 [INFO] 
+2026-04-05 03:10:59,215 [INFO] ============================================================
+2026-04-05 03:10:59,216 [INFO]   BASELINE DONE — no SSL hooks (relying on memory diff)
+2026-04-05 03:10:59,216 [INFO] 
+2026-04-05 03:10:59,216 [INFO]   Perform the in-game action now!
+2026-04-05 03:10:59,216 [INFO]   Wait ~10-15s, then Ctrl+C to stop and see summary.
+2026-04-05 03:10:59,216 [INFO] ============================================================
+2026-04-05 03:10:59,216 [INFO] 
+2026-04-05 03:11:54,916 [INFO] 
 [*] Stopped.
-2026-04-05 02:43:50,389 [INFO] 
-2026-04-05 02:43:50,389 [INFO] ============================================================
-2026-04-05 02:43:50,389 [INFO]   SUMMARY
-2026-04-05 02:43:50,389 [INFO] ============================================================
-2026-04-05 02:43:50,389 [INFO]   Blobs captured: 0
-2026-04-05 02:43:50,389 [INFO]   STATUS: No MsgPack blobs detected
-2026-04-05 02:43:50,389 [INFO]   The data might be compressed before MsgPack encoding,
-2026-04-05 02:43:50,389 [INFO]   or the API response might not contain these IDs as MsgPack.
-2026-04-05 02:43:50,389 [INFO] 
-  Debug log: C:\Users\nikit\Documents\UmaExtractor\py\intercept_debug.log
-2026-04-05 02:43:50,389 [INFO] ============================================================
+2026-04-05 03:11:54,916 [INFO] 
+2026-04-05 03:11:54,916 [INFO] ============================================================
+2026-04-05 03:11:54,916 [INFO]   CAPTURE SUMMARY
+2026-04-05 03:11:54,916 [INFO] ============================================================
+2026-04-05 03:11:54,916 [INFO]   Network responses decoded:  0
+2026-04-05 03:11:54,916 [INFO]   Memory discovery blobs:     0
+2026-04-05 03:11:54,916 [INFO]   Total files saved:          0
+2026-04-05 03:11:54,916 [INFO]   SSL/HTTP hooks:             not available
+2026-04-05 03:11:54,917 [INFO] 
+2026-04-05 03:11:54,917 [INFO]   No data captured.
+2026-04-05 03:11:54,917 [INFO] 
+2026-04-05 03:11:54,917 [INFO]   TROUBLESHOOTING:
+2026-04-05 03:11:54,917 [INFO]   - Make sure the game is running
+2026-04-05 03:11:54,917 [INFO]   - Try running as Administrator
+2026-04-05 03:11:54,917 [INFO]   - Check if the action actually triggers a server call
+2026-04-05 03:11:54,917 [INFO]   - Check intercept_debug.log for SSL hook diagnostics
+2026-04-05 03:11:54,917 [INFO] 
+2026-04-05 03:11:54,917 [INFO]   Output dir:  C:\Users\nikit\Documents\UmaExtractor\py\intercepted_responses
+2026-04-05 03:11:54,917 [INFO]   Debug log:   C:\Users\nikit\Documents\UmaExtractor\py\intercept_debug.log
+2026-04-05 03:11:54,917 [INFO] ============================================================
