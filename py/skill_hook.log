@@ -1,59 +1,59 @@
-2026-04-05 03:46:37,195 [INFO] ============================================================
-2026-04-05 03:46:37,195 [INFO]   Uma Musume Skill Hook
-2026-04-05 03:46:37,195 [INFO]   Hooks IL2CPP methods to capture skill data
-2026-04-05 03:46:37,195 [INFO] ============================================================
-2026-04-05 03:46:37,195 [INFO] 
-2026-04-05 03:46:37,195 [INFO]   INSTRUCTIONS:
-2026-04-05 03:46:37,195 [INFO]   1. Run this script with the game open
-2026-04-05 03:46:37,195 [INFO]   2. Navigate to the skill learning screen (during training)
-2026-04-05 03:46:37,195 [INFO]      or open a trained character's detail
-2026-04-05 03:46:37,195 [INFO]   3. Wait a few seconds for hooks to fire
-2026-04-05 03:46:37,195 [INFO]   4. Ctrl+C to stop and save results
-2026-04-05 03:46:37,195 [INFO] 
-2026-04-05 03:46:37,500 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
-2026-04-05 03:46:37,513 [INFO] [*] Loading skill hooks...
-2026-04-05 03:46:37,726 [INFO]   Found classes: ['AvailableSkillSet', 'Gallop.MasterAvailableSkillSet', 'Gallop.MasterAvailableSkillSet.AvailableSkillSet', 'Gallop.MasterSkillSet', 'Gallop.SkillManager', 'Gallop.PartsSingleModeSkillLearningListItem', 'Gallop.PartsSingleModeSkillListItem', 'Gallop.SingleModeSkillLearningView', 'SkillInfo', 'Gallop.SingleModeSkillLearningViewController', 'Gallop.SingleModeSkillLearningViewController.SkillInfo']
-2026-04-05 03:46:37,734 [INFO]   7 hooks installed
-2026-04-05 03:46:37,734 [INFO]   Classes: ['AvailableSkillSet', 'Gallop.MasterAvailableSkillSet', 'Gallop.MasterAvailableSkillSet.AvailableSkillSet', 'Gallop.MasterSkillSet', 'Gallop.SkillManager', 'Gallop.PartsSingleModeSkillLearningListItem', 'Gallop.PartsSingleModeSkillListItem', 'Gallop.SingleModeSkillLearningView', 'SkillInfo', 'Gallop.SingleModeSkillLearningViewController', 'Gallop.SingleModeSkillLearningViewController.SkillInfo']
-2026-04-05 03:46:37,734 [INFO]     AvailableSkillSet:
-2026-04-05 03:46:37,735 [INFO]       methods: ['.ctor']
-2026-04-05 03:46:37,735 [INFO]       fields: {"Id": {"offset": 16}, "AvailableSkillSetId": {"offset": 20}, "SkillId": {"offset": 24}, "NeedRank": {"offset": 28}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.MasterAvailableSkillSet:
-2026-04-05 03:46:37,735 [INFO]       methods: ['.ctor', 'Get', '_SelectOne', 'GetWithAvailableSkillSetIdOrderByIdAsc', '_SelectWithAvailableSkillSetIdOrderByIdAsc', 'GetListWithAvailableSkillSetIdOrderByIdAsc', 'MaybeListWithAvailableSkillSetIdOrderByIdAsc', '_ListSelectWithAvailableSkillSetIdOrderByIdAsc', '_CreateOrmByQueryResultWithAvailableSkillSetIdOrderByIdAsc', 'Unload', 'GetFromTalentLevel']
-2026-04-05 03:46:37,735 [INFO]       fields: {"TABLE_NAME": {"offset": 0}, "_db": {"offset": 16}, "_notFounds": {"offset": 24}, "_lazyPrimaryKeyDictionary": {"offset": 32}, "_dictionaryWithAvailableSkillSetId": {"offset": 40}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.MasterAvailableSkillSet.AvailableSkillSet:
-2026-04-05 03:46:37,735 [INFO]       methods: ['.ctor']
-2026-04-05 03:46:37,735 [INFO]       fields: {"Id": {"offset": 16}, "AvailableSkillSetId": {"offset": 20}, "SkillId": {"offset": 24}, "NeedRank": {"offset": 28}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.MasterSkillSet:
-2026-04-05 03:46:37,735 [INFO]       methods: ['get_dictionary', '.ctor', 'Get', '_SelectOne', 'Unload', '_ForcePreloadAllEntries', 'GetSkillDataList']
-2026-04-05 03:46:37,735 [INFO]       fields: {"TABLE_NAME": {"offset": 0}, "_db": {"offset": 16}, "_preloaded": {"offset": 24}, "_notFounds": {"offset": 32}, "_lazyPrimaryKeyDictionary": {"offset": 40}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.SkillManager:
-2026-04-05 03:46:37,735 [INFO]       methods: ['.ctor', '_CreateTriggerCreate', 'CreateSkillView', 'AddSkill', 'GetSkill', 'GetSkills', 'CreateSkillArray', 'ClearSkills', 'AddCurrentActiveSkill', 'RemoveCurrentActiveSkill', 'GetCurrentActiveSkill', 'AddUsedSkillId', 'GetUsedSkillIdList', 'AddPrevActivateSkill', 'RemovePrevActivateSkill', 'GetPrevActivateSkillList', 'Update', 'LotActivateSkill', 'CheckSkillTriggerAndActivate', 'InitSkillEffect', 'InitSkillSE', 'PlaySkillEffect', 'ClearDelayPlayEffect', 'StopEffect', 'PauseEffect', 'ResumeEffect', 'SetEffectSpeed', 'PlaySkillSE', 'StopSE']
-2026-04-05 03:46:37,735 [INFO]       fields: {"_ownerInfo": {"offset": 16}, "_skills": {"offset": 24}, "_skillArray": {"offset": 32}, "_usedSkillIdList": {"offset": 40}, "_prevActivateSkills": {"offset": 48}, "_skillView": {"offset": 56}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.PartsSingleModeSkillLearningListItem:
-2026-04-05 03:46:37,735 [INFO]       methods: ['get_PlusButton', 'get_BaseImage', 'UpdateItem', 'UpdateCurrent', 'GetMaxLevel', 'GetMasterSkillExp', 'GetSkillId', 'UpdateSkillName', 'UpdateLevelText', 'UpdateBaseImage', 'UpdateIcon', 'UpdateTipsBalloon', 'UpdateEventLimited', 'UpdateNotResolved', 'UpdateButtonVisible', 'UpdatePlusButtonIntaractable', 'UpdateMinusButtonIntaractable', 'GetTopInfo', 'GetPreInfo', 'IsRareSkill', '.ctor']
-2026-04-05 03:46:37,735 [INFO]       fields: {"TIPS_LEVEL_MAX": {"offset": 0}, "_skillIconRoot": {"offset": 56}, "_nameText": {"offset": 64}, "_descriptionText": {"offset": 72}, "_levelText": {"offset": 80}, "_lineImage": {"offset": 88}, "_needPointRoot": {"offset": 96}, "_needPoint": {"offset": 104}, "_getRoot": {"offset": 112}, "_lockRoot": {"offset": 120}, "_lockText": {"offset": 128}, "_plusButton": {"offset": 136}, "_minusButton": {"offset": 144}, "_baseImage": {"offset": 152}, "_hintBalloonRoot": {"offset": 160}, "_hintLvText": {"offset": 168}, "_hintRatioText": {"offset": 176}, "_eventLimitedImage": {"offset": 184}, "_notResolvedRoot": {"offset": 192}, "_infoList": {"offset": 200}, "_getRemainingSkillPoint": {"offset": 208}, "_skillIcon": {"offset": 216}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.PartsSingleModeSkillListItem:
-2026-04-05 03:46:37,735 [INFO]       methods: ['UpdateItem', 'SetupOnClickSkillButton', 'SetupNeedSkillPoint', 'SetActiveNeedSkillPoint', 'ResizeObject', 'ChangeTextColorType', 'SetupNameText', 'SetGetSkill', 'SetHintLv', 'SetAcquire', 'SetUnAcquirable', 'SetInteractableMulColor', 'SetActiveSkillLevelText', '.ctor']
-2026-04-05 03:46:37,735 [INFO]       fields: {"DISC_CHAR_NAME": {"offset": 0}, "EVENT_BONUS_BADGE_CONDITION_COMPLETE_POS_X": {"offset": 0}, "EVENT_BONUS_BADGE_DEFAULT_POS_X": {"offset": 0}, "HEIGHT_THREE_LINES": {"offset": 0}, "HEIGHT_FOUR_LINES": {"offset": 0}, "_bgImage": {"offset": 56}, "_bgButton": {"offset": 64}, "_lineImage": {"offset": 72}, "_skillIconRoot": {"offset": 80}, "_nameText": {"offset": 88}, "_levelText": {"offset": 96}, "_descText": {"offset": 104}, "_newIconObject": {"offset": 112}, "_needSkillPointRoot": {"offset": 120}, "_needSkillPointText": {"offset": 128}, "_needTalentLevelText": {"offset": 136}, "_blinkImage": {"offset": 144}, "_eventLimitedImage": {"offset": 152}, "_hintLabelObject": {"offset": 160}, "_hintLvText": {"offset": 168}, "_acquireIcon": {"offset": 176}, "_unAcquirableIcon": {"offset": 184}, "_info": {"offset": 192}, "_skillIcon": {"offset": 200}, "_skillInfoPop": {"offset": 208}, "_hintLvMaxEffect": {"offset": 216}, "_resourceHash": {"offset": 224}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.SingleModeSkillLearningView:
-2026-04-05 03:46:37,735 [INFO]       methods: ['get_ScrollRect', 'set_ScrollRect', 'get_Item', 'set_Item', 'get_SkillPointText', 'set_SkillPointText', 'get_DetailButton', 'set_DetailButton', 'get_DecideButton', 'set_DecideButton', 'get_ResetButton', 'set_ResetButton', 'get_AnimationTargetList', 'set_AnimationTargetList', 'get_AnimationTargetBottom', 'set_AnimationTargetBottom', 'get_TutorialStep1', 'set_TutorialStep1', '.ctor']
-2026-04-05 03:46:37,735 [INFO]       fields: {"<ScrollRect>k__BackingField": {"offset": 80}, "<Item>k__BackingField": {"offset": 88}, "<SkillPointText>k__BackingField": {"offset": 96}, "<DetailButton>k__BackingField": {"offset": 104}, "<DecideButton>k__BackingField": {"offset": 112}, "<ResetButton>k__BackingField": {"offset": 120}, "<AnimationTargetList>k__BackingField": {"offset": 128}, "<AnimationTargetBottom>k__BackingField": {"offset": 136}, "<TutorialStep1>k__BackingField": {"offset": 144}}
-2026-04-05 03:46:37,735 [INFO]     SkillInfo:
-2026-04-05 03:46:37,735 [INFO]       methods: ['get_SkillList', 'AddInfo', 'IsSelected', 'IsSelectedOrLevelChange', 'ClearSelected', 'GetNeedSkillPoint', 'IsEnableDecide', 'GetDispOrder', '.ctor']
-2026-04-05 03:46:37,735 [INFO]       fields: {"_skillList": {"offset": 16}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.SingleModeSkillLearningViewController:
-2026-04-05 03:46:37,735 [INFO]       methods: ['get_RemainingPoint', 'set_RemainingPoint', 'RegisterDownload', 'InitializeView', 'BeginView', 'GetDynamicBgmId', 'GetDynamicBgmCueInfo', 'OverrideDynamicNowLoadingType', 'PlayInView', 'GetActiveItemList', 'GetBackButtonAnimationDelayTime', 'PlayOutView', 'OnGamePadMenuButton', 'OnClickBackButton', 'ChagePrevView', 'OnClickOsBackKey', 'Setup', 'SetupAnimationRectTransformList', 'IsResultState', 'GetInfo', 'IsValidDecideButton', 'UpdateDecideButton', 'UpdateSkillPoint', 'OnClickPlusListItem', 'OnClickMinusListItem', 'OnSelectUpdate', 'OnClickDecideButton', 'OnClickDetailButton', 'CoroutineSkillGetChangeView', 'PlaySkillGetSe', 'OnClickResetButton', 'ClearSelected', 'Cleanup', '.ctor', '<OnClickBackButton>b__24_1']
-2026-04-05 03:46:37,735 [INFO]       fields: {"BG_ID": {"offset": 0}, "BG_SUB_ID": {"offset": 0}, "BG_PATH": {"offset": 48}, "ENV_PATH": {"offset": 56}, "_skillInfoList": {"offset": 64}, "_itemList": {"offset": 72}, "_itemRectTransformList": {"offset": 80}, "<RemainingPoint>k__BackingField": {"offset": 88}, "_isSelectedDialog": {"offset": 96}}
-2026-04-05 03:46:37,735 [INFO]     Gallop.SingleModeSkillLearningViewController.SkillInfo:
-2026-04-05 03:46:37,735 [INFO]       methods: ['get_SkillList', 'AddInfo', 'IsSelected', 'IsSelectedOrLevelChange', 'ClearSelected', 'GetNeedSkillPoint', 'IsEnableDecide', 'GetDispOrder', '.ctor']
-2026-04-05 03:46:37,735 [INFO]       fields: {"_skillList": {"offset": 16}}
-2026-04-05 03:46:38,236 [INFO] 
-2026-04-05 03:46:38,236 [INFO]   Hooks active. Navigate to skill screen now.
-2026-04-05 03:46:38,236 [INFO]   Ctrl+C to stop and save.
-2026-04-05 03:46:42,747 [INFO] 
+2026-04-05 04:02:53,654 [INFO] ============================================================
+2026-04-05 04:02:53,654 [INFO]   Uma Musume Skill Hook
+2026-04-05 04:02:53,654 [INFO]   Hooks IL2CPP methods to capture skill data
+2026-04-05 04:02:53,654 [INFO] ============================================================
+2026-04-05 04:02:53,654 [INFO] 
+2026-04-05 04:02:53,654 [INFO]   INSTRUCTIONS:
+2026-04-05 04:02:53,654 [INFO]   1. Run this script with the game open
+2026-04-05 04:02:53,654 [INFO]   2. Navigate to the skill learning screen (during training)
+2026-04-05 04:02:53,654 [INFO]      or open a trained character's detail
+2026-04-05 04:02:53,654 [INFO]   3. Wait a few seconds for hooks to fire
+2026-04-05 04:02:53,654 [INFO]   4. Ctrl+C to stop and save results
+2026-04-05 04:02:53,654 [INFO] 
+2026-04-05 04:02:53,862 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 04:02:53,868 [INFO] [*] Loading skill hooks...
+2026-04-05 04:02:54,067 [INFO]   Found classes: ['AvailableSkillSet', 'Gallop.MasterAvailableSkillSet', 'Gallop.MasterAvailableSkillSet.AvailableSkillSet', 'Gallop.MasterSkillSet', 'Gallop.SkillManager', 'Gallop.PartsSingleModeSkillLearningListItem', 'Gallop.PartsSingleModeSkillListItem', 'Gallop.SingleModeSkillLearningView', 'SkillInfo', 'Gallop.SingleModeSkillLearningViewController', 'Gallop.SingleModeSkillLearningViewController.SkillInfo']
+2026-04-05 04:02:54,075 [INFO]   7 hooks installed
+2026-04-05 04:02:54,075 [INFO]   Classes: ['AvailableSkillSet', 'Gallop.MasterAvailableSkillSet', 'Gallop.MasterAvailableSkillSet.AvailableSkillSet', 'Gallop.MasterSkillSet', 'Gallop.SkillManager', 'Gallop.PartsSingleModeSkillLearningListItem', 'Gallop.PartsSingleModeSkillListItem', 'Gallop.SingleModeSkillLearningView', 'SkillInfo', 'Gallop.SingleModeSkillLearningViewController', 'Gallop.SingleModeSkillLearningViewController.SkillInfo']
+2026-04-05 04:02:54,075 [INFO]     AvailableSkillSet:
+2026-04-05 04:02:54,075 [INFO]       methods: ['.ctor']
+2026-04-05 04:02:54,075 [INFO]       fields: {"Id": {"offset": 16}, "AvailableSkillSetId": {"offset": 20}, "SkillId": {"offset": 24}, "NeedRank": {"offset": 28}}
+2026-04-05 04:02:54,075 [INFO]     Gallop.MasterAvailableSkillSet:
+2026-04-05 04:02:54,075 [INFO]       methods: ['.ctor', 'Get', '_SelectOne', 'GetWithAvailableSkillSetIdOrderByIdAsc', '_SelectWithAvailableSkillSetIdOrderByIdAsc', 'GetListWithAvailableSkillSetIdOrderByIdAsc', 'MaybeListWithAvailableSkillSetIdOrderByIdAsc', '_ListSelectWithAvailableSkillSetIdOrderByIdAsc', '_CreateOrmByQueryResultWithAvailableSkillSetIdOrderByIdAsc', 'Unload', 'GetFromTalentLevel']
+2026-04-05 04:02:54,075 [INFO]       fields: {"TABLE_NAME": {"offset": 0}, "_db": {"offset": 16}, "_notFounds": {"offset": 24}, "_lazyPrimaryKeyDictionary": {"offset": 32}, "_dictionaryWithAvailableSkillSetId": {"offset": 40}}
+2026-04-05 04:02:54,075 [INFO]     Gallop.MasterAvailableSkillSet.AvailableSkillSet:
+2026-04-05 04:02:54,075 [INFO]       methods: ['.ctor']
+2026-04-05 04:02:54,075 [INFO]       fields: {"Id": {"offset": 16}, "AvailableSkillSetId": {"offset": 20}, "SkillId": {"offset": 24}, "NeedRank": {"offset": 28}}
+2026-04-05 04:02:54,075 [INFO]     Gallop.MasterSkillSet:
+2026-04-05 04:02:54,075 [INFO]       methods: ['get_dictionary', '.ctor', 'Get', '_SelectOne', 'Unload', '_ForcePreloadAllEntries', 'GetSkillDataList']
+2026-04-05 04:02:54,075 [INFO]       fields: {"TABLE_NAME": {"offset": 0}, "_db": {"offset": 16}, "_preloaded": {"offset": 24}, "_notFounds": {"offset": 32}, "_lazyPrimaryKeyDictionary": {"offset": 40}}
+2026-04-05 04:02:54,075 [INFO]     Gallop.SkillManager:
+2026-04-05 04:02:54,075 [INFO]       methods: ['.ctor', '_CreateTriggerCreate', 'CreateSkillView', 'AddSkill', 'GetSkill', 'GetSkills', 'CreateSkillArray', 'ClearSkills', 'AddCurrentActiveSkill', 'RemoveCurrentActiveSkill', 'GetCurrentActiveSkill', 'AddUsedSkillId', 'GetUsedSkillIdList', 'AddPrevActivateSkill', 'RemovePrevActivateSkill', 'GetPrevActivateSkillList', 'Update', 'LotActivateSkill', 'CheckSkillTriggerAndActivate', 'InitSkillEffect', 'InitSkillSE', 'PlaySkillEffect', 'ClearDelayPlayEffect', 'StopEffect', 'PauseEffect', 'ResumeEffect', 'SetEffectSpeed', 'PlaySkillSE', 'StopSE']
+2026-04-05 04:02:54,075 [INFO]       fields: {"_ownerInfo": {"offset": 16}, "_skills": {"offset": 24}, "_skillArray": {"offset": 32}, "_usedSkillIdList": {"offset": 40}, "_prevActivateSkills": {"offset": 48}, "_skillView": {"offset": 56}}
+2026-04-05 04:02:54,075 [INFO]     Gallop.PartsSingleModeSkillLearningListItem:
+2026-04-05 04:02:54,075 [INFO]       methods: ['get_PlusButton', 'get_BaseImage', 'UpdateItem', 'UpdateCurrent', 'GetMaxLevel', 'GetMasterSkillExp', 'GetSkillId', 'UpdateSkillName', 'UpdateLevelText', 'UpdateBaseImage', 'UpdateIcon', 'UpdateTipsBalloon', 'UpdateEventLimited', 'UpdateNotResolved', 'UpdateButtonVisible', 'UpdatePlusButtonIntaractable', 'UpdateMinusButtonIntaractable', 'GetTopInfo', 'GetPreInfo', 'IsRareSkill', '.ctor']
+2026-04-05 04:02:54,075 [INFO]       fields: {"TIPS_LEVEL_MAX": {"offset": 0}, "_skillIconRoot": {"offset": 56}, "_nameText": {"offset": 64}, "_descriptionText": {"offset": 72}, "_levelText": {"offset": 80}, "_lineImage": {"offset": 88}, "_needPointRoot": {"offset": 96}, "_needPoint": {"offset": 104}, "_getRoot": {"offset": 112}, "_lockRoot": {"offset": 120}, "_lockText": {"offset": 128}, "_plusButton": {"offset": 136}, "_minusButton": {"offset": 144}, "_baseImage": {"offset": 152}, "_hintBalloonRoot": {"offset": 160}, "_hintLvText": {"offset": 168}, "_hintRatioText": {"offset": 176}, "_eventLimitedImage": {"offset": 184}, "_notResolvedRoot": {"offset": 192}, "_infoList": {"offset": 200}, "_getRemainingSkillPoint": {"offset": 208}, "_skillIcon": {"offset": 216}}
+2026-04-05 04:02:54,075 [INFO]     Gallop.PartsSingleModeSkillListItem:
+2026-04-05 04:02:54,075 [INFO]       methods: ['UpdateItem', 'SetupOnClickSkillButton', 'SetupNeedSkillPoint', 'SetActiveNeedSkillPoint', 'ResizeObject', 'ChangeTextColorType', 'SetupNameText', 'SetGetSkill', 'SetHintLv', 'SetAcquire', 'SetUnAcquirable', 'SetInteractableMulColor', 'SetActiveSkillLevelText', '.ctor']
+2026-04-05 04:02:54,075 [INFO]       fields: {"DISC_CHAR_NAME": {"offset": 0}, "EVENT_BONUS_BADGE_CONDITION_COMPLETE_POS_X": {"offset": 0}, "EVENT_BONUS_BADGE_DEFAULT_POS_X": {"offset": 0}, "HEIGHT_THREE_LINES": {"offset": 0}, "HEIGHT_FOUR_LINES": {"offset": 0}, "_bgImage": {"offset": 56}, "_bgButton": {"offset": 64}, "_lineImage": {"offset": 72}, "_skillIconRoot": {"offset": 80}, "_nameText": {"offset": 88}, "_levelText": {"offset": 96}, "_descText": {"offset": 104}, "_newIconObject": {"offset": 112}, "_needSkillPointRoot": {"offset": 120}, "_needSkillPointText": {"offset": 128}, "_needTalentLevelText": {"offset": 136}, "_blinkImage": {"offset": 144}, "_eventLimitedImage": {"offset": 152}, "_hintLabelObject": {"offset": 160}, "_hintLvText": {"offset": 168}, "_acquireIcon": {"offset": 176}, "_unAcquirableIcon": {"offset": 184}, "_info": {"offset": 192}, "_skillIcon": {"offset": 200}, "_skillInfoPop": {"offset": 208}, "_hintLvMaxEffect": {"offset": 216}, "_resourceHash": {"offset": 224}}
+2026-04-05 04:02:54,075 [INFO]     Gallop.SingleModeSkillLearningView:
+2026-04-05 04:02:54,075 [INFO]       methods: ['get_ScrollRect', 'set_ScrollRect', 'get_Item', 'set_Item', 'get_SkillPointText', 'set_SkillPointText', 'get_DetailButton', 'set_DetailButton', 'get_DecideButton', 'set_DecideButton', 'get_ResetButton', 'set_ResetButton', 'get_AnimationTargetList', 'set_AnimationTargetList', 'get_AnimationTargetBottom', 'set_AnimationTargetBottom', 'get_TutorialStep1', 'set_TutorialStep1', '.ctor']
+2026-04-05 04:02:54,075 [INFO]       fields: {"<ScrollRect>k__BackingField": {"offset": 80}, "<Item>k__BackingField": {"offset": 88}, "<SkillPointText>k__BackingField": {"offset": 96}, "<DetailButton>k__BackingField": {"offset": 104}, "<DecideButton>k__BackingField": {"offset": 112}, "<ResetButton>k__BackingField": {"offset": 120}, "<AnimationTargetList>k__BackingField": {"offset": 128}, "<AnimationTargetBottom>k__BackingField": {"offset": 136}, "<TutorialStep1>k__BackingField": {"offset": 144}}
+2026-04-05 04:02:54,075 [INFO]     SkillInfo:
+2026-04-05 04:02:54,075 [INFO]       methods: ['get_SkillList', 'AddInfo', 'IsSelected', 'IsSelectedOrLevelChange', 'ClearSelected', 'GetNeedSkillPoint', 'IsEnableDecide', 'GetDispOrder', '.ctor']
+2026-04-05 04:02:54,075 [INFO]       fields: {"_skillList": {"offset": 16}}
+2026-04-05 04:02:54,075 [INFO]     Gallop.SingleModeSkillLearningViewController:
+2026-04-05 04:02:54,076 [INFO]       methods: ['get_RemainingPoint', 'set_RemainingPoint', 'RegisterDownload', 'InitializeView', 'BeginView', 'GetDynamicBgmId', 'GetDynamicBgmCueInfo', 'OverrideDynamicNowLoadingType', 'PlayInView', 'GetActiveItemList', 'GetBackButtonAnimationDelayTime', 'PlayOutView', 'OnGamePadMenuButton', 'OnClickBackButton', 'ChagePrevView', 'OnClickOsBackKey', 'Setup', 'SetupAnimationRectTransformList', 'IsResultState', 'GetInfo', 'IsValidDecideButton', 'UpdateDecideButton', 'UpdateSkillPoint', 'OnClickPlusListItem', 'OnClickMinusListItem', 'OnSelectUpdate', 'OnClickDecideButton', 'OnClickDetailButton', 'CoroutineSkillGetChangeView', 'PlaySkillGetSe', 'OnClickResetButton', 'ClearSelected', 'Cleanup', '.ctor', '<OnClickBackButton>b__24_1']
+2026-04-05 04:02:54,076 [INFO]       fields: {"BG_ID": {"offset": 0}, "BG_SUB_ID": {"offset": 0}, "BG_PATH": {"offset": 48}, "ENV_PATH": {"offset": 56}, "_skillInfoList": {"offset": 64}, "_itemList": {"offset": 72}, "_itemRectTransformList": {"offset": 80}, "<RemainingPoint>k__BackingField": {"offset": 88}, "_isSelectedDialog": {"offset": 96}}
+2026-04-05 04:02:54,076 [INFO]     Gallop.SingleModeSkillLearningViewController.SkillInfo:
+2026-04-05 04:02:54,076 [INFO]       methods: ['get_SkillList', 'AddInfo', 'IsSelected', 'IsSelectedOrLevelChange', 'ClearSelected', 'GetNeedSkillPoint', 'IsEnableDecide', 'GetDispOrder', '.ctor']
+2026-04-05 04:02:54,076 [INFO]       fields: {"_skillList": {"offset": 16}}
+2026-04-05 04:02:54,576 [INFO] 
+2026-04-05 04:02:54,576 [INFO]   Hooks active. Navigate to skill screen now.
+2026-04-05 04:02:54,576 [INFO]   Ctrl+C to stop and save.
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: available_skill_set
-2026-04-05 03:46:42,747 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "available_skill_set",
   "availableSkillSetId": 105201,
   "count": 7,
@@ -102,218 +102,470 @@
     }
   ]
 }
-2026-04-05 03:46:42,747 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,747 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30efa",
-  "arg2_raw": "0x1"
+  "skillId": 200442,
+  "variant": 1
 }
-2026-04-05 03:46:42,747 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,747 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30fcc",
-  "arg2_raw": "0x1"
+  "skillId": 200652,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x312c4",
-  "arg2_raw": "0x1"
+  "skillId": 201412,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30f18",
-  "arg2_raw": "0x1"
+  "skillId": 200472,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30ef9",
-  "arg2_raw": "0x1"
+  "skillId": 200441,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30e6e",
-  "arg2_raw": "0x1"
+  "skillId": 200302,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30e6d",
-  "arg2_raw": "0x0"
+  "skillId": 200301,
+  "variant": 0
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30f17",
-  "arg2_raw": "0x1"
+  "skillId": 200471,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30dd8",
-  "arg2_raw": "0x1"
+  "skillId": 200152,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30dd7",
-  "arg2_raw": "0x0"
+  "skillId": 200151,
+  "variant": 0
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30dda",
-  "arg2_raw": "0x1"
+  "skillId": 200154,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,946 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30df6",
-  "arg2_raw": "0x1"
+  "skillId": 200182,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,946 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30df5",
-  "arg2_raw": "0x0"
+  "skillId": 200181,
+  "variant": 0
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30e8b",
-  "arg2_raw": "0x1"
+  "skillId": 200331,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30f0e",
-  "arg2_raw": "0x1"
+  "skillId": 200462,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30f86",
-  "arg2_raw": "0x1"
+  "skillId": 200582,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x31012",
-  "arg2_raw": "0x1"
+  "skillId": 200722,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x310bb",
-  "arg2_raw": "0x1"
+  "skillId": 200891,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x310cf",
-  "arg2_raw": "0x1"
+  "skillId": 200911,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x311c0",
-  "arg2_raw": "0x1"
+  "skillId": 201152,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x311fc",
-  "arg2_raw": "0x1"
+  "skillId": 201212,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x3133c",
-  "arg2_raw": "0x1"
+  "skillId": 201532,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x3133b",
-  "arg2_raw": "0x0"
+  "skillId": 201531,
+  "variant": 0
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0xdbc41",
-  "arg2_raw": "0x1"
+  "skillId": 900161,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0xdbcaf",
-  "arg2_raw": "0x1"
+  "skillId": 900271,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,748 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x188a9",
-  "arg2_raw": "0x1"
+  "skillId": 100521,
+  "variant": 1
 }
-2026-04-05 03:46:42,748 [INFO] 
+2026-04-05 04:02:56,947 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 03:46:42,749 [INFO]      {
+2026-04-05 04:02:56,947 [INFO]      {
   "type": "skill_info_add_info",
-  "arg1_raw": "0x30e8c",
-  "arg2_raw": "0x1"
+  "skillId": 200332,
+  "variant": 1
 }
-2026-04-05 03:47:16,305 [INFO] 
+2026-04-05 04:02:57,517 [INFO] 
+  !! EVENT: available_skill_set
+2026-04-05 04:02:57,517 [INFO]      {
+  "type": "available_skill_set",
+  "availableSkillSetId": 105201,
+  "count": 7,
+  "skills": [
+    {
+      "id": 365,
+      "setId": 105201,
+      "skillId": 200442,
+      "needRank": 0
+    },
+    {
+      "id": 366,
+      "setId": 105201,
+      "skillId": 200652,
+      "needRank": 0
+    },
+    {
+      "id": 367,
+      "setId": 105201,
+      "skillId": 201412,
+      "needRank": 0
+    },
+    {
+      "id": 375,
+      "setId": 105201,
+      "skillId": 200472,
+      "needRank": 2
+    },
+    {
+      "id": 376,
+      "setId": 105201,
+      "skillId": 200441,
+      "needRank": 3
+    },
+    {
+      "id": 377,
+      "setId": 105201,
+      "skillId": 200302,
+      "needRank": 4
+    },
+    {
+      "id": 378,
+      "setId": 105201,
+      "skillId": 200471,
+      "needRank": 5
+    }
+  ]
+}
+2026-04-05 04:02:57,517 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200442,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200652,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 201412,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200472,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200441,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200302,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200301,
+  "variant": 0
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200471,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200152,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200151,
+  "variant": 0
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200154,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200182,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200181,
+  "variant": 0
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200331,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200462,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200582,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200722,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200891,
+  "variant": 1
+}
+2026-04-05 04:02:57,518 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,518 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200911,
+  "variant": 1
+}
+2026-04-05 04:02:57,519 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,519 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 201152,
+  "variant": 1
+}
+2026-04-05 04:02:57,519 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,519 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 201212,
+  "variant": 1
+}
+2026-04-05 04:02:57,519 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,519 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 201532,
+  "variant": 1
+}
+2026-04-05 04:02:57,519 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,519 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 201531,
+  "variant": 0
+}
+2026-04-05 04:02:57,519 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,519 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 900161,
+  "variant": 1
+}
+2026-04-05 04:02:57,519 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,519 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 900271,
+  "variant": 1
+}
+2026-04-05 04:02:57,519 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,519 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 100521,
+  "variant": 1
+}
+2026-04-05 04:02:57,519 [INFO] 
+  !! EVENT: skill_info_add_info
+2026-04-05 04:02:57,519 [INFO]      {
+  "type": "skill_info_add_info",
+  "skillId": 200332,
+  "variant": 1
+}
+2026-04-05 04:03:11,370 [INFO] 
 [*] Stopped by user.
-2026-04-05 03:47:16,305 [INFO] 
-2026-04-05 03:47:16,305 [INFO] ============================================================
-2026-04-05 03:47:16,305 [INFO]   RESULTS
-2026-04-05 03:47:16,305 [INFO] ============================================================
-2026-04-05 03:47:16,305 [INFO]   Total events captured: 28
-2026-04-05 03:47:16,305 [INFO] 
-  available_skill_set: 1 events
-2026-04-05 03:47:16,305 [INFO]     SetId=105201, Count=7
-2026-04-05 03:47:16,305 [INFO]       SkillId=200442, NeedRank=0
-2026-04-05 03:47:16,305 [INFO]       SkillId=200652, NeedRank=0
-2026-04-05 03:47:16,305 [INFO]       SkillId=201412, NeedRank=0
-2026-04-05 03:47:16,305 [INFO]       SkillId=200472, NeedRank=2
-2026-04-05 03:47:16,305 [INFO]       SkillId=200441, NeedRank=3
-2026-04-05 03:47:16,305 [INFO]       SkillId=200302, NeedRank=4
-2026-04-05 03:47:16,305 [INFO]       SkillId=200471, NeedRank=5
-2026-04-05 03:47:16,305 [INFO] 
-  skill_info_add_info: 27 events
-2026-04-05 03:47:16,305 [INFO] 
-  ALL UNIQUE SKILL IDs CAPTURED: [200302, 200441, 200442, 200471, 200472, 200652, 201412]
-2026-04-05 03:47:16,305 [INFO]   Total: 7
-2026-04-05 03:47:16,306 [INFO] 
+2026-04-05 04:03:11,370 [INFO] 
+2026-04-05 04:03:11,370 [INFO] ============================================================
+2026-04-05 04:03:11,370 [INFO]   RESULTS
+2026-04-05 04:03:11,370 [INFO] ============================================================
+2026-04-05 04:03:11,370 [INFO]   Total events captured: 56
+2026-04-05 04:03:11,370 [INFO] 
+  available_skill_set: 2 events
+2026-04-05 04:03:11,370 [INFO]     SetId=105201, Count=7
+2026-04-05 04:03:11,370 [INFO]       SkillId=200442, NeedRank=0
+2026-04-05 04:03:11,370 [INFO]       SkillId=200652, NeedRank=0
+2026-04-05 04:03:11,370 [INFO]       SkillId=201412, NeedRank=0
+2026-04-05 04:03:11,370 [INFO]       SkillId=200472, NeedRank=2
+2026-04-05 04:03:11,370 [INFO]       SkillId=200441, NeedRank=3
+2026-04-05 04:03:11,370 [INFO]       SkillId=200302, NeedRank=4
+2026-04-05 04:03:11,370 [INFO]       SkillId=200471, NeedRank=5
+2026-04-05 04:03:11,370 [INFO]     SetId=105201, Count=7
+2026-04-05 04:03:11,370 [INFO]       SkillId=200442, NeedRank=0
+2026-04-05 04:03:11,370 [INFO]       SkillId=200652, NeedRank=0
+2026-04-05 04:03:11,370 [INFO]       SkillId=201412, NeedRank=0
+2026-04-05 04:03:11,370 [INFO]       SkillId=200472, NeedRank=2
+2026-04-05 04:03:11,370 [INFO]       SkillId=200441, NeedRank=3
+2026-04-05 04:03:11,370 [INFO]       SkillId=200302, NeedRank=4
+2026-04-05 04:03:11,370 [INFO]       SkillId=200471, NeedRank=5
+2026-04-05 04:03:11,370 [INFO] 
+  skill_info_add_info: 54 events
+2026-04-05 04:03:11,370 [INFO]     All skill IDs added: [100521, 200151, 200152, 200154, 200181, 200182, 200301, 200302, 200331, 200332, 200441, 200442, 200462, 200471, 200472, 200582, 200652, 200722, 200891, 200911, 201152, 201212, 201412, 201531, 201532, 900161, 900271]
+2026-04-05 04:03:11,370 [INFO]     Total unique: 27
+2026-04-05 04:03:11,370 [INFO]     variant=0: [200151, 200181, 200301, 201531] (4 unique)
+2026-04-05 04:03:11,370 [INFO]     variant=1: [100521, 200152, 200154, 200182, 200302, 200331, 200332, 200441, 200442, 200462, 200471, 200472, 200582, 200652, 200722, 200891, 200911, 201152, 201212, 201412, 201532, 900161, 900271] (23 unique)
+2026-04-05 04:03:11,370 [INFO] 
+  ALL UNIQUE SKILL IDs CAPTURED: [100521, 200151, 200152, 200154, 200181, 200182, 200301, 200302, 200331, 200332, 200441, 200442, 200462, 200471, 200472, 200582, 200652, 200722, 200891, 200911, 201152, 201212, 201412, 201531, 201532, 900161, 900271]
+2026-04-05 04:03:11,370 [INFO]   Total: 27
+2026-04-05 04:03:11,371 [INFO] 
   Saved: C:\Users\nikit\Documents\UmaExtractor\py\skill_hook_results.json
-2026-04-05 03:47:16,306 [INFO]   Log:   C:\Users\nikit\Documents\UmaExtractor\py\skill_hook.log
-2026-04-05 03:47:16,306 [INFO] ============================================================
+2026-04-05 04:03:11,371 [INFO]   Log:   C:\Users\nikit\Documents\UmaExtractor\py\skill_hook.log
+2026-04-05 04:03:11,371 [INFO] ============================================================

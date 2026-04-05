@@ -1,19 +1,39 @@
 {
-  "total_events": 28,
+  "total_events": 56,
   "events_by_type": {
-    "available_skill_set": 1,
-    "skill_info_add_info": 27
+    "available_skill_set": 2,
+    "skill_info_add_info": 54
   },
   "all_unique_skill_ids": [
+    100521,
+    200151,
+    200152,
+    200154,
+    200181,
+    200182,
+    200301,
     200302,
+    200331,
+    200332,
     200441,
     200442,
+    200462,
     200471,
     200472,
+    200582,
     200652,
-    201412
+    200722,
+    200891,
+    200911,
+    201152,
+    201212,
+    201412,
+    201531,
+    201532,
+    900161,
+    900271
   ],
-  "unique_skill_id_count": 7,
+  "unique_skill_id_count": 27,
   "class_details": {
     "AvailableSkillSet": {
       "methods": [
@@ -569,138 +589,322 @@
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30efa",
-      "arg2_raw": "0x1"
+      "skillId": 200442,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30fcc",
-      "arg2_raw": "0x1"
+      "skillId": 200652,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x312c4",
-      "arg2_raw": "0x1"
+      "skillId": 201412,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30f18",
-      "arg2_raw": "0x1"
+      "skillId": 200472,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30ef9",
-      "arg2_raw": "0x1"
+      "skillId": 200441,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30e6e",
-      "arg2_raw": "0x1"
+      "skillId": 200302,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30e6d",
-      "arg2_raw": "0x0"
+      "skillId": 200301,
+      "variant": 0
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30f17",
-      "arg2_raw": "0x1"
+      "skillId": 200471,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30dd8",
-      "arg2_raw": "0x1"
+      "skillId": 200152,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30dd7",
-      "arg2_raw": "0x0"
+      "skillId": 200151,
+      "variant": 0
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30dda",
-      "arg2_raw": "0x1"
+      "skillId": 200154,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30df6",
-      "arg2_raw": "0x1"
+      "skillId": 200182,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30df5",
-      "arg2_raw": "0x0"
+      "skillId": 200181,
+      "variant": 0
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30e8b",
-      "arg2_raw": "0x1"
+      "skillId": 200331,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30f0e",
-      "arg2_raw": "0x1"
+      "skillId": 200462,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30f86",
-      "arg2_raw": "0x1"
+      "skillId": 200582,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x31012",
-      "arg2_raw": "0x1"
+      "skillId": 200722,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x310bb",
-      "arg2_raw": "0x1"
+      "skillId": 200891,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x310cf",
-      "arg2_raw": "0x1"
+      "skillId": 200911,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x311c0",
-      "arg2_raw": "0x1"
+      "skillId": 201152,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x311fc",
-      "arg2_raw": "0x1"
+      "skillId": 201212,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x3133c",
-      "arg2_raw": "0x1"
+      "skillId": 201532,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x3133b",
-      "arg2_raw": "0x0"
+      "skillId": 201531,
+      "variant": 0
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0xdbc41",
-      "arg2_raw": "0x1"
+      "skillId": 900161,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0xdbcaf",
-      "arg2_raw": "0x1"
+      "skillId": 900271,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x188a9",
-      "arg2_raw": "0x1"
+      "skillId": 100521,
+      "variant": 1
     },
     {
       "type": "skill_info_add_info",
-      "arg1_raw": "0x30e8c",
-      "arg2_raw": "0x1"
+      "skillId": 200332,
+      "variant": 1
+    },
+    {
+      "type": "available_skill_set",
+      "availableSkillSetId": 105201,
+      "count": 7,
+      "skills": [
+        {
+          "id": 365,
+          "setId": 105201,
+          "skillId": 200442,
+          "needRank": 0
+        },
+        {
+          "id": 366,
+          "setId": 105201,
+          "skillId": 200652,
+          "needRank": 0
+        },
+        {
+          "id": 367,
+          "setId": 105201,
+          "skillId": 201412,
+          "needRank": 0
+        },
+        {
+          "id": 375,
+          "setId": 105201,
+          "skillId": 200472,
+          "needRank": 2
+        },
+        {
+          "id": 376,
+          "setId": 105201,
+          "skillId": 200441,
+          "needRank": 3
+        },
+        {
+          "id": 377,
+          "setId": 105201,
+          "skillId": 200302,
+          "needRank": 4
+        },
+        {
+          "id": 378,
+          "setId": 105201,
+          "skillId": 200471,
+          "needRank": 5
+        }
+      ]
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200442,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200652,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 201412,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200472,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200441,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200302,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200301,
+      "variant": 0
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200471,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200152,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200151,
+      "variant": 0
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200154,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200182,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200181,
+      "variant": 0
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200331,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200462,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200582,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200722,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200891,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200911,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 201152,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 201212,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 201532,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 201531,
+      "variant": 0
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 900161,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 900271,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 100521,
+      "variant": 1
+    },
+    {
+      "type": "skill_info_add_info",
+      "skillId": 200332,
+      "variant": 1
     }
   ]
 }

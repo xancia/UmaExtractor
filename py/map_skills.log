@@ -1,0 +1,162 @@
+2026-04-05 04:03:16,714 [INFO] ============================================================
+2026-04-05 04:03:16,714 [INFO]   Uma Musume Skill Name Extractor
+2026-04-05 04:03:16,714 [INFO]   Pulls skill ID → name from in-game MasterSkillData
+2026-04-05 04:03:16,714 [INFO] ============================================================
+2026-04-05 04:03:16,714 [INFO] 
+2026-04-05 04:03:16,909 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 04:03:16,915 [INFO] [*] Loading skill name hooks...
+2026-04-05 04:03:16,923 [INFO]   Hooks ready. Get=True, Name=True
+2026-04-05 04:03:17,424 [INFO] 
+2026-04-05 04:03:17,424 [INFO]   Hooks active. Navigate to skill learning screen or character details.
+2026-04-05 04:03:17,424 [INFO]   Ctrl+C to stop and save.
+2026-04-05 04:03:25,925 [INFO]   +57 skills (total: 57)
+2026-04-05 04:03:53,297 [INFO] 
+[*] Stopped.
+2026-04-05 04:03:53,298 [INFO] 
+2026-04-05 04:03:53,298 [INFO] ============================================================
+2026-04-05 04:03:53,298 [INFO]   RESULTS
+2026-04-05 04:03:53,298 [INFO] ============================================================
+2026-04-05 04:03:53,298 [INFO]   Collected 57 skills
+2026-04-05 04:03:53,298 [INFO]       100521  r=4  "Super-Duper Climax"
+2026-04-05 04:03:53,298 [INFO]       200012  r=1  "Right-Handed ○"
+2026-04-05 04:03:53,298 [INFO]       200122  r=1  "Kokura Racecourse ○"
+2026-04-05 04:03:53,298 [INFO]       200142  r=1  "Non-Standard Distance ○"
+2026-04-05 04:03:53,298 [INFO]       200151  r=1  "Firm Conditions ◎"
+2026-04-05 04:03:53,298 [INFO]       200152  r=1  "Firm Conditions ○"
+2026-04-05 04:03:53,298 [INFO]       200154  r=2  "Firm Course Menace"
+2026-04-05 04:03:53,298 [INFO]       200181  r=1  "Summer Runner ◎"
+2026-04-05 04:03:53,298 [INFO]       200182  r=1  "Summer Runner ○"
+2026-04-05 04:03:53,298 [INFO]       200192  r=1  "Fall Runner ○"
+2026-04-05 04:03:53,298 [INFO]       200252  r=1  "Inner Post Proficiency ○"
+2026-04-05 04:03:53,298 [INFO]       200262  r=1  "Outer Post Proficiency ○"
+2026-04-05 04:03:53,298 [INFO]       200301  r=1  "Long Shot ◎"
+2026-04-05 04:03:53,298 [INFO]       200302  r=1  "Long Shot ○"
+2026-04-05 04:03:53,298 [INFO]       200331  r=2  "Professor of Curvature"
+2026-04-05 04:03:53,298 [INFO]       200332  r=1  "Corner Adept ○"
+2026-04-05 04:03:53,298 [INFO]       200342  r=1  "Corner Acceleration ○"
+2026-04-05 04:03:53,298 [INFO]       200352  r=1  "Corner Recovery ○"
+2026-04-05 04:03:53,298 [INFO]       200372  r=1  "Straightaway Acceleration"
+2026-04-05 04:03:53,298 [INFO]       200382  r=1  "Straightaway Recovery"
+2026-04-05 04:03:53,298 [INFO]       200432  r=1  "Focus"
+2026-04-05 04:03:53,298 [INFO]       200441  r=2  "Iron Will"
+2026-04-05 04:03:53,298 [INFO]       200442  r=1  "Lay Low"
+2026-04-05 04:03:53,298 [INFO]       200462  r=1  "Ramp Up"
+2026-04-05 04:03:53,298 [INFO]       200471  r=2  "Indomitable"
+2026-04-05 04:03:53,298 [INFO]       200472  r=1  "Pace Strategy"
+2026-04-05 04:03:53,298 [INFO]       200492  r=1  "Nimble Navigator"
+2026-04-05 04:03:53,298 [INFO]       200502  r=1  "Go with the Flow"
+2026-04-05 04:03:53,298 [INFO]       200512  r=1  "Homestretch Haste"
+2026-04-05 04:03:53,298 [INFO]       200572  r=1  "Preferred Position"
+2026-04-05 04:03:53,298 [INFO]       200582  r=1  "Prepared to Pass"
+2026-04-05 04:03:53,298 [INFO]       200612  r=1  "Outer Swell"
+2026-04-05 04:03:53,298 [INFO]       200652  r=1  "Sprinting Gear"
+2026-04-05 04:03:53,298 [INFO]       200722  r=1  "Up-Tempo"
+2026-04-05 04:03:53,298 [INFO]       200752  r=1  "Inside Scoop"
+2026-04-05 04:03:53,298 [INFO]       200762  r=1  "Extra Tank"
+2026-04-05 04:03:53,298 [INFO]       200891  r=1  "Subdued Late Surgers"
+2026-04-05 04:03:53,298 [INFO]       200911  r=1  "Hesitant Late Surgers"
+2026-04-05 04:03:53,298 [INFO]       201102  r=1  "Medium Straightaways ○"
+2026-04-05 04:03:53,298 [INFO]       201112  r=1  "Medium Corners ○"
+2026-04-05 04:03:53,298 [INFO]       201152  r=1  "Tether"
+2026-04-05 04:03:53,298 [INFO]       201162  r=1  "Murmur"
+2026-04-05 04:03:53,298 [INFO]       201172  r=1  "Long Straightaways ○"
+2026-04-05 04:03:53,298 [INFO]       201182  r=1  "Long Corners ○"
+2026-04-05 04:03:53,298 [INFO]       201212  r=1  "Pressure"
+2026-04-05 04:03:53,298 [INFO]       201242  r=1  "Front Runner Straightaways ○"
+2026-04-05 04:03:53,298 [INFO]       201262  r=1  "Dodging Danger"
+2026-04-05 04:03:53,298 [INFO]       201352  r=1  "Hydrate"
+2026-04-05 04:03:53,298 [INFO]       201412  r=1  "1,500,000 CC"
+2026-04-05 04:03:53,298 [INFO]       201422  r=1  "A Small Breather"
+2026-04-05 04:03:53,298 [INFO]       201442  r=1  "Sharp Gaze"
+2026-04-05 04:03:53,298 [INFO]       201531  r=1  "Pace Chaser Savvy ◎"
+2026-04-05 04:03:53,298 [INFO]       201532  r=1  "Pace Chaser Savvy ○"
+2026-04-05 04:03:53,298 [INFO]       201611  r=1  "Tail Held High"
+2026-04-05 04:03:53,298 [INFO]       201702  r=1  "All I've Got"
+2026-04-05 04:03:53,298 [INFO]       900161  r=1  "Shadow Break"
+2026-04-05 04:03:53,298 [INFO]       900271  r=1  "Let's Pump Some Iron!"
+2026-04-05 04:03:53,299 [INFO] 
+  Saved: C:\Users\nikit\Documents\UmaExtractor\py\skill_id_map.json (57 entries)
+2026-04-05 04:03:53,308 [INFO] 
+2026-04-05 04:03:53,308 [INFO] ============================================================
+2026-04-05 04:03:53,308 [INFO]   DECODED SKILL HOOK RESULTS
+2026-04-05 04:03:53,308 [INFO] ============================================================
+2026-04-05 04:03:53,308 [INFO] 
+  CHARACTER-SPECIFIC (MasterAvailableSkillSet):
+2026-04-05 04:03:53,308 [INFO]       200442  NeedRank=0  Lay Low
+2026-04-05 04:03:53,308 [INFO]       200652  NeedRank=0  Sprinting Gear
+2026-04-05 04:03:53,308 [INFO]       201412  NeedRank=0  1,500,000 CC
+2026-04-05 04:03:53,308 [INFO]       200472  NeedRank=2  Pace Strategy
+2026-04-05 04:03:53,308 [INFO]       200441  NeedRank=3  Iron Will
+2026-04-05 04:03:53,308 [INFO]       200302  NeedRank=4  Long Shot ○
+2026-04-05 04:03:53,308 [INFO]       200471  NeedRank=5  Indomitable
+2026-04-05 04:03:53,308 [INFO]       200442  NeedRank=0  Lay Low
+2026-04-05 04:03:53,308 [INFO]       200652  NeedRank=0  Sprinting Gear
+2026-04-05 04:03:53,308 [INFO]       201412  NeedRank=0  1,500,000 CC
+2026-04-05 04:03:53,308 [INFO]       200472  NeedRank=2  Pace Strategy
+2026-04-05 04:03:53,308 [INFO]       200441  NeedRank=3  Iron Will
+2026-04-05 04:03:53,308 [INFO]       200302  NeedRank=4  Long Shot ○
+2026-04-05 04:03:53,308 [INFO]       200471  NeedRank=5  Indomitable
+2026-04-05 04:03:53,308 [INFO] 
+  ALL SKILL TREE (54 entries):
+2026-04-05 04:03:53,308 [INFO] 
+    variant=1 (46):
+2026-04-05 04:03:53,308 [INFO]         100521  Super-Duper Climax
+2026-04-05 04:03:53,308 [INFO]         100521  Super-Duper Climax
+2026-04-05 04:03:53,308 [INFO]         200152  Firm Conditions ○
+2026-04-05 04:03:53,308 [INFO]         200152  Firm Conditions ○
+2026-04-05 04:03:53,308 [INFO]         200154  Firm Course Menace
+2026-04-05 04:03:53,308 [INFO]         200154  Firm Course Menace
+2026-04-05 04:03:53,308 [INFO]         200182  Summer Runner ○
+2026-04-05 04:03:53,308 [INFO]         200182  Summer Runner ○
+2026-04-05 04:03:53,308 [INFO]         200302  Long Shot ○
+2026-04-05 04:03:53,308 [INFO]         200302  Long Shot ○
+2026-04-05 04:03:53,308 [INFO]         200331  Professor of Curvature
+2026-04-05 04:03:53,308 [INFO]         200331  Professor of Curvature
+2026-04-05 04:03:53,308 [INFO]         200332  Corner Adept ○
+2026-04-05 04:03:53,308 [INFO]         200332  Corner Adept ○
+2026-04-05 04:03:53,308 [INFO]         200441  Iron Will
+2026-04-05 04:03:53,308 [INFO]         200441  Iron Will
+2026-04-05 04:03:53,308 [INFO]         200442  Lay Low
+2026-04-05 04:03:53,308 [INFO]         200442  Lay Low
+2026-04-05 04:03:53,308 [INFO]         200462  Ramp Up
+2026-04-05 04:03:53,309 [INFO]         200462  Ramp Up
+2026-04-05 04:03:53,309 [INFO]         200471  Indomitable
+2026-04-05 04:03:53,309 [INFO]         200471  Indomitable
+2026-04-05 04:03:53,309 [INFO]         200472  Pace Strategy
+2026-04-05 04:03:53,309 [INFO]         200472  Pace Strategy
+2026-04-05 04:03:53,309 [INFO]         200582  Prepared to Pass
+2026-04-05 04:03:53,309 [INFO]         200582  Prepared to Pass
+2026-04-05 04:03:53,309 [INFO]         200652  Sprinting Gear
+2026-04-05 04:03:53,309 [INFO]         200652  Sprinting Gear
+2026-04-05 04:03:53,309 [INFO]         200722  Up-Tempo
+2026-04-05 04:03:53,309 [INFO]         200722  Up-Tempo
+2026-04-05 04:03:53,309 [INFO]         200891  Subdued Late Surgers
+2026-04-05 04:03:53,309 [INFO]         200891  Subdued Late Surgers
+2026-04-05 04:03:53,309 [INFO]         200911  Hesitant Late Surgers
+2026-04-05 04:03:53,309 [INFO]         200911  Hesitant Late Surgers
+2026-04-05 04:03:53,309 [INFO]         201152  Tether
+2026-04-05 04:03:53,309 [INFO]         201152  Tether
+2026-04-05 04:03:53,309 [INFO]         201212  Pressure
+2026-04-05 04:03:53,309 [INFO]         201212  Pressure
+2026-04-05 04:03:53,309 [INFO]         201412  1,500,000 CC
+2026-04-05 04:03:53,309 [INFO]         201412  1,500,000 CC
+2026-04-05 04:03:53,309 [INFO]         201532  Pace Chaser Savvy ○
+2026-04-05 04:03:53,309 [INFO]         201532  Pace Chaser Savvy ○
+2026-04-05 04:03:53,309 [INFO]         900161  Shadow Break
+2026-04-05 04:03:53,309 [INFO]         900161  Shadow Break
+2026-04-05 04:03:53,309 [INFO]         900271  Let's Pump Some Iron!
+2026-04-05 04:03:53,309 [INFO]         900271  Let's Pump Some Iron!
+2026-04-05 04:03:53,309 [INFO] 
+    variant=0 (8):
+2026-04-05 04:03:53,309 [INFO]         200151  Firm Conditions ◎
+2026-04-05 04:03:53,309 [INFO]         200151  Firm Conditions ◎
+2026-04-05 04:03:53,309 [INFO]         200181  Summer Runner ◎
+2026-04-05 04:03:53,309 [INFO]         200181  Summer Runner ◎
+2026-04-05 04:03:53,309 [INFO]         200301  Long Shot ◎
+2026-04-05 04:03:53,309 [INFO]         200301  Long Shot ◎
+2026-04-05 04:03:53,309 [INFO]         201531  Pace Chaser Savvy ◎
+2026-04-05 04:03:53,309 [INFO]         201531  Pace Chaser Savvy ◎
+2026-04-05 04:03:53,309 [INFO] 
+  Saved: C:\Users\nikit\Documents\UmaExtractor\py\decoded_skills.json
+2026-04-05 04:03:53,309 [INFO]   Log: C:\Users\nikit\Documents\UmaExtractor\py\map_skills.log
+2026-04-05 04:03:53,309 [INFO] ============================================================
