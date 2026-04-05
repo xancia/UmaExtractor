@@ -1,0 +1,16 @@
+2026-04-05 03:33:46,750 [INFO] ============================================================
+2026-04-05 03:33:46,750 [INFO]   Uma Musume IL2CPP Skill Discovery
+2026-04-05 03:33:46,750 [INFO]   Searching for skill-related classes via IL2CPP introspection
+2026-04-05 03:33:46,750 [INFO]   Keywords: ['skill', 'Skill', 'acquir', 'Acquir', 'learn', 'Learn']
+2026-04-05 03:33:46,750 [INFO] ============================================================
+2026-04-05 03:33:46,750 [INFO] 
+2026-04-05 03:33:46,961 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 03:33:46,967 [INFO] [*] Scanning IL2CPP classes...
+2026-04-05 03:33:46,970 [INFO]   Found GameAssembly.dll at 0x7ffc95990000 (98447360 bytes)
+2026-04-05 03:33:46,971 [INFO]   [X] JS Error: TypeError: Module.findExportByName is not a function
+2026-04-05 03:33:46,971 [INFO]       TypeError: Module.findExportByName is not a function
+2026-04-05 03:33:46,971 [INFO]           at resolve (/script1.js:36:29)
+2026-04-05 03:33:46,971 [INFO]           at /script1.js:42:34
+2026-04-05 03:33:46,971 [INFO]           at /script1.js:393:3
+2026-04-05 03:33:47,472 [INFO] 
+2026-04-05 03:33:47,472 [INFO] [X] Script failed. See log for details.

@@ -1,0 +1,18 @@
+2026-04-05 03:33:37,244 [INFO] ============================================================
+2026-04-05 03:33:37,244 [INFO]   Uma Musume IL2CPP List Scanner
+2026-04-05 03:33:37,244 [INFO]   Finds arrays/lists containing skill-range integers
+2026-04-05 03:33:37,244 [INFO]   No assumptions — reports everything it finds
+2026-04-05 03:33:37,244 [INFO] ============================================================
+2026-04-05 03:33:37,244 [INFO] 
+2026-04-05 03:33:37,244 [INFO]   INSTRUCTIONS:
+2026-04-05 03:33:37,244 [INFO]   1. Open the game and navigate to the screen with skill data
+2026-04-05 03:33:37,244 [INFO]      (e.g., trained character detail, skill tree, etc.)
+2026-04-05 03:33:37,244 [INFO]   2. Wait for the screen to fully load
+2026-04-05 03:33:37,244 [INFO]   3. Run this script
+2026-04-05 03:33:37,244 [INFO] 
+2026-04-05 03:33:37,479 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 03:33:37,485 [INFO] [*] Scanning memory for skill-range arrays...
+2026-04-05 03:33:37,487 [INFO]   Found GameAssembly.dll
+2026-04-05 03:33:37,488 [INFO]   [X] JS Error: TypeError: Module.findExportByName is not a function
+2026-04-05 03:33:37,988 [INFO] 
+[X] Script failed.
