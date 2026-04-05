@@ -5,20 +5,26 @@
 # ]
 # ///
 """
-Uma Musume Skill Hook
-========================
-Hooks IL2CPP methods on the skill learning screen to capture
-the actual skill IDs displayed to the player.
+Uma Musume Skill Hook v2
+===========================
+Hooks the skill learning screen controller to capture the FULL
+skill tree data including:
+  - Skill IDs (only buyable ones)
+  - Hint levels
+  - Skill point cost
+  - Whether skill is already acquired
+  - Rare/normal variant pairing
 
-Targets:
-  - MasterAvailableSkillSet.GetListWithAvailableSkillSetIdOrderByIdAsc
-  - PartsSingleModeSkillLearningListItem.GetSkillId / UpdateItem
-  - MasterSkillSet.GetSkillDataList
+Approach:
+  1. Finds PartsSingleModeSkillLearningListItem and its nested Info class
+  2. Hooks SingleModeSkillLearningViewController.Setup (onLeave)
+  3. Walks _skillInfoList → SkillInfo._skillList → Info objects
+  4. Reads all fields from each Info to get complete skill tree data
 
 Usage:
   1. Start this script with the game running
   2. Open the skill learning screen in-game (during training)
-  3. Wait a few seconds
+  3. Wait a few seconds for "SKILL TREE CAPTURED" message
   4. Ctrl+C to stop — results in skill_hook_results.json
 
 Outputs:
@@ -195,6 +201,7 @@ FRIDA_SCRIPT = r"""
         { ns: "Gallop", name: "SkillManager" },
         { ns: "",       name: "AvailableSkillSet" },
         { ns: "",       name: "SkillInfo" },
+        { ns: "",       name: "Info" },
     ];
 
     const targetLookup = {};
@@ -609,6 +616,80 @@ FRIDA_SCRIPT = r"""
         });
     }
 
+    // ── Hook 8: SingleModeSkillLearningViewController.BeginView ──
+    // Called after Setup completes. Walks the full data structure to read
+    // all Info fields including hint levels and skill point costs.
+    //
+    // Layout:
+    //   controller._skillInfoList (off 64) → List<SkillInfo>
+    //   SkillInfo._skillList (off 16) → List<Info>
+    //   Info → raw int fields dumped for layout discovery
+
+    hookMethod(
+        "Gallop.SingleModeSkillLearningViewController",
+        "BeginView", -1,
+        {
+            onEnter(args) {
+                const controller = args[0];
+                try {
+                    // _skillInfoList at offset 64
+                    const skillInfoList = controller.add(64).readPointer();
+                    const infoCount = readListCount(skillInfoList);
+                    const infoArr = readListItemsArray(skillInfoList);
+
+                    console.log(`[HOOK] BeginView: _skillInfoList has ${infoCount} SkillInfo groups`);
+
+                    const groups = [];
+                    for (let gi = 0; gi < infoCount; gi++) {
+                        const skillInfo = readArrayElement(infoArr, gi);
+                        if (!skillInfo || skillInfo.isNull()) continue;
+
+                        // SkillInfo._skillList at offset 16
+                        const skillList = skillInfo.add(16).readPointer();
+                        const skillCount = readListCount(skillList);
+                        const skillArr = readListItemsArray(skillList);
+
+                        const skills = [];
+                        for (let si = 0; si < skillCount; si++) {
+                            const info = readArrayElement(skillArr, si);
+                            if (!info || info.isNull()) continue;
+
+                            // Read ALL int fields from offset 16 to 128
+                            // to discover the layout
+                            const rawFields = {};
+                            for (let off = 16; off <= 128; off += 4) {
+                                try {
+                                    rawFields["off_" + off] = info.add(off).readS32();
+                                } catch(e) {
+                                    rawFields["off_" + off] = null;
+                                    break; // hit end of object
+                                }
+                            }
+
+                            skills.push(rawFields);
+                        }
+
+                        groups.push({
+                            groupIndex: gi,
+                            skillCount: skillCount,
+                            skills: skills,
+                        });
+                    }
+
+                    console.log(`[HOOK] BeginView: captured ${groups.length} groups`);
+                    send({
+                        type: "skill_tree_full",
+                        groupCount: infoCount,
+                        groups: groups,
+                    });
+
+                } catch(e) {
+                    console.log(`[HOOK] BeginView error: ${e}`);
+                }
+            }
+        }
+    );
+
     console.log(`\n${hookCount} hooks installed.`);
     console.log("Navigate to the skill learning screen now.");
     console.log("Skill data will be captured as methods are called.");
@@ -739,7 +820,8 @@ def main():
                                "learning_list_item_update",
                                "skill_list_item_acquire",
                                "available_from_talent",
-                               "skill_info_add_info"):
+                               "skill_info_add_info",
+                               "skill_tree_full"):
                     all_events.append(payload)
                     log(f"\n  !! EVENT: {ptype}")
                     log(f"     {json.dumps(payload, indent=2)}")
@@ -842,6 +924,16 @@ def main():
             log(f"    Total unique: {len(all_add_ids)}")
             for v, ids in sorted(by_variant.items()):
                 log(f"    variant={v}: {sorted(set(ids))} ({len(set(ids))} unique)")
+        elif t == "skill_tree_full":
+            for ev in events:
+                log(f"    Groups: {ev.get('groupCount', 0)}")
+                for g in ev.get("groups", []):
+                    log(f"      Group {g['groupIndex']}: {g['skillCount']} skills")
+                    for s in g.get("skills", []):
+                        # Show all non-zero fields
+                        nonzero = {k: v for k, v in s.items()
+                                   if v and v != 0}
+                        log(f"        {nonzero}")
 
     # Collect all unique skill IDs across all events
     all_skill_ids = set()

@@ -397,12 +397,17 @@ def decode_hook_results(mapping):
     for sid in hook_data.get("all_unique_skill_ids", []):
         all_ids.add(sid)
 
+    available_set_seen = set()
     available_set_skills = []
+    add_info_seen = set()
     add_info_skills = []
     for ev in events:
         if ev.get("type") == "available_skill_set":
             for s in ev.get("skills", []):
-                available_set_skills.append(s)
+                key = s["skillId"]
+                if key not in available_set_seen:
+                    available_set_seen.add(key)
+                    available_set_skills.append(s)
         elif ev.get("type") == "skill_info_add_info":
             sid = ev.get("skillId")
             if sid is None and "arg1_raw" in ev:
@@ -417,7 +422,10 @@ def decode_hook_results(mapping):
                         variant = int(variant, 16)
                     except ValueError:
                         pass
-                add_info_skills.append({"skillId": sid, "variant": variant})
+                key = (sid, variant)
+                if key not in add_info_seen:
+                    add_info_seen.add(key)
+                    add_info_skills.append({"skillId": sid, "variant": variant})
 
     def lookup(sid):
         return mapping.get(str(sid), mapping.get(sid, {}))

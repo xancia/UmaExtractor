@@ -1,222 +1,0 @@
-============================================================
-  Uma Musume Array Hunter
-  Looking for arrays containing: [200154, 200152, 200441, 200652, 200722, 201152]
-============================================================
-
-[OK] Attached: UmamusumePrettyDerby.exe
-[*] Loading hunter script...
-=== Uma Musume Array Hunter ===
-Searching for arrays containing known IDs...
-866 scannable regions (from 1247 total)
-Scanning 18 patterns x 866 regions = 15588 scans...
-[*] Hunting for 6 IDs across 866 regions...
-[*] Hunting... 3%[*] Hunting... 6%[*] Hunting... 10%[*] Hunting... 13%[*] Hunting... 16%[*] Hunting... 19%[*] Hunting... 22%[*] Script load timed out, hunt continues in background...
-[*] Hunting (up to 30000s)...
-[*] Hunting... 26%[*] Hunting... 29%[*] Hunting... 32%[*] Hunting... 35%[*] Hunting... 38%[*] Hunting... 42%[*] Hunting... 45%[*] Hunting... 48%[*] Hunting... 51%[*] Hunting... 55%
-[*] Still running... 30s elapsed
-[*] Hunting... 58%[*] Hunting... 61%[*] Hunting... 64%[*] Hunting... 67%[*] Hunting... 71%[*] Hunting... 74%[*] Hunting... 77%[*] Hunting... 80%[*] Hunting... 83%[*] Hunting... 87%
-[*] Still running... 60s elapsed
-[*] Hunting... 90%[*] Hunting... 93%[*] Hunting... 96%[*] Hunting... 99%
-========================================
-RESULTS: 35 regions contain at least one target ID
-========================================
-
-Region #19: 6/6 IDs matched, 20 total hits, size=16539648
-  ID 200154 (raw_le32(200154)) at 0x17561473c78
-  ID 200154 (raw_le32(200154)) at 0x175617bb651
-  ID 200154 (raw_le32(200154)) at 0x175617bb669
-  ID 200154 (raw_le32(200154)) at 0x175617bb681
-  ID 200152 (raw_le32(200152)) at 0x17561473c48
-  ID 200152 (raw_le32(200152)) at 0x175617bb5f1
-  ID 200152 (raw_le32(200152)) at 0x175617bb609
-  ID 200441 (raw_le32(200441)) at 0x17561475760
-  ID 200441 (raw_le32(200441)) at 0x175617bee79
-  ID 200441 (raw_le32(200441)) at 0x175617bee91
-  ID 200652 (raw_le32(200652)) at 0x17561476b28
-  ID 200652 (raw_le32(200652)) at 0x175617c17e9
-  ID 200652 (raw_le32(200652)) at 0x175617c1801
-  ID 200652 (raw_le32(200652)) at 0x175617c1819
-  ID 200722 (raw_le32(200722)) at 0x175614771b8
-  ID 200722 (raw_le32(200722)) at 0x175617c25c9
-  ID 200722 (raw_le32(200722)) at 0x175617c25e1
-  ID 201152 (raw_le32(201152)) at 0x17561479a08
-  ID 201152 (raw_le32(201152)) at 0x175617c78a9
-  ID 201152 (raw_le32(201152)) at 0x175617c78c1
-Region #33: 6/6 IDs matched, 18 total hits, size=5378048
-  ID 200154 (raw_le32(200154)) at 0x1754d250028
-  ID 200154 (raw_le32(200154)) at 0x1754d250030
-  ID 200152 (raw_le32(200152)) at 0x1754d24f848
-  ID 200152 (raw_le32(200152)) at 0x1754d24f850
-  ID 200152 (raw_le32(200152)) at 0x1754d268aa4
-  ID 200152 (raw_le32(200152)) at 0x1754d268fa4
-  ID 200152 (raw_le32(200152)) at 0x1754d27b324
-  ID 200152 (raw_le32(200152)) at 0x1754d281424
-  ID 200152 (raw_le32(200152)) at 0x1754d281a64
-  ID 200152 (raw_le32(200152)) at 0x1754d281d24
-  ID 200441 (raw_le32(200441)) at 0x1754d24ff80
-  ID 200441 (raw_le32(200441)) at 0x1754d24ff88
-  ID 200652 (raw_le32(200652)) at 0x1754d24f890
-  ID 200652 (raw_le32(200652)) at 0x1754d24f898
-  ID 200722 (raw_le32(200722)) at 0x1754d24f2d8
-  ID 200722 (raw_le32(200722)) at 0x1754d24f2e0
-  ID 201152 (raw_le32(201152)) at 0x1754d24f590
-  ID 201152 (raw_le32(201152)) at 0x1754d24f598
-Region #2: 6/6 IDs matched, 13 total hits, size=167772160
-  ID 200154 (raw_le32(200154)) at 0x17370173ee8
-  ID 200154 (raw_le32(200154)) at 0x173705d84e8
-  ID 200154 (raw_le32(200154)) at 0x1737213e468
-  ID 200152 (raw_le32(200152)) at 0x173705d84b0
-  ID 200152 (raw_le32(200152)) at 0x17373436440
-  ID 200441 (raw_le32(200441)) at 0x17372cf4038
-  ID 200652 (raw_le32(200652)) at 0x173705dbbb0
-  ID 200652 (raw_le32(200652)) at 0x173720f93c8
-  ID 200722 (raw_le32(200722)) at 0x173705dc358
-  ID 200722 (raw_le32(200722)) at 0x17370ed6c78
-  ID 201152 (raw_le32(201152)) at 0x173705df2b0
-  ID 201152 (raw_le32(201152)) at 0x17373436590
-  ID 201152 (raw_le32(201152)) at 0x17375ef1c73
-Region #4: 6/6 IDs matched, 12 total hits, size=67112960
-  ID 200154 (raw_le32(200154)) at 0x174bd3c5148
-  ID 200154 (raw_le32(200154)) at 0x174bd6e4658
-  ID 200152 (raw_le32(200152)) at 0x174bbfa0708
-  ID 200152 (raw_le32(200152)) at 0x174bdf03398
-  ID 200441 (raw_le32(200441)) at 0x174bea9a4f8
-  ID 200441 (raw_le32(200441)) at 0x174becc6981
-  ID 200652 (raw_le32(200652)) at 0x174bcd329e8
-  ID 200652 (raw_le32(200652)) at 0x174bf1db558
-  ID 200722 (raw_le32(200722)) at 0x174bdc16768
-  ID 200722 (raw_le32(200722)) at 0x174bec55078
-  ID 201152 (raw_le32(201152)) at 0x174bda326d8
-  ID 201152 (raw_le32(201152)) at 0x174bdd401c8
-Region #35: 6/6 IDs matched, 12 total hits, size=4493312
-  ID 200154 (raw_le32(200154)) at 0x174a86f0380
-  ID 200154 (raw_le32(200154)) at 0x174a86f87a0
-  ID 200152 (raw_le32(200152)) at 0x174a86ee660
-  ID 200152 (raw_le32(200152)) at 0x174a86f6a80
-  ID 200441 (raw_le32(200441)) at 0x174a86f3c60
-  ID 200441 (raw_le32(200441)) at 0x174a86fc080
-  ID 200652 (raw_le32(200652)) at 0x174a86f1220
-  ID 200652 (raw_le32(200652)) at 0x174a86f9640
-  ID 200722 (raw_le32(200722)) at 0x174a86f0b80
-  ID 200722 (raw_le32(200722)) at 0x174a86f8fa0
-  ID 201152 (raw_le32(201152)) at 0x174a86f44c0
-  ID 201152 (raw_le32(201152)) at 0x174a86fc8e0
-Region #46: 6/6 IDs matched, 12 total hits, size=3309568
-  ID 200154 (raw_le32(200154)) at 0x1753e112110
-  ID 200154 (raw_le32(200154)) at 0x1753e112118
-  ID 200152 (raw_le32(200152)) at 0x1753e1120e0
-  ID 200152 (raw_le32(200152)) at 0x1753e1120e8
-  ID 200441 (raw_le32(200441)) at 0x1753e112080
-  ID 200441 (raw_le32(200441)) at 0x1753e112088
-  ID 200652 (raw_le32(200652)) at 0x1753e112038
-  ID 200652 (raw_le32(200652)) at 0x1753e112040
-  ID 200722 (raw_le32(200722)) at 0x1753e1121a0
-  ID 200722 (raw_le32(200722)) at 0x1753e1121a8
-  ID 201152 (raw_le32(201152)) at 0x1753e1121e8
-  ID 201152 (raw_le32(201152)) at 0x1753e1121f0
-Region #407: 6/6 IDs matched, 6 total hits, size=139264
-  ID 200154 (raw_le32(200154)) at 0x1754d4bdc10
-  ID 200152 (raw_le32(200152)) at 0x1754d4bdcd0
-  ID 200441 (raw_le32(200441)) at 0x1754d4bde50
-  ID 200652 (raw_le32(200652)) at 0x1754d4bdf70
-  ID 200722 (raw_le32(200722)) at 0x1754d4bd9d0
-  ID 201152 (raw_le32(201152)) at 0x1754d4bd8b0
-Region #413: 6/6 IDs matched, 6 total hits, size=135168
-  ID 200154 (raw_le32(200154)) at 0x175842ce970
-  ID 200152 (raw_le32(200152)) at 0x175842cea30
-  ID 200441 (raw_le32(200441)) at 0x175842ced30
-  ID 200652 (raw_le32(200652)) at 0x175842cef70
-  ID 200722 (raw_le32(200722)) at 0x175842ce460
-  ID 201152 (raw_le32(201152)) at 0x175842ce2e0
-Region #9: 5/6 IDs matched, 7 total hits, size=29908992
-  ID 200154 (raw_le32(200154)) at 0x1740f315e9c
-  ID 200152 (raw_le32(200152)) at 0x1740f315e90
-  ID 200652 (raw_le32(200652)) at 0x1740f316a48
-  ID 200722 (raw_le32(200722)) at 0x1740f216b2c
-  ID 200722 (raw_le32(200722)) at 0x1740f316bec
-  ID 201152 (raw_le32(201152)) at 0x1740f21a7ec
-  ID 201152 (raw_le32(201152)) at 0x1740f317600
-Region #36: 5/6 IDs matched, 7 total hits, size=4194304
-  ID 200154 (raw_le32(200154)) at 0x173102a1198
-  ID 200152 (raw_le32(200152)) at 0x173102a1194
-  ID 200652 (raw_le32(200652)) at 0x173102a25bc
-  ID 200722 (raw_le32(200722)) at 0x173102923c4
-  ID 200722 (raw_le32(200722)) at 0x173102a2bd4
-  ID 200722 (raw_le32(200722)) at 0x173102a3a80
-  ID 201152 (raw_le32(201152)) at 0x17310292440
-
-Sending 5602425 bytes from best region #19 (6 IDs matched)
-
-[OK] Received 5602425 bytes from region #19
-     Matched 6/6 IDs: [200154, 200152, 200441, 200652, 200722, 201152]
-
-Sending 265512 bytes from best region #33 (6 IDs matched)
-
-[OK] Received 265512 bytes from region #33
-     Matched 6/6 IDs: [200154, 200152, 200441, 200652, 200722, 201152]
-
-Sending 26214400 bytes from best region #2 (6 IDs matched)
-
-[OK] Received 26214400 bytes from region #2
-     Matched 6/6 IDs: [200154, 200152, 200441, 200652, 200722, 201152]
-
-
-Hunt complete!
-
-============================================================
-  REGION SUMMARY (ranked by how many target IDs found)
-============================================================
-  Region #19: 6/6 IDs, 20 hits, size=16539648
-    IDs found: [200154, 200152, 200441, 200652, 200722, 201152]
-  Region #33: 6/6 IDs, 18 hits, size=5378048
-    IDs found: [200154, 200152, 200441, 200652, 200722, 201152]
-  Region #2: 6/6 IDs, 13 hits, size=167772160
-    IDs found: [200154, 200152, 200441, 200652, 200722, 201152]
-  Region #4: 6/6 IDs, 12 hits, size=67112960
-    IDs found: [200154, 200152, 200441, 200652, 200722, 201152]
-  Region #35: 6/6 IDs, 12 hits, size=4493312
-    IDs found: [200154, 200152, 200441, 200652, 200722, 201152]
-  Region #46: 6/6 IDs, 12 hits, size=3309568
-    IDs found: [200154, 200152, 200441, 200652, 200722, 201152]
-  Region #407: 6/6 IDs, 6 hits, size=139264
-    IDs found: [200154, 200152, 200441, 200652, 200722, 201152]
-  Region #413: 6/6 IDs, 6 hits, size=135168
-    IDs found: [200154, 200152, 200441, 200652, 200722, 201152]
-  Region #9: 5/6 IDs, 7 hits, size=29908992
-    IDs found: [200154, 200152, 200652, 200722, 201152]
-  Region #36: 5/6 IDs, 7 hits, size=4194304
-    IDs found: [200154, 200152, 200652, 200722, 201152]
-
-============================================================
-  SEARCHING RAW BYTES FOR MSGPACK ARRAYS...
-============================================================
-
-[*] Analyzing region #19 (chunk 1/3, 5,602,425 bytes)...
-    Scanning 5,602,425 bytes for MsgPack structures...
-    ... 2% (125,009/5,602,425 bytes, 1157 attempts, 0 found)
-    ... 4% (236,786/5,602,425 bytes, 2344 attempts, 0 found)
-    ... 6% (340,193/5,602,425 bytes, 3563 attempts, 0 found)
-    ... 7% (445,001/5,602,425 bytes, 4824 attempts, 0 found)
-    ... 10% (580,073/5,602,425 bytes, 6100 attempts, 0 found)
-    ... 12% (727,490/5,602,425 bytes, 7420 attempts, 0 found)
-    ... 13% (750,306/5,602,425 bytes, 8781 attempts, 0 found)
-    ... 13% (777,498/5,602,425 bytes, 10134 attempts, 0 found)
-    ... 14% (806,993/5,602,425 bytes, 11499 attempts, 0 found)
-    ... 14% (837,713/5,602,425 bytes, 12875 attempts, 0 found)
-    ... 15% (865,746/5,602,425 bytes, 14263 attempts, 0 found)
-    ... 15% (895,362/5,602,425 bytes, 15657 attempts, 0 found)
-    ... 16% (933,842/5,602,425 bytes, 17056 attempts, 0 found)
-    ... 19% (1,085,537/5,602,425 bytes, 18461 attempts, 0 found)
-    ... 21% (1,224,338/5,602,425 bytes, 19912 attempts, 0 found)
-    ... 23% (1,291,554/5,602,425 bytes, 20901 attempts, 0 found)
-    ... 23% (1,291,938/5,602,425 bytes, 20917 attempts, 0 found)
-    ... 23% (1,292,298/5,602,425 bytes, 20934 attempts, 0 found)
-    ... 23% (1,292,465/5,602,425 bytes, 20947 attempts, 0 found)
-    ... 23% (1,292,657/5,602,425 bytes, 20961 attempts, 0 found)
-    ... 23% (1,292,802/5,602,425 bytes, 20974 attempts, 0 found)
-    ... 23% (1,292,945/5,602,425 bytes, 20985 attempts, 0 found)
-    ... 23% (1,293,162/5,602,425 bytes, 20996 attempts, 0 found)
-    ... 23% (1,293,426/5,602,425 bytes, 21007 attempts, 0 found)
-    ... 23% (1,293,690/5,602,425 bytes, 21018 attempts, 0 found)
-    ... 23% (1,293,906/5,602,425 bytes, 21027 attempts, 0 found)
-    ... 23% (1,299,041/5,602,425 bytes, 21269 attempts, 0 found)

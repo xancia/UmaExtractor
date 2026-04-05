@@ -1,117 +1,0 @@
-============================================================
-  Uma Musume Memory Explorer (fast mode)
-  Navigate to the page you want to explore, then run this.
-============================================================
-
-[OK] Attached using process name: UmamusumePrettyDerby.exe
-[*] Loading explorer script...
-=== Uma Musume Memory Explorer ===
-Scanning memory for MsgPack data structures (fast mode)...
-Found 965 scannable rw- regions (from 4342 total)
-[*] Scanning 965 regions with 12 patterns...
-[*] Scanning... 0% (1/11580)[*] Scanning... 2% (200/11580)[*] Scanning... 3% (400/11580)[*] Scanning... 5% (600/11580)[*] Scanning... 7% (800/11580)[*] Scanning... 9% (1000/11580)[*] Scanning... 10% (1200/11580)[*] Scanning... 12% (1400/11580)[*] Scanning... 14% (1600/11580)[*] Scanning... 16% (1800/11580)[*] Scanning... 17% (2000/11580)[*] Scanning... 19% (2200/11580)[*] Scanning... 21% (2400/11580)[*] Scanning... 22% (2600/11580)[*] Scanning... 24% (2800/11580)[*] Scanning... 26% (3000/11580)[*] Scanning... 28% (3200/11580)[*] Scanning... 29% (3400/11580)[*] Scanning... 31% (3600/11580)[*] Scanning... 33% (3800/11580)[*] Script load timed out, but scan is still running in the background...
-    This is normal for large memory spaces. Waiting for results...
-[*] Exploring memory (up to 1200s)...
-[*] Scanning... 35% (4000/11580)[*] Scanning... 36% (4200/11580)[*] Scanning... 38% (4400/11580)[*] Scanning... 40% (4600/11580)[*] Scanning... 41% (4800/11580)[*] Scanning... 43% (5000/11580)[*] Scanning... 45% (5200/11580)[*] Scanning... 47% (5400/11580)[*] Scanning... 48% (5600/11580)[*] Scanning... 50% (5800/11580)[*] Scanning... 52% (6000/11580)[*] Scanning... 54% (6200/11580)[*] Scanning... 55% (6400/11580)[*] Scanning... 57% (6600/11580)[*] Scanning... 59% (6800/11580)[*] Scanning... 60% (7000/11580)[*] Scanning... 62% (7200/11580)[*] Scanning... 64% (7400/11580)[*] Scanning... 66% (7600/11580)[*] Scanning... 67% (7800/11580)[*] Scanning... 69% (8000/11580)[*] Scanning... 71% (8200/11580)[*] Scanning... 73% (8400/11580)[*] Scanning... 74% (8600/11580)[*] Scanning... 76% (8800/11580)[*] Scanning... 78% (9000/11580)[*] Scanning... 79% (9200/11580)[*] Scanning... 81% (9400/11580)[*] Scanning... 83% (9600/11580)
-[*] Still running... 30s elapsed
-[*] Scanning... 85% (9800/11580)[*] Scanning... 86% (10000/11580)[*] Scanning... 88% (10200/11580)[*] Scanning... 90% (10400/11580)[*] Scanning... 92% (10600/11580)[*] Scanning... 93% (10800/11580)[*] Scanning... 95% (11000/11580)[*] Scanning... 97% (11200/11580)[*] Scanning... 98% (11400/11580)
-========================================
-DONE: 37004 pattern matches -> 119 unique keys
-  25 array keys, 4 map keys
-========================================
-
---- ARRAY KEYS (extractable data) ---
-  "cygames_id_serial_code_reward_info_array" -> array[0]
-  "disable_command_id_array" -> array[0]
-  "login_bonus_list" -> array[0]
-  "talk_gallery_list" -> array[191]
-    sub-keys: home_story_trigger_id, new_flag
-  "nickname_id_array" -> array[80]
-  "race_result_list" -> array[14]
-    sub-keys: turn, program_id, weather, ground_condition, weather
-  "win_saddle_id_array" -> array[13]
-  "race_condition_array" -> array[12]
-    sub-keys: program_id, weather, ground_condition
-  "skill_array" -> array[10]
-    sub-keys: skill_id, level
-  "succession_chara_array" -> array[6]
-    sub-keys: position_id, card_id, rank, rarity, talent_level, factor_id_array, factor_info_array, factor_id, level
-  "support_card_list" -> array[6]
-    sub-keys: position, support_card_id, exp, limit_break_count
-  "factor_id_array" -> array[5]
-  "factor_info_array" -> array[5]
-    sub-keys: factor_id, level
-  "params_inc_dec_info_array" -> array[4]
-    sub-keys: target_type, value
-  "single_mode_scenario_id_array" -> array[3]
-  "story_event_mission_list" -> array[0]
-  "succession_history_array" -> array[1]
-    sub-keys: id, viewer_id, trained_chara_id, history_type, succession_card_id, date
-  "chara_id_array" -> array[1]
-  "tips_event_partner_array" -> array[0]
-  "training_partner_array" -> array[0]
-  "unchecked_event_array" -> array[1]
-    sub-keys: event_id, chara_id, story_id, play_timing, event_contents_info, support_card_id, show_clear
-  "story_favorite_array" -> array[1]
-    sub-keys: episode_type, episode_id, is_mark
-  "choice_array" -> array[1]
-    sub-keys: select_index, receive_item_id, target_race_id
-  "unread_announce_id_array" -> array[0]
-  "valentine_campaign_received_array" -> array[0]
-
---- MAP KEYS ---
-  "challenge_match_load_info" -> map[4]
-  "event_contents_info" -> map[4]
-  "limited_shop_info" -> map[5]
-  "team_building_load_info" -> map[3]
-
---- SCALAR KEYS (90 total, showing first 40) ---
-  "OBJ_mc_num"
-  "added_gacha_stock_info"
-  "appear_flag"
-  "arrive_route_race_id"
-  "available_continue_num"
-  "available_free_continue_num"
-  "button_info"
-  "captain_id"
-  "card_id"
-  "challenge_match_id"
-  "chara_id"
-  "choice_number"
-  "circle_name"
-  "close_time"
-  "command_id"
-  "command_type"
-  "country_type"
-  "create_time"
-  "cygames_id_apply_product_flag"
-  "data_id"
-  "device_id"
-  "device_name"
-  "dmm_viewer_id"
-  "dress_id"
-  "episode_id"
-  "episode_type"
-  "event_effected_factor_array"
-  "event_id"
-  "factor_id"
-  "factor_id_arrap"
-  "factor_info_arraP"
-  "factor_info_arrap"
-  "fan_raid_first_flag"
-  "fan_raid_id"
-  "favorite_flag"
-  "free_continue_num"
-  "free_continue_time"
-  "graphics_device_name"
-  "history_type"
-  "home_story_trigger_id"
-
-
-Exploration complete!
-
-============================================================
-  RESULTS: 119 unique keys found
-  25 array keys | 4 map keys | 90 scalar keys
-============================================================
-
