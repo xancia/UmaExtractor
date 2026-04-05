@@ -1,59 +1,116 @@
-2026-04-05 04:02:53,654 [INFO] ============================================================
-2026-04-05 04:02:53,654 [INFO]   Uma Musume Skill Hook
-2026-04-05 04:02:53,654 [INFO]   Hooks IL2CPP methods to capture skill data
-2026-04-05 04:02:53,654 [INFO] ============================================================
-2026-04-05 04:02:53,654 [INFO] 
-2026-04-05 04:02:53,654 [INFO]   INSTRUCTIONS:
-2026-04-05 04:02:53,654 [INFO]   1. Run this script with the game open
-2026-04-05 04:02:53,654 [INFO]   2. Navigate to the skill learning screen (during training)
-2026-04-05 04:02:53,654 [INFO]      or open a trained character's detail
-2026-04-05 04:02:53,654 [INFO]   3. Wait a few seconds for hooks to fire
-2026-04-05 04:02:53,654 [INFO]   4. Ctrl+C to stop and save results
-2026-04-05 04:02:53,654 [INFO] 
-2026-04-05 04:02:53,862 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
-2026-04-05 04:02:53,868 [INFO] [*] Loading skill hooks...
-2026-04-05 04:02:54,067 [INFO]   Found classes: ['AvailableSkillSet', 'Gallop.MasterAvailableSkillSet', 'Gallop.MasterAvailableSkillSet.AvailableSkillSet', 'Gallop.MasterSkillSet', 'Gallop.SkillManager', 'Gallop.PartsSingleModeSkillLearningListItem', 'Gallop.PartsSingleModeSkillListItem', 'Gallop.SingleModeSkillLearningView', 'SkillInfo', 'Gallop.SingleModeSkillLearningViewController', 'Gallop.SingleModeSkillLearningViewController.SkillInfo']
-2026-04-05 04:02:54,075 [INFO]   7 hooks installed
-2026-04-05 04:02:54,075 [INFO]   Classes: ['AvailableSkillSet', 'Gallop.MasterAvailableSkillSet', 'Gallop.MasterAvailableSkillSet.AvailableSkillSet', 'Gallop.MasterSkillSet', 'Gallop.SkillManager', 'Gallop.PartsSingleModeSkillLearningListItem', 'Gallop.PartsSingleModeSkillListItem', 'Gallop.SingleModeSkillLearningView', 'SkillInfo', 'Gallop.SingleModeSkillLearningViewController', 'Gallop.SingleModeSkillLearningViewController.SkillInfo']
-2026-04-05 04:02:54,075 [INFO]     AvailableSkillSet:
-2026-04-05 04:02:54,075 [INFO]       methods: ['.ctor']
-2026-04-05 04:02:54,075 [INFO]       fields: {"Id": {"offset": 16}, "AvailableSkillSetId": {"offset": 20}, "SkillId": {"offset": 24}, "NeedRank": {"offset": 28}}
-2026-04-05 04:02:54,075 [INFO]     Gallop.MasterAvailableSkillSet:
-2026-04-05 04:02:54,075 [INFO]       methods: ['.ctor', 'Get', '_SelectOne', 'GetWithAvailableSkillSetIdOrderByIdAsc', '_SelectWithAvailableSkillSetIdOrderByIdAsc', 'GetListWithAvailableSkillSetIdOrderByIdAsc', 'MaybeListWithAvailableSkillSetIdOrderByIdAsc', '_ListSelectWithAvailableSkillSetIdOrderByIdAsc', '_CreateOrmByQueryResultWithAvailableSkillSetIdOrderByIdAsc', 'Unload', 'GetFromTalentLevel']
-2026-04-05 04:02:54,075 [INFO]       fields: {"TABLE_NAME": {"offset": 0}, "_db": {"offset": 16}, "_notFounds": {"offset": 24}, "_lazyPrimaryKeyDictionary": {"offset": 32}, "_dictionaryWithAvailableSkillSetId": {"offset": 40}}
-2026-04-05 04:02:54,075 [INFO]     Gallop.MasterAvailableSkillSet.AvailableSkillSet:
-2026-04-05 04:02:54,075 [INFO]       methods: ['.ctor']
-2026-04-05 04:02:54,075 [INFO]       fields: {"Id": {"offset": 16}, "AvailableSkillSetId": {"offset": 20}, "SkillId": {"offset": 24}, "NeedRank": {"offset": 28}}
-2026-04-05 04:02:54,075 [INFO]     Gallop.MasterSkillSet:
-2026-04-05 04:02:54,075 [INFO]       methods: ['get_dictionary', '.ctor', 'Get', '_SelectOne', 'Unload', '_ForcePreloadAllEntries', 'GetSkillDataList']
-2026-04-05 04:02:54,075 [INFO]       fields: {"TABLE_NAME": {"offset": 0}, "_db": {"offset": 16}, "_preloaded": {"offset": 24}, "_notFounds": {"offset": 32}, "_lazyPrimaryKeyDictionary": {"offset": 40}}
-2026-04-05 04:02:54,075 [INFO]     Gallop.SkillManager:
-2026-04-05 04:02:54,075 [INFO]       methods: ['.ctor', '_CreateTriggerCreate', 'CreateSkillView', 'AddSkill', 'GetSkill', 'GetSkills', 'CreateSkillArray', 'ClearSkills', 'AddCurrentActiveSkill', 'RemoveCurrentActiveSkill', 'GetCurrentActiveSkill', 'AddUsedSkillId', 'GetUsedSkillIdList', 'AddPrevActivateSkill', 'RemovePrevActivateSkill', 'GetPrevActivateSkillList', 'Update', 'LotActivateSkill', 'CheckSkillTriggerAndActivate', 'InitSkillEffect', 'InitSkillSE', 'PlaySkillEffect', 'ClearDelayPlayEffect', 'StopEffect', 'PauseEffect', 'ResumeEffect', 'SetEffectSpeed', 'PlaySkillSE', 'StopSE']
-2026-04-05 04:02:54,075 [INFO]       fields: {"_ownerInfo": {"offset": 16}, "_skills": {"offset": 24}, "_skillArray": {"offset": 32}, "_usedSkillIdList": {"offset": 40}, "_prevActivateSkills": {"offset": 48}, "_skillView": {"offset": 56}}
-2026-04-05 04:02:54,075 [INFO]     Gallop.PartsSingleModeSkillLearningListItem:
-2026-04-05 04:02:54,075 [INFO]       methods: ['get_PlusButton', 'get_BaseImage', 'UpdateItem', 'UpdateCurrent', 'GetMaxLevel', 'GetMasterSkillExp', 'GetSkillId', 'UpdateSkillName', 'UpdateLevelText', 'UpdateBaseImage', 'UpdateIcon', 'UpdateTipsBalloon', 'UpdateEventLimited', 'UpdateNotResolved', 'UpdateButtonVisible', 'UpdatePlusButtonIntaractable', 'UpdateMinusButtonIntaractable', 'GetTopInfo', 'GetPreInfo', 'IsRareSkill', '.ctor']
-2026-04-05 04:02:54,075 [INFO]       fields: {"TIPS_LEVEL_MAX": {"offset": 0}, "_skillIconRoot": {"offset": 56}, "_nameText": {"offset": 64}, "_descriptionText": {"offset": 72}, "_levelText": {"offset": 80}, "_lineImage": {"offset": 88}, "_needPointRoot": {"offset": 96}, "_needPoint": {"offset": 104}, "_getRoot": {"offset": 112}, "_lockRoot": {"offset": 120}, "_lockText": {"offset": 128}, "_plusButton": {"offset": 136}, "_minusButton": {"offset": 144}, "_baseImage": {"offset": 152}, "_hintBalloonRoot": {"offset": 160}, "_hintLvText": {"offset": 168}, "_hintRatioText": {"offset": 176}, "_eventLimitedImage": {"offset": 184}, "_notResolvedRoot": {"offset": 192}, "_infoList": {"offset": 200}, "_getRemainingSkillPoint": {"offset": 208}, "_skillIcon": {"offset": 216}}
-2026-04-05 04:02:54,075 [INFO]     Gallop.PartsSingleModeSkillListItem:
-2026-04-05 04:02:54,075 [INFO]       methods: ['UpdateItem', 'SetupOnClickSkillButton', 'SetupNeedSkillPoint', 'SetActiveNeedSkillPoint', 'ResizeObject', 'ChangeTextColorType', 'SetupNameText', 'SetGetSkill', 'SetHintLv', 'SetAcquire', 'SetUnAcquirable', 'SetInteractableMulColor', 'SetActiveSkillLevelText', '.ctor']
-2026-04-05 04:02:54,075 [INFO]       fields: {"DISC_CHAR_NAME": {"offset": 0}, "EVENT_BONUS_BADGE_CONDITION_COMPLETE_POS_X": {"offset": 0}, "EVENT_BONUS_BADGE_DEFAULT_POS_X": {"offset": 0}, "HEIGHT_THREE_LINES": {"offset": 0}, "HEIGHT_FOUR_LINES": {"offset": 0}, "_bgImage": {"offset": 56}, "_bgButton": {"offset": 64}, "_lineImage": {"offset": 72}, "_skillIconRoot": {"offset": 80}, "_nameText": {"offset": 88}, "_levelText": {"offset": 96}, "_descText": {"offset": 104}, "_newIconObject": {"offset": 112}, "_needSkillPointRoot": {"offset": 120}, "_needSkillPointText": {"offset": 128}, "_needTalentLevelText": {"offset": 136}, "_blinkImage": {"offset": 144}, "_eventLimitedImage": {"offset": 152}, "_hintLabelObject": {"offset": 160}, "_hintLvText": {"offset": 168}, "_acquireIcon": {"offset": 176}, "_unAcquirableIcon": {"offset": 184}, "_info": {"offset": 192}, "_skillIcon": {"offset": 200}, "_skillInfoPop": {"offset": 208}, "_hintLvMaxEffect": {"offset": 216}, "_resourceHash": {"offset": 224}}
-2026-04-05 04:02:54,075 [INFO]     Gallop.SingleModeSkillLearningView:
-2026-04-05 04:02:54,075 [INFO]       methods: ['get_ScrollRect', 'set_ScrollRect', 'get_Item', 'set_Item', 'get_SkillPointText', 'set_SkillPointText', 'get_DetailButton', 'set_DetailButton', 'get_DecideButton', 'set_DecideButton', 'get_ResetButton', 'set_ResetButton', 'get_AnimationTargetList', 'set_AnimationTargetList', 'get_AnimationTargetBottom', 'set_AnimationTargetBottom', 'get_TutorialStep1', 'set_TutorialStep1', '.ctor']
-2026-04-05 04:02:54,075 [INFO]       fields: {"<ScrollRect>k__BackingField": {"offset": 80}, "<Item>k__BackingField": {"offset": 88}, "<SkillPointText>k__BackingField": {"offset": 96}, "<DetailButton>k__BackingField": {"offset": 104}, "<DecideButton>k__BackingField": {"offset": 112}, "<ResetButton>k__BackingField": {"offset": 120}, "<AnimationTargetList>k__BackingField": {"offset": 128}, "<AnimationTargetBottom>k__BackingField": {"offset": 136}, "<TutorialStep1>k__BackingField": {"offset": 144}}
-2026-04-05 04:02:54,075 [INFO]     SkillInfo:
-2026-04-05 04:02:54,075 [INFO]       methods: ['get_SkillList', 'AddInfo', 'IsSelected', 'IsSelectedOrLevelChange', 'ClearSelected', 'GetNeedSkillPoint', 'IsEnableDecide', 'GetDispOrder', '.ctor']
-2026-04-05 04:02:54,075 [INFO]       fields: {"_skillList": {"offset": 16}}
-2026-04-05 04:02:54,075 [INFO]     Gallop.SingleModeSkillLearningViewController:
-2026-04-05 04:02:54,076 [INFO]       methods: ['get_RemainingPoint', 'set_RemainingPoint', 'RegisterDownload', 'InitializeView', 'BeginView', 'GetDynamicBgmId', 'GetDynamicBgmCueInfo', 'OverrideDynamicNowLoadingType', 'PlayInView', 'GetActiveItemList', 'GetBackButtonAnimationDelayTime', 'PlayOutView', 'OnGamePadMenuButton', 'OnClickBackButton', 'ChagePrevView', 'OnClickOsBackKey', 'Setup', 'SetupAnimationRectTransformList', 'IsResultState', 'GetInfo', 'IsValidDecideButton', 'UpdateDecideButton', 'UpdateSkillPoint', 'OnClickPlusListItem', 'OnClickMinusListItem', 'OnSelectUpdate', 'OnClickDecideButton', 'OnClickDetailButton', 'CoroutineSkillGetChangeView', 'PlaySkillGetSe', 'OnClickResetButton', 'ClearSelected', 'Cleanup', '.ctor', '<OnClickBackButton>b__24_1']
-2026-04-05 04:02:54,076 [INFO]       fields: {"BG_ID": {"offset": 0}, "BG_SUB_ID": {"offset": 0}, "BG_PATH": {"offset": 48}, "ENV_PATH": {"offset": 56}, "_skillInfoList": {"offset": 64}, "_itemList": {"offset": 72}, "_itemRectTransformList": {"offset": 80}, "<RemainingPoint>k__BackingField": {"offset": 88}, "_isSelectedDialog": {"offset": 96}}
-2026-04-05 04:02:54,076 [INFO]     Gallop.SingleModeSkillLearningViewController.SkillInfo:
-2026-04-05 04:02:54,076 [INFO]       methods: ['get_SkillList', 'AddInfo', 'IsSelected', 'IsSelectedOrLevelChange', 'ClearSelected', 'GetNeedSkillPoint', 'IsEnableDecide', 'GetDispOrder', '.ctor']
-2026-04-05 04:02:54,076 [INFO]       fields: {"_skillList": {"offset": 16}}
-2026-04-05 04:02:54,576 [INFO] 
-2026-04-05 04:02:54,576 [INFO]   Hooks active. Navigate to skill screen now.
-2026-04-05 04:02:54,576 [INFO]   Ctrl+C to stop and save.
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:45,241 [INFO] ============================================================
+2026-04-05 04:15:45,241 [INFO]   Uma Musume Skill Hook
+2026-04-05 04:15:45,241 [INFO]   Hooks IL2CPP methods to capture skill data
+2026-04-05 04:15:45,241 [INFO] ============================================================
+2026-04-05 04:15:45,241 [INFO] 
+2026-04-05 04:15:45,241 [INFO]   INSTRUCTIONS:
+2026-04-05 04:15:45,241 [INFO]   1. Run this script with the game open
+2026-04-05 04:15:45,241 [INFO]   2. Navigate to the skill learning screen (during training)
+2026-04-05 04:15:45,241 [INFO]      or open a trained character's detail
+2026-04-05 04:15:45,241 [INFO]   3. Wait a few seconds for hooks to fire
+2026-04-05 04:15:45,241 [INFO]   4. Ctrl+C to stop and save results
+2026-04-05 04:15:45,241 [INFO] 
+2026-04-05 04:15:45,458 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 04:15:45,464 [INFO] [*] Loading skill hooks...
+2026-04-05 04:15:45,666 [INFO]   Found classes: ['AvailableSkillSet', 'Gallop.MasterAvailableSkillSet', 'Gallop.MasterAvailableSkillSet.AvailableSkillSet', 'Gallop.MasterSkillSet', 'Info', 'SuccessionFactorInfo.Info', 'Gallop.WorkSingleModeCharaData.SuccessionFactorInfo.Info', 'Gallop.PartsCharacterHintLvUpListItem.Info', 'Gallop.PartsCharacterSkillListVerticalItem.Info', 'Gallop.PartsProperFrame.Info', 'Gallop.SelectListItem.Info', 'Gallop.PartsSupportCardDeckSkillListItem.Info', 'Gallop.PartsSupportCardDeckTrainingEffectListItem.Info', 'Gallop.ChampionsRankingListItem.Info', 'Gallop.CircleProfileUI.Info', 'Gallop.GachaFreeCampaignInfo.Info', 'Gallop.BannerUI.Info', 'Gallop.PartsPresentListItemBase.Info', 'Gallop.LimitBreakCut.Info', 'Gallop.PartsCharacterNoteVoiceListItem.Info', 'Gallop.SkillManager', 'Gallop.PartsSingleModeSkillLearningListItem', 'Gallop.PartsSingleModeSkillLearningListItem.Info', 'Gallop.PartsSingleModeSkillListItem', 'Gallop.PartsSingleModeSkillListItem.Info', 'Gallop.SingleModeSkillLearningView', 'SkillInfo', 'Gallop.SingleModeSkillLearningViewController', 'Gallop.SingleModeSkillLearningViewController.SkillInfo', 'CriWare.CriAtomExBeatSync.Info']
+2026-04-05 04:15:45,675 [INFO]   8 hooks installed
+2026-04-05 04:15:45,675 [INFO]   Classes: ['AvailableSkillSet', 'Gallop.MasterAvailableSkillSet', 'Gallop.MasterAvailableSkillSet.AvailableSkillSet', 'Gallop.MasterSkillSet', 'Info', 'SuccessionFactorInfo.Info', 'Gallop.WorkSingleModeCharaData.SuccessionFactorInfo.Info', 'Gallop.PartsCharacterHintLvUpListItem.Info', 'Gallop.PartsCharacterSkillListVerticalItem.Info', 'Gallop.PartsProperFrame.Info', 'Gallop.SelectListItem.Info', 'Gallop.PartsSupportCardDeckSkillListItem.Info', 'Gallop.PartsSupportCardDeckTrainingEffectListItem.Info', 'Gallop.ChampionsRankingListItem.Info', 'Gallop.CircleProfileUI.Info', 'Gallop.GachaFreeCampaignInfo.Info', 'Gallop.BannerUI.Info', 'Gallop.PartsPresentListItemBase.Info', 'Gallop.LimitBreakCut.Info', 'Gallop.PartsCharacterNoteVoiceListItem.Info', 'Gallop.SkillManager', 'Gallop.PartsSingleModeSkillLearningListItem', 'Gallop.PartsSingleModeSkillLearningListItem.Info', 'Gallop.PartsSingleModeSkillListItem', 'Gallop.PartsSingleModeSkillListItem.Info', 'Gallop.SingleModeSkillLearningView', 'SkillInfo', 'Gallop.SingleModeSkillLearningViewController', 'Gallop.SingleModeSkillLearningViewController.SkillInfo', 'CriWare.CriAtomExBeatSync.Info']
+2026-04-05 04:15:45,675 [INFO]     AvailableSkillSet:
+2026-04-05 04:15:45,675 [INFO]       methods: ['.ctor']
+2026-04-05 04:15:45,675 [INFO]       fields: {"Id": {"offset": 16}, "AvailableSkillSetId": {"offset": 20}, "SkillId": {"offset": 24}, "NeedRank": {"offset": 28}}
+2026-04-05 04:15:45,675 [INFO]     Gallop.MasterAvailableSkillSet:
+2026-04-05 04:15:45,675 [INFO]       methods: ['.ctor', 'Get', '_SelectOne', 'GetWithAvailableSkillSetIdOrderByIdAsc', '_SelectWithAvailableSkillSetIdOrderByIdAsc', 'GetListWithAvailableSkillSetIdOrderByIdAsc', 'MaybeListWithAvailableSkillSetIdOrderByIdAsc', '_ListSelectWithAvailableSkillSetIdOrderByIdAsc', '_CreateOrmByQueryResultWithAvailableSkillSetIdOrderByIdAsc', 'Unload', 'GetFromTalentLevel']
+2026-04-05 04:15:45,675 [INFO]       fields: {"TABLE_NAME": {"offset": 0}, "_db": {"offset": 16}, "_notFounds": {"offset": 24}, "_lazyPrimaryKeyDictionary": {"offset": 32}, "_dictionaryWithAvailableSkillSetId": {"offset": 40}}
+2026-04-05 04:15:45,675 [INFO]     Gallop.MasterAvailableSkillSet.AvailableSkillSet:
+2026-04-05 04:15:45,675 [INFO]       methods: ['.ctor']
+2026-04-05 04:15:45,675 [INFO]       fields: {"Id": {"offset": 16}, "AvailableSkillSetId": {"offset": 20}, "SkillId": {"offset": 24}, "NeedRank": {"offset": 28}}
+2026-04-05 04:15:45,675 [INFO]     Gallop.MasterSkillSet:
+2026-04-05 04:15:45,675 [INFO]       methods: ['get_dictionary', '.ctor', 'Get', '_SelectOne', 'Unload', '_ForcePreloadAllEntries', 'GetSkillDataList']
+2026-04-05 04:15:45,675 [INFO]       fields: {"TABLE_NAME": {"offset": 0}, "_db": {"offset": 16}, "_preloaded": {"offset": 24}, "_notFounds": {"offset": 32}, "_lazyPrimaryKeyDictionary": {"offset": 40}}
+2026-04-05 04:15:45,675 [INFO]     Info:
+2026-04-05 04:15:45,675 [INFO]       methods: ['get_label']
+2026-04-05 04:15:45,676 [INFO]       fields: {"playerHn": {"offset": 16}, "playbackId": {"offset": 24}, "barCount": {"offset": 28}, "beatCount": {"offset": 32}, "beatProgress": {"offset": 36}, "bpm": {"offset": 40}, "offset": {"offset": 44}, "numBeats": {"offset": 48}, "labelPtr": {"offset": 56}}
+2026-04-05 04:15:45,676 [INFO]     SuccessionFactorInfo.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_Position', 'get_FactorIdList', '.ctor', 'Add']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<Position>k__BackingField": {"offset": 16}, "<FactorIdList>k__BackingField": {"offset": 40}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.WorkSingleModeCharaData.SuccessionFactorInfo.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_Position', 'get_FactorIdList', '.ctor', 'Add']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<Position>k__BackingField": {"offset": 16}, "<FactorIdList>k__BackingField": {"offset": 40}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsCharacterHintLvUpListItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_SkillId', 'get_Name', 'get_NeedPoint', 'set_NeedPoint', 'get_IsEnouhgItem', 'get_NeedTalentLevel', 'get_MasterData', 'get_IsMaxHintLevel', '.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<SkillId>k__BackingField": {"offset": 16}, "<NeedPoint>k__BackingField": {"offset": 20}, "DiscountRateForDisplay": {"offset": 24}, "HintLv": {"offset": 28}, "IsRelease": {"offset": 32}, "<IsEnouhgItem>k__BackingField": {"offset": 33}, "<NeedTalentLevel>k__BackingField": {"offset": 36}, "<MasterData>k__BackingField": {"offset": 40}, "<IsMaxHintLevel>k__BackingField": {"offset": 48}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsCharacterSkillListVerticalItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_Id', 'get_IsPotentialSkill', 'set_IsPotentialSkill', '.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<Id>k__BackingField": {"offset": 16}, "<IsPotentialSkill>k__BackingField": {"offset": 20}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsProperFrame.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"_turf": {"offset": 16}, "_dirt": {"offset": 20}, "_short": {"offset": 24}, "_mile": {"offset": 28}, "_middle": {"offset": 32}, "_long": {"offset": 36}, "_nige": {"offset": 40}, "_senko": {"offset": 44}, "_sashi": {"offset": 48}, "_oikomi": {"offset": 52}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.SelectListItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_Id', 'set_Id', 'get_Size', 'set_Size', 'get_Space', 'set_Space', 'get_GetPathFunc', 'set_GetPathFunc', 'get_IsSelect', 'set_IsSelect', 'get_VisibleSelect', 'set_VisibleSelect', 'get_UnloadAuto', 'set_UnloadAuto', 'get_CustomOnUpdate', 'set_CustomOnUpdate', 'get_CustomOnSelect', 'set_CustomOnSelect', 'get_CustomOnLongTap', 'set_CustomOnLongTap', 'get_CharaButtonIfo', 'get_CharaButtonSize', '.ctor', 'SetUnloadAuto']
+2026-04-05 04:15:45,676 [INFO]       fields: {"DEFAULT_SPACE": {"offset": 0}, "<Id>k__BackingField": {"offset": 16}, "<Size>k__BackingField": {"offset": 20}, "<Space>k__BackingField": {"offset": 28}, "<GetPathFunc>k__BackingField": {"offset": 32}, "<IsSelect>k__BackingField": {"offset": 40}, "<VisibleSelect>k__BackingField": {"offset": 41}, "<UnloadAuto>k__BackingField": {"offset": 42}, "<CustomOnUpdate>k__BackingField": {"offset": 48}, "<CustomOnSelect>k__BackingField": {"offset": 56}, "<CustomOnLongTap>k__BackingField": {"offset": 64}, "<CharaButtonIfo>k__BackingField": {"offset": 72}, "<CharaButtonSize>k__BackingField": {"offset": 80}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsSupportCardDeckSkillListItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"SkillId": {"offset": 16}, "MasterSkillData": {"offset": 24}, "SupportCardIdList": {"offset": 32}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsSupportCardDeckTrainingEffectListItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"EffectType": {"offset": 16}, "EffectValue": {"offset": 20}, "SupportCardIdList": {"offset": 24}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.ChampionsRankingListItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['.ctor', 'GetCharaButtonInfo', 'OnTapButton', '<OnTapButton>b__7_0']
+2026-04-05 04:15:45,676 [INFO]       fields: {"Rank": {"offset": 16}, "RealRank": {"offset": 20}, "RankInfo": {"offset": 24}, "UserInfo": {"offset": 32}, "EntryCharaList": {"offset": 40}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.CircleProfileUI.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_BgList', 'set_BgList', 'get_CharaName', '.ctor', 'Update', 'GetApiSaveParam', 'InitList']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<BgList>k__BackingField": {"offset": 16}, "BgId": {"offset": 24}, "CharaId": {"offset": 28}, "DressId": {"offset": 32}, "CircleName": {"offset": 40}, "Approval": {"offset": 48}, "Policy": {"offset": 52}, "MemberNum": {"offset": 56}, "Recruit": {"offset": 64}, "VisibleRank": {"offset": 72}, "LastMonth": {"offset": 80}, "LastMonthTerm": {"offset": 88}, "TermStr": {"offset": 96}, "RankingLastMonth": {"offset": 104}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.GachaFreeCampaignInfo.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_CampaignId', 'get_EnableSingle', 'get_EnableMulti', '.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<CampaignId>k__BackingField": {"offset": 16}, "<EnableSingle>k__BackingField": {"offset": 20}, "<EnableMulti>k__BackingField": {"offset": 21}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.BannerUI.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_Texture', 'set_Texture', 'get_Master', 'set_Master', '.ctor', 'LoadTexture']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<Texture>k__BackingField": {"offset": 16}, "<Master>k__BackingField": {"offset": 24}, "_resourcePath": {"offset": 32}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsPresentListItemBase.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_Category', 'set_Category', 'get_PresentId', 'set_PresentId', 'get_RewardId', 'set_RewardId', 'get_Num', 'set_Num', 'get_LimitTimeStamp', 'set_LimitTimeStamp', 'get_Name', 'set_Name', 'get_LimitText', 'set_LimitText', 'get_IsLimitOver', 'set_IsLimitOver', 'get_IsLimitMoment', 'set_IsLimitMoment', 'get_Message', 'set_Message', 'get_CreateDate', 'set_CreateDate', 'get_ReceiveDate', 'set_ReceiveDate', '.ctor', 'GetName', 'GetLimitText']
+2026-04-05 04:15:45,676 [INFO]       fields: {"DATE_TIME_STRING_FORMAT": {"offset": 0}, "UNLIMITED_UNIX_TIMESTAMP": {"offset": 0}, "<Category>k__BackingField": {"offset": 16}, "<PresentId>k__BackingField": {"offset": 20}, "<RewardId>k__BackingField": {"offset": 24}, "<Num>k__BackingField": {"offset": 28}, "<LimitTimeStamp>k__BackingField": {"offset": 32}, "<Name>k__BackingField": {"offset": 40}, "<LimitText>k__BackingField": {"offset": 48}, "<IsLimitOver>k__BackingField": {"offset": 56}, "<IsLimitMoment>k__BackingField": {"offset": 57}, "<Message>k__BackingField": {"offset": 64}, "<CreateDate>k__BackingField": {"offset": 72}, "<ReceiveDate>k__BackingField": {"offset": 80}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.LimitBreakCut.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"BeforeRarity": {"offset": 16}, "CardData": {"offset": 24}, "OnStart": {"offset": 32}, "OnEnd": {"offset": 40}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsCharacterNoteVoiceListItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"SystemText": {"offset": 16}, "IsUnlocked": {"offset": 24}, "Lottery": {"offset": 32}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.SkillManager:
+2026-04-05 04:15:45,676 [INFO]       methods: ['.ctor', '_CreateTriggerCreate', 'CreateSkillView', 'AddSkill', 'GetSkill', 'GetSkills', 'CreateSkillArray', 'ClearSkills', 'AddCurrentActiveSkill', 'RemoveCurrentActiveSkill', 'GetCurrentActiveSkill', 'AddUsedSkillId', 'GetUsedSkillIdList', 'AddPrevActivateSkill', 'RemovePrevActivateSkill', 'GetPrevActivateSkillList', 'Update', 'LotActivateSkill', 'CheckSkillTriggerAndActivate', 'InitSkillEffect', 'InitSkillSE', 'PlaySkillEffect', 'ClearDelayPlayEffect', 'StopEffect', 'PauseEffect', 'ResumeEffect', 'SetEffectSpeed', 'PlaySkillSE', 'StopSE']
+2026-04-05 04:15:45,676 [INFO]       fields: {"_ownerInfo": {"offset": 16}, "_skills": {"offset": 24}, "_skillArray": {"offset": 32}, "_usedSkillIdList": {"offset": 40}, "_prevActivateSkills": {"offset": 48}, "_skillView": {"offset": 56}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsSingleModeSkillLearningListItem:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_PlusButton', 'get_BaseImage', 'UpdateItem', 'UpdateCurrent', 'GetMaxLevel', 'GetMasterSkillExp', 'GetSkillId', 'UpdateSkillName', 'UpdateLevelText', 'UpdateBaseImage', 'UpdateIcon', 'UpdateTipsBalloon', 'UpdateEventLimited', 'UpdateNotResolved', 'UpdateButtonVisible', 'UpdatePlusButtonIntaractable', 'UpdateMinusButtonIntaractable', 'GetTopInfo', 'GetPreInfo', 'IsRareSkill', '.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"TIPS_LEVEL_MAX": {"offset": 0}, "_skillIconRoot": {"offset": 56}, "_nameText": {"offset": 64}, "_descriptionText": {"offset": 72}, "_levelText": {"offset": 80}, "_lineImage": {"offset": 88}, "_needPointRoot": {"offset": 96}, "_needPoint": {"offset": 104}, "_getRoot": {"offset": 112}, "_lockRoot": {"offset": 120}, "_lockText": {"offset": 128}, "_plusButton": {"offset": 136}, "_minusButton": {"offset": 144}, "_baseImage": {"offset": 152}, "_hintBalloonRoot": {"offset": 160}, "_hintLvText": {"offset": 168}, "_hintRatioText": {"offset": 176}, "_eventLimitedImage": {"offset": 184}, "_notResolvedRoot": {"offset": 192}, "_infoList": {"offset": 200}, "_getRemainingSkillPoint": {"offset": 208}, "_skillIcon": {"offset": 216}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsSingleModeSkillLearningListItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_SkillId', 'get_Level', 'set_Level', 'get_IsAcquired', 'get_ChangeLevel', 'set_ChangeLevel', 'get_IsGet', 'get_IsLock', 'get_Name', 'get_StatusType', 'get_StatusValue', 'get_NeedPoint', 'set_NeedPoint', 'get_CalcNeedPoint', 'set_CalcNeedPoint', 'get_OriginNeedPoint', 'get_MasterData', 'get_NeedPointMasterData', 'IsNotResolved', '.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<SkillId>k__BackingField": {"offset": 16}, "<Level>k__BackingField": {"offset": 20}, "<IsAcquired>k__BackingField": {"offset": 24}, "<ChangeLevel>k__BackingField": {"offset": 28}, "<IsGet>k__BackingField": {"offset": 32}, "<IsLock>k__BackingField": {"offset": 33}, "<StatusType>k__BackingField": {"offset": 36}, "<StatusValue>k__BackingField": {"offset": 40}, "<NeedPoint>k__BackingField": {"offset": 44}, "<CalcNeedPoint>k__BackingField": {"offset": 48}, "<OriginNeedPoint>k__BackingField": {"offset": 52}, "DiscountRateForDisplay": {"offset": 56}, "HintLv": {"offset": 60}, "IsSelected": {"offset": 64}, "<MasterData>k__BackingField": {"offset": 72}, "<NeedPointMasterData>k__BackingField": {"offset": 80}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsSingleModeSkillListItem:
+2026-04-05 04:15:45,676 [INFO]       methods: ['UpdateItem', 'SetupOnClickSkillButton', 'SetupNeedSkillPoint', 'SetActiveNeedSkillPoint', 'ResizeObject', 'ChangeTextColorType', 'SetupNameText', 'SetGetSkill', 'SetHintLv', 'SetAcquire', 'SetUnAcquirable', 'SetInteractableMulColor', 'SetActiveSkillLevelText', '.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"DISC_CHAR_NAME": {"offset": 0}, "EVENT_BONUS_BADGE_CONDITION_COMPLETE_POS_X": {"offset": 0}, "EVENT_BONUS_BADGE_DEFAULT_POS_X": {"offset": 0}, "HEIGHT_THREE_LINES": {"offset": 0}, "HEIGHT_FOUR_LINES": {"offset": 0}, "_bgImage": {"offset": 56}, "_bgButton": {"offset": 64}, "_lineImage": {"offset": 72}, "_skillIconRoot": {"offset": 80}, "_nameText": {"offset": 88}, "_levelText": {"offset": 96}, "_descText": {"offset": 104}, "_newIconObject": {"offset": 112}, "_needSkillPointRoot": {"offset": 120}, "_needSkillPointText": {"offset": 128}, "_needTalentLevelText": {"offset": 136}, "_blinkImage": {"offset": 144}, "_eventLimitedImage": {"offset": 152}, "_hintLabelObject": {"offset": 160}, "_hintLvText": {"offset": 168}, "_acquireIcon": {"offset": 176}, "_unAcquirableIcon": {"offset": 184}, "_info": {"offset": 192}, "_skillIcon": {"offset": 200}, "_skillInfoPop": {"offset": 208}, "_hintLvMaxEffect": {"offset": 216}, "_resourceHash": {"offset": 224}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.PartsSingleModeSkillListItem.Info:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_Id', 'set_Id', 'get_Level', 'set_Level', 'get_Name', 'get_NeedSkillPoint', 'set_NeedSkillPoint', 'get_IsDrawNeedSkillPoint', 'set_IsDrawNeedSkillPoint', 'get_Desc', 'get_IsDrawDesc', 'set_IsDrawDesc', 'get_Condition', 'get_Probability', 'set_Probability', 'get_IsDrawExp', 'set_IsDrawExp', 'get_IsNew', 'set_IsNew', 'get_IsHintLvUp', 'set_IsHintLvUp', 'get_HintLv', 'set_HintLv', 'get_IsDrawHintLv', 'set_IsDrawHintLv', 'get_InsertHalfSpaceBeforeHintLvNum', 'set_InsertHalfSpaceBeforeHintLvNum', 'get_IsDrawHintLvUpParamOnDetail', 'set_IsDrawHintLvUpParamOnDetail', 'get_NeedTalentLevel', 'set_NeedTalentLevel', 'get_IsDrawNeedTalentLevel', 'set_IsDrawNeedTalentLevel', 'get_OverrideSkillIconSize', 'set_OverrideSkillIconSize', 'get_UseSkillListButton', 'set_UseSkillListButton', 'get_IsLevelUpColor', 'set_IsLevelUpColor', 'get_IsSkillLearningNameMode', 'set_IsSkillLearningNameMode', 'get_IsDrawUniqSkillInfo', 'set_IsDrawUniqSkillInfo', 'get_IsDisplayUpgradeSkill', 'set_IsDisplayUpgradeSkill', 'get_PlateType', 'set_PlateType', 'get_LimitedType', 'set_LimitedType', 'get_MasterData', 'set_MasterData', 'get_IsConditionComplete', 'set_IsConditionComplete', 'get_IsSingleModeSkillUpgradeDescription', 'set_IsSingleModeSkillUpgradeDescription', 'get_IsDrawAcquire', 'set_IsDrawAcquire', 'get_IsDrawUnAcquirable', 'set_IsDrawUnAcquirable', 'get_IsEventBonusSkill', 'set_IsEventBonusSkill', 'get_IsIconLongTapEnable', 'set_IsIconLongTapEnable', '.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<Id>k__BackingField": {"offset": 16}, "<Level>k__BackingField": {"offset": 20}, "<NeedSkillPoint>k__BackingField": {"offset": 24}, "<IsDrawNeedSkillPoint>k__BackingField": {"offset": 28}, "<IsDrawDesc>k__BackingField": {"offset": 29}, "<Probability>k__BackingField": {"offset": 32}, "<IsDrawExp>k__BackingField": {"offset": 36}, "<IsNew>k__BackingField": {"offset": 37}, "<IsHintLvUp>k__BackingField": {"offset": 38}, "<HintLv>k__BackingField": {"offset": 40}, "<IsDrawHintLv>k__BackingField": {"offset": 44}, "<InsertHalfSpaceBeforeHintLvNum>k__BackingField": {"offset": 45}, "<IsDrawHintLvUpParamOnDetail>k__BackingField": {"offset": 46}, "<NeedTalentLevel>k__BackingField": {"offset": 48}, "<IsDrawNeedTalentLevel>k__BackingField": {"offset": 52}, "<OverrideSkillIconSize>k__BackingField": {"offset": 53}, "SkillIconSize": {"offset": 56}, "<UseSkillListButton>k__BackingField": {"offset": 64}, "<IsLevelUpColor>k__BackingField": {"offset": 65}, "<IsSkillLearningNameMode>k__BackingField": {"offset": 66}, "<IsDrawUniqSkillInfo>k__BackingField": {"offset": 67}, "<IsDisplayUpgradeSkill>k__BackingField": {"offset": 68}, "<PlateType>k__BackingField": {"offset": 72}, "<LimitedType>k__BackingField": {"offset": 76}, "<MasterData>k__BackingField": {"offset": 80}, "<IsConditionComplete>k__BackingField": {"offset": 88}, "<IsSingleModeSkillUpgradeDescription>k__BackingField": {"offset": 89}, "<IsDrawAcquire>k__BackingField": {"offset": 90}, "<IsDrawUnAcquirable>k__BackingField": {"offset": 91}, "IsSkillUpgradeBadge": {"offset": 92}, "SkillUpgradeCardId": {"offset": 96}, "<IsEventBonusSkill>k__BackingField": {"offset": 100}, "<IsIconLongTapEnable>k__BackingField": {"offset": 101}}
+2026-04-05 04:15:45,676 [INFO]     Gallop.SingleModeSkillLearningView:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_ScrollRect', 'set_ScrollRect', 'get_Item', 'set_Item', 'get_SkillPointText', 'set_SkillPointText', 'get_DetailButton', 'set_DetailButton', 'get_DecideButton', 'set_DecideButton', 'get_ResetButton', 'set_ResetButton', 'get_AnimationTargetList', 'set_AnimationTargetList', 'get_AnimationTargetBottom', 'set_AnimationTargetBottom', 'get_TutorialStep1', 'set_TutorialStep1', '.ctor']
+2026-04-05 04:15:45,676 [INFO]       fields: {"<ScrollRect>k__BackingField": {"offset": 80}, "<Item>k__BackingField": {"offset": 88}, "<SkillPointText>k__BackingField": {"offset": 96}, "<DetailButton>k__BackingField": {"offset": 104}, "<DecideButton>k__BackingField": {"offset": 112}, "<ResetButton>k__BackingField": {"offset": 120}, "<AnimationTargetList>k__BackingField": {"offset": 128}, "<AnimationTargetBottom>k__BackingField": {"offset": 136}, "<TutorialStep1>k__BackingField": {"offset": 144}}
+2026-04-05 04:15:45,676 [INFO]     SkillInfo:
+2026-04-05 04:15:45,676 [INFO]       methods: ['get_SkillList', 'AddInfo', 'IsSelected', 'IsSelectedOrLevelChange', 'ClearSelected', 'GetNeedSkillPoint', 'IsEnableDecide', 'GetDispOrder', '.ctor']
+2026-04-05 04:15:45,677 [INFO]       fields: {"_skillList": {"offset": 16}}
+2026-04-05 04:15:45,677 [INFO]     Gallop.SingleModeSkillLearningViewController:
+2026-04-05 04:15:45,677 [INFO]       methods: ['get_RemainingPoint', 'set_RemainingPoint', 'RegisterDownload', 'InitializeView', 'BeginView', 'GetDynamicBgmId', 'GetDynamicBgmCueInfo', 'OverrideDynamicNowLoadingType', 'PlayInView', 'GetActiveItemList', 'GetBackButtonAnimationDelayTime', 'PlayOutView', 'OnGamePadMenuButton', 'OnClickBackButton', 'ChagePrevView', 'OnClickOsBackKey', 'Setup', 'SetupAnimationRectTransformList', 'IsResultState', 'GetInfo', 'IsValidDecideButton', 'UpdateDecideButton', 'UpdateSkillPoint', 'OnClickPlusListItem', 'OnClickMinusListItem', 'OnSelectUpdate', 'OnClickDecideButton', 'OnClickDetailButton', 'CoroutineSkillGetChangeView', 'PlaySkillGetSe', 'OnClickResetButton', 'ClearSelected', 'Cleanup', '.ctor', '<OnClickBackButton>b__24_1']
+2026-04-05 04:15:45,677 [INFO]       fields: {"BG_ID": {"offset": 0}, "BG_SUB_ID": {"offset": 0}, "BG_PATH": {"offset": 48}, "ENV_PATH": {"offset": 56}, "_skillInfoList": {"offset": 64}, "_itemList": {"offset": 72}, "_itemRectTransformList": {"offset": 80}, "<RemainingPoint>k__BackingField": {"offset": 88}, "_isSelectedDialog": {"offset": 96}}
+2026-04-05 04:15:45,677 [INFO]     Gallop.SingleModeSkillLearningViewController.SkillInfo:
+2026-04-05 04:15:45,677 [INFO]       methods: ['get_SkillList', 'AddInfo', 'IsSelected', 'IsSelectedOrLevelChange', 'ClearSelected', 'GetNeedSkillPoint', 'IsEnableDecide', 'GetDispOrder', '.ctor']
+2026-04-05 04:15:45,677 [INFO]       fields: {"_skillList": {"offset": 16}}
+2026-04-05 04:15:45,677 [INFO]     CriWare.CriAtomExBeatSync.Info:
+2026-04-05 04:15:45,677 [INFO]       methods: ['get_label']
+2026-04-05 04:15:45,677 [INFO]       fields: {"playerHn": {"offset": 16}, "playbackId": {"offset": 24}, "barCount": {"offset": 28}, "beatCount": {"offset": 32}, "beatProgress": {"offset": 36}, "bpm": {"offset": 40}, "offset": {"offset": 44}, "numBeats": {"offset": 48}, "labelPtr": {"offset": 56}}
+2026-04-05 04:15:46,177 [INFO] 
+2026-04-05 04:15:46,177 [INFO]   Hooks active. Navigate to skill screen now.
+2026-04-05 04:15:46,177 [INFO]   Ctrl+C to stop and save.
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: available_skill_set
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "available_skill_set",
   "availableSkillSetId": 105201,
   "count": 7,
@@ -102,470 +159,1258 @@
     }
   ]
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200442,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200652,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 201412,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200472,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200441,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200302,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200301,
   "variant": 0
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200471,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200152,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200151,
   "variant": 0
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200154,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,946 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200182,
   "variant": 1
 }
-2026-04-05 04:02:56,946 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200181,
   "variant": 0
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200331,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200462,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200582,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200722,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200891,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,276 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,276 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200911,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,277 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,277 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 201152,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,277 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,277 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 201212,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,277 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,277 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 201532,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,277 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,277 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 201531,
   "variant": 0
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,277 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,277 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 900161,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,277 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,277 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 900271,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,277 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,277 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 100521,
   "variant": 1
 }
-2026-04-05 04:02:56,947 [INFO] 
+2026-04-05 04:15:47,277 [INFO] 
   !! EVENT: skill_info_add_info
-2026-04-05 04:02:56,947 [INFO]      {
+2026-04-05 04:15:47,277 [INFO]      {
   "type": "skill_info_add_info",
   "skillId": 200332,
   "variant": 1
 }
-2026-04-05 04:02:57,517 [INFO] 
-  !! EVENT: available_skill_set
-2026-04-05 04:02:57,517 [INFO]      {
-  "type": "available_skill_set",
-  "availableSkillSetId": 105201,
-  "count": 7,
-  "skills": [
+2026-04-05 04:15:47,347 [INFO] 
+  !! EVENT: skill_tree_full
+2026-04-05 04:15:47,348 [INFO]      {
+  "type": "skill_tree_full",
+  "groupCount": 23,
+  "groups": [
     {
-      "id": 365,
-      "setId": 105201,
-      "skillId": 200442,
-      "needRank": 0
+      "groupIndex": 0,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 100521,
+          "off_20": 3,
+          "off_24": 0,
+          "off_28": 3,
+          "off_32": 1,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 0,
+          "off_48": 0,
+          "off_52": 0,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": 105680112,
+          "off_76": 530,
+          "off_80": 0,
+          "off_84": 0,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 900271,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
     },
     {
-      "id": 366,
-      "setId": 105201,
-      "skillId": 200652,
-      "needRank": 0
+      "groupIndex": 1,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 900271,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 120,
+          "off_48": 120,
+          "off_52": 200,
+          "off_56": 40,
+          "off_60": 5,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1727177856,
+          "off_76": 529,
+          "off_80": 69154208,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 900161,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
     },
     {
-      "id": 367,
-      "setId": 105201,
-      "skillId": 201412,
-      "needRank": 0
+      "groupIndex": 2,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 900161,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 180,
+          "off_48": 180,
+          "off_52": 200,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1727177488,
+          "off_76": 529,
+          "off_80": 69154352,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 201531,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
     },
     {
-      "id": 375,
-      "setId": 105201,
-      "skillId": 200472,
-      "needRank": 2
+      "groupIndex": 3,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200154,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 257,
+          "off_48": 117,
+          "off_52": 130,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1727374464,
+          "off_76": 529,
+          "off_80": 69156512,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200151,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
     },
     {
-      "id": 376,
-      "setId": 105201,
-      "skillId": 200441,
-      "needRank": 3
+      "groupIndex": 4,
+      "skillCount": 2,
+      "skills": [
+        {
+          "off_16": 200152,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 63,
+          "off_48": 63,
+          "off_52": 90,
+          "off_56": 30,
+          "off_60": 3,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827004416,
+          "off_76": 529,
+          "off_80": 69156704,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200471,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        },
+        {
+          "off_16": 200151,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 77,
+          "off_48": 77,
+          "off_52": 110,
+          "off_56": 30,
+          "off_60": 3,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1719767040,
+          "off_76": 529,
+          "off_80": 69156608,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200152,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
     },
     {
-      "id": 377,
-      "setId": 105201,
-      "skillId": 200302,
-      "needRank": 4
+      "groupIndex": 5,
+      "skillCount": 2,
+      "skills": [
+        {
+          "off_16": 200182,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 81,
+          "off_48": 81,
+          "off_52": 90,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1118890928,
+          "off_76": 529,
+          "off_80": 69156128,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200154,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        },
+        {
+          "off_16": 200181,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 99,
+          "off_48": 99,
+          "off_52": 110,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1727374832,
+          "off_76": 529,
+          "off_80": 69156032,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -707133952,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 57276672,
+          "off_116": 530,
+          "off_120": 57129936,
+          "off_124": 530,
+          "off_128": 0
+        }
+      ]
     },
     {
-      "id": 378,
-      "setId": 105201,
-      "skillId": 200471,
-      "needRank": 5
+      "groupIndex": 6,
+      "skillCount": 2,
+      "skills": [
+        {
+          "off_16": 200302,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 90,
+          "off_48": 90,
+          "off_52": 90,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827001472,
+          "off_76": 529,
+          "off_80": 68682160,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200441,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        },
+        {
+          "off_16": 200301,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 110,
+          "off_48": 110,
+          "off_52": 110,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1719766304,
+          "off_76": 529,
+          "off_80": 68681968,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200302,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 7,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200331,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 342,
+          "off_48": 162,
+          "off_52": 180,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1727375936,
+          "off_76": 529,
+          "off_80": 69155792,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200181,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 8,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200332,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 180,
+          "off_48": 180,
+          "off_52": 180,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827461328,
+          "off_76": 529,
+          "off_80": 69154016,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 100521,
+          "off_116": 3,
+          "off_120": 0,
+          "off_124": 3,
+          "off_128": 1
+        }
+      ]
+    },
+    {
+      "groupIndex": 9,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200441,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 320,
+          "off_48": 160,
+          "off_52": 160,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1719763360,
+          "off_76": 529,
+          "off_80": 68682256,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200472,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 10,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200442,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 160,
+          "off_48": 160,
+          "off_52": 160,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1826793680,
+          "off_76": 529,
+          "off_80": 68683072,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -655994792,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 1,
+          "off_116": -1,
+          "off_120": 0,
+          "off_124": 0,
+          "off_128": -1715029952
+        }
+      ]
+    },
+    {
+      "groupIndex": 11,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200462,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 153,
+          "off_48": 153,
+          "off_52": 170,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1826791840,
+          "off_76": 529,
+          "off_80": 69155600,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200331,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 12,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200471,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 340,
+          "off_48": 170,
+          "off_52": 170,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1719765568,
+          "off_76": 529,
+          "off_80": 68681872,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200301,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 13,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200472,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 170,
+          "off_48": 170,
+          "off_52": 170,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1826792576,
+          "off_76": 529,
+          "off_80": 68682448,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 201412,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 14,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200582,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 108,
+          "off_48": 108,
+          "off_52": 180,
+          "off_56": 40,
+          "off_60": 5,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827298960,
+          "off_76": 529,
+          "off_80": 69155504,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200462,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 15,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200652,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 160,
+          "off_48": 160,
+          "off_52": 160,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1826890880,
+          "off_76": 529,
+          "off_80": 68682832,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200442,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 16,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200722,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 104,
+          "off_48": 104,
+          "off_52": 160,
+          "off_56": 35,
+          "off_60": 4,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827462064,
+          "off_76": 529,
+          "off_80": 69155408,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200582,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 17,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200891,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 117,
+          "off_48": 117,
+          "off_52": 130,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827126928,
+          "off_76": 529,
+          "off_80": 69155264,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200722,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 18,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 200911,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 117,
+          "off_48": 117,
+          "off_52": 130,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1118889824,
+          "off_76": 529,
+          "off_80": 69155120,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200891,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 19,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 201152,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 144,
+          "off_48": 144,
+          "off_52": 160,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827210736,
+          "off_76": 529,
+          "off_80": 69155024,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 200911,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 20,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 201212,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 144,
+          "off_48": 144,
+          "off_52": 160,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827357456,
+          "off_76": 529,
+          "off_80": 69154880,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 201152,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        }
+      ]
+    },
+    {
+      "groupIndex": 21,
+      "skillCount": 1,
+      "skills": [
+        {
+          "off_16": 201412,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 120,
+          "off_48": 120,
+          "off_52": 120,
+          "off_56": 0,
+          "off_60": 0,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1826795520,
+          "off_76": 529,
+          "off_80": 68682640,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -658574096,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 56637312,
+          "off_116": 530,
+          "off_120": -1710929088,
+          "off_124": 529,
+          "off_128": 7
+        }
+      ]
+    },
+    {
+      "groupIndex": 22,
+      "skillCount": 2,
+      "skills": [
+        {
+          "off_16": 201532,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 99,
+          "off_48": 99,
+          "off_52": 110,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1827000736,
+          "off_76": 529,
+          "off_80": 69154592,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": -736248240,
+          "off_100": 527,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 201212,
+          "off_116": 1,
+          "off_120": 0,
+          "off_124": 1,
+          "off_128": 0
+        },
+        {
+          "off_16": 201531,
+          "off_20": 1,
+          "off_24": 0,
+          "off_28": 1,
+          "off_32": 0,
+          "off_36": 0,
+          "off_40": 0,
+          "off_44": 117,
+          "off_48": 117,
+          "off_52": 130,
+          "off_56": 10,
+          "off_60": 1,
+          "off_64": 0,
+          "off_68": 0,
+          "off_72": -1727242240,
+          "off_76": 529,
+          "off_80": 69154496,
+          "off_84": 530,
+          "off_88": 0,
+          "off_92": 0,
+          "off_96": 0,
+          "off_100": 0,
+          "off_104": 0,
+          "off_108": 0,
+          "off_112": 0,
+          "off_116": 0,
+          "off_120": 0,
+          "off_124": 0,
+          "off_128": 0
+        }
+      ]
     }
   ]
 }
-2026-04-05 04:02:57,517 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200442,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200652,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 201412,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200472,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200441,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200302,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200301,
-  "variant": 0
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200471,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200152,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200151,
-  "variant": 0
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200154,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200182,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200181,
-  "variant": 0
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200331,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200462,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200582,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200722,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200891,
-  "variant": 1
-}
-2026-04-05 04:02:57,518 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,518 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200911,
-  "variant": 1
-}
-2026-04-05 04:02:57,519 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,519 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 201152,
-  "variant": 1
-}
-2026-04-05 04:02:57,519 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,519 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 201212,
-  "variant": 1
-}
-2026-04-05 04:02:57,519 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,519 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 201532,
-  "variant": 1
-}
-2026-04-05 04:02:57,519 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,519 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 201531,
-  "variant": 0
-}
-2026-04-05 04:02:57,519 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,519 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 900161,
-  "variant": 1
-}
-2026-04-05 04:02:57,519 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,519 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 900271,
-  "variant": 1
-}
-2026-04-05 04:02:57,519 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,519 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 100521,
-  "variant": 1
-}
-2026-04-05 04:02:57,519 [INFO] 
-  !! EVENT: skill_info_add_info
-2026-04-05 04:02:57,519 [INFO]      {
-  "type": "skill_info_add_info",
-  "skillId": 200332,
-  "variant": 1
-}
-2026-04-05 04:03:11,370 [INFO] 
+2026-04-05 04:15:54,021 [INFO] 
 [*] Stopped by user.
-2026-04-05 04:03:11,370 [INFO] 
-2026-04-05 04:03:11,370 [INFO] ============================================================
-2026-04-05 04:03:11,370 [INFO]   RESULTS
-2026-04-05 04:03:11,370 [INFO] ============================================================
-2026-04-05 04:03:11,370 [INFO]   Total events captured: 56
-2026-04-05 04:03:11,370 [INFO] 
-  available_skill_set: 2 events
-2026-04-05 04:03:11,370 [INFO]     SetId=105201, Count=7
-2026-04-05 04:03:11,370 [INFO]       SkillId=200442, NeedRank=0
-2026-04-05 04:03:11,370 [INFO]       SkillId=200652, NeedRank=0
-2026-04-05 04:03:11,370 [INFO]       SkillId=201412, NeedRank=0
-2026-04-05 04:03:11,370 [INFO]       SkillId=200472, NeedRank=2
-2026-04-05 04:03:11,370 [INFO]       SkillId=200441, NeedRank=3
-2026-04-05 04:03:11,370 [INFO]       SkillId=200302, NeedRank=4
-2026-04-05 04:03:11,370 [INFO]       SkillId=200471, NeedRank=5
-2026-04-05 04:03:11,370 [INFO]     SetId=105201, Count=7
-2026-04-05 04:03:11,370 [INFO]       SkillId=200442, NeedRank=0
-2026-04-05 04:03:11,370 [INFO]       SkillId=200652, NeedRank=0
-2026-04-05 04:03:11,370 [INFO]       SkillId=201412, NeedRank=0
-2026-04-05 04:03:11,370 [INFO]       SkillId=200472, NeedRank=2
-2026-04-05 04:03:11,370 [INFO]       SkillId=200441, NeedRank=3
-2026-04-05 04:03:11,370 [INFO]       SkillId=200302, NeedRank=4
-2026-04-05 04:03:11,370 [INFO]       SkillId=200471, NeedRank=5
-2026-04-05 04:03:11,370 [INFO] 
-  skill_info_add_info: 54 events
-2026-04-05 04:03:11,370 [INFO]     All skill IDs added: [100521, 200151, 200152, 200154, 200181, 200182, 200301, 200302, 200331, 200332, 200441, 200442, 200462, 200471, 200472, 200582, 200652, 200722, 200891, 200911, 201152, 201212, 201412, 201531, 201532, 900161, 900271]
-2026-04-05 04:03:11,370 [INFO]     Total unique: 27
-2026-04-05 04:03:11,370 [INFO]     variant=0: [200151, 200181, 200301, 201531] (4 unique)
-2026-04-05 04:03:11,370 [INFO]     variant=1: [100521, 200152, 200154, 200182, 200302, 200331, 200332, 200441, 200442, 200462, 200471, 200472, 200582, 200652, 200722, 200891, 200911, 201152, 201212, 201412, 201532, 900161, 900271] (23 unique)
-2026-04-05 04:03:11,370 [INFO] 
+2026-04-05 04:15:54,021 [INFO] 
+2026-04-05 04:15:54,021 [INFO] ============================================================
+2026-04-05 04:15:54,021 [INFO]   RESULTS
+2026-04-05 04:15:54,021 [INFO] ============================================================
+2026-04-05 04:15:54,021 [INFO]   Total events captured: 29
+2026-04-05 04:15:54,021 [INFO] 
+  available_skill_set: 1 events
+2026-04-05 04:15:54,021 [INFO]     SetId=105201, Count=7
+2026-04-05 04:15:54,021 [INFO]       SkillId=200442, NeedRank=0
+2026-04-05 04:15:54,021 [INFO]       SkillId=200652, NeedRank=0
+2026-04-05 04:15:54,021 [INFO]       SkillId=201412, NeedRank=0
+2026-04-05 04:15:54,021 [INFO]       SkillId=200472, NeedRank=2
+2026-04-05 04:15:54,021 [INFO]       SkillId=200441, NeedRank=3
+2026-04-05 04:15:54,021 [INFO]       SkillId=200302, NeedRank=4
+2026-04-05 04:15:54,021 [INFO]       SkillId=200471, NeedRank=5
+2026-04-05 04:15:54,021 [INFO] 
+  skill_info_add_info: 27 events
+2026-04-05 04:15:54,021 [INFO]     All skill IDs added: [100521, 200151, 200152, 200154, 200181, 200182, 200301, 200302, 200331, 200332, 200441, 200442, 200462, 200471, 200472, 200582, 200652, 200722, 200891, 200911, 201152, 201212, 201412, 201531, 201532, 900161, 900271]
+2026-04-05 04:15:54,021 [INFO]     Total unique: 27
+2026-04-05 04:15:54,021 [INFO]     variant=0: [200151, 200181, 200301, 201531] (4 unique)
+2026-04-05 04:15:54,021 [INFO]     variant=1: [100521, 200152, 200154, 200182, 200302, 200331, 200332, 200441, 200442, 200462, 200471, 200472, 200582, 200652, 200722, 200891, 200911, 201152, 201212, 201412, 201532, 900161, 900271] (23 unique)
+2026-04-05 04:15:54,021 [INFO] 
+  skill_tree_full: 1 events
+2026-04-05 04:15:54,021 [INFO]     Groups: 23
+2026-04-05 04:15:54,021 [INFO]       Group 0: 1 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 100521, 'off_20': 3, 'off_28': 3, 'off_32': 1, 'off_72': 105680112, 'off_76': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 900271, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 1: 1 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 900271, 'off_20': 1, 'off_28': 1, 'off_44': 120, 'off_48': 120, 'off_52': 200, 'off_56': 40, 'off_60': 5, 'off_72': -1727177856, 'off_76': 529, 'off_80': 69154208, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 900161, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 2: 1 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 900161, 'off_20': 1, 'off_28': 1, 'off_44': 180, 'off_48': 180, 'off_52': 200, 'off_56': 10, 'off_60': 1, 'off_72': -1727177488, 'off_76': 529, 'off_80': 69154352, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 201531, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 3: 1 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200154, 'off_20': 1, 'off_28': 1, 'off_44': 257, 'off_48': 117, 'off_52': 130, 'off_56': 10, 'off_60': 1, 'off_72': -1727374464, 'off_76': 529, 'off_80': 69156512, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200151, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 4: 2 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200152, 'off_20': 1, 'off_28': 1, 'off_44': 63, 'off_48': 63, 'off_52': 90, 'off_56': 30, 'off_60': 3, 'off_72': -1827004416, 'off_76': 529, 'off_80': 69156704, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200471, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200151, 'off_20': 1, 'off_28': 1, 'off_44': 77, 'off_48': 77, 'off_52': 110, 'off_56': 30, 'off_60': 3, 'off_72': -1719767040, 'off_76': 529, 'off_80': 69156608, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200152, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 5: 2 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200182, 'off_20': 1, 'off_28': 1, 'off_44': 81, 'off_48': 81, 'off_52': 90, 'off_56': 10, 'off_60': 1, 'off_72': -1118890928, 'off_76': 529, 'off_80': 69156128, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200154, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200181, 'off_20': 1, 'off_28': 1, 'off_44': 99, 'off_48': 99, 'off_52': 110, 'off_56': 10, 'off_60': 1, 'off_72': -1727374832, 'off_76': 529, 'off_80': 69156032, 'off_84': 530, 'off_96': -707133952, 'off_100': 527, 'off_112': 57276672, 'off_116': 530, 'off_120': 57129936, 'off_124': 530}
+2026-04-05 04:15:54,021 [INFO]       Group 6: 2 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200302, 'off_20': 1, 'off_28': 1, 'off_44': 90, 'off_48': 90, 'off_52': 90, 'off_72': -1827001472, 'off_76': 529, 'off_80': 68682160, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200441, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200301, 'off_20': 1, 'off_28': 1, 'off_44': 110, 'off_48': 110, 'off_52': 110, 'off_72': -1719766304, 'off_76': 529, 'off_80': 68681968, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200302, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 7: 1 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200331, 'off_20': 1, 'off_28': 1, 'off_44': 342, 'off_48': 162, 'off_52': 180, 'off_56': 10, 'off_60': 1, 'off_72': -1727375936, 'off_76': 529, 'off_80': 69155792, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200181, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 8: 1 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200332, 'off_20': 1, 'off_28': 1, 'off_44': 180, 'off_48': 180, 'off_52': 180, 'off_72': -1827461328, 'off_76': 529, 'off_80': 69154016, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 100521, 'off_116': 3, 'off_124': 3, 'off_128': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 9: 1 skills
+2026-04-05 04:15:54,021 [INFO]         {'off_16': 200441, 'off_20': 1, 'off_28': 1, 'off_44': 320, 'off_48': 160, 'off_52': 160, 'off_72': -1719763360, 'off_76': 529, 'off_80': 68682256, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200472, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,021 [INFO]       Group 10: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200442, 'off_20': 1, 'off_28': 1, 'off_44': 160, 'off_48': 160, 'off_52': 160, 'off_72': -1826793680, 'off_76': 529, 'off_80': 68683072, 'off_84': 530, 'off_96': -655994792, 'off_100': 527, 'off_112': 1, 'off_116': -1, 'off_128': -1715029952}
+2026-04-05 04:15:54,022 [INFO]       Group 11: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200462, 'off_20': 1, 'off_28': 1, 'off_44': 153, 'off_48': 153, 'off_52': 170, 'off_56': 10, 'off_60': 1, 'off_72': -1826791840, 'off_76': 529, 'off_80': 69155600, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200331, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 12: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200471, 'off_20': 1, 'off_28': 1, 'off_44': 340, 'off_48': 170, 'off_52': 170, 'off_72': -1719765568, 'off_76': 529, 'off_80': 68681872, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200301, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 13: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200472, 'off_20': 1, 'off_28': 1, 'off_44': 170, 'off_48': 170, 'off_52': 170, 'off_72': -1826792576, 'off_76': 529, 'off_80': 68682448, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 201412, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 14: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200582, 'off_20': 1, 'off_28': 1, 'off_44': 108, 'off_48': 108, 'off_52': 180, 'off_56': 40, 'off_60': 5, 'off_72': -1827298960, 'off_76': 529, 'off_80': 69155504, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200462, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 15: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200652, 'off_20': 1, 'off_28': 1, 'off_44': 160, 'off_48': 160, 'off_52': 160, 'off_72': -1826890880, 'off_76': 529, 'off_80': 68682832, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200442, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 16: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200722, 'off_20': 1, 'off_28': 1, 'off_44': 104, 'off_48': 104, 'off_52': 160, 'off_56': 35, 'off_60': 4, 'off_72': -1827462064, 'off_76': 529, 'off_80': 69155408, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200582, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 17: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200891, 'off_20': 1, 'off_28': 1, 'off_44': 117, 'off_48': 117, 'off_52': 130, 'off_56': 10, 'off_60': 1, 'off_72': -1827126928, 'off_76': 529, 'off_80': 69155264, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200722, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 18: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 200911, 'off_20': 1, 'off_28': 1, 'off_44': 117, 'off_48': 117, 'off_52': 130, 'off_56': 10, 'off_60': 1, 'off_72': -1118889824, 'off_76': 529, 'off_80': 69155120, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200891, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 19: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 201152, 'off_20': 1, 'off_28': 1, 'off_44': 144, 'off_48': 144, 'off_52': 160, 'off_56': 10, 'off_60': 1, 'off_72': -1827210736, 'off_76': 529, 'off_80': 69155024, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 200911, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 20: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 201212, 'off_20': 1, 'off_28': 1, 'off_44': 144, 'off_48': 144, 'off_52': 160, 'off_56': 10, 'off_60': 1, 'off_72': -1827357456, 'off_76': 529, 'off_80': 69154880, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 201152, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]       Group 21: 1 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 201412, 'off_20': 1, 'off_28': 1, 'off_44': 120, 'off_48': 120, 'off_52': 120, 'off_72': -1826795520, 'off_76': 529, 'off_80': 68682640, 'off_84': 530, 'off_96': -658574096, 'off_100': 527, 'off_112': 56637312, 'off_116': 530, 'off_120': -1710929088, 'off_124': 529, 'off_128': 7}
+2026-04-05 04:15:54,022 [INFO]       Group 22: 2 skills
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 201532, 'off_20': 1, 'off_28': 1, 'off_44': 99, 'off_48': 99, 'off_52': 110, 'off_56': 10, 'off_60': 1, 'off_72': -1827000736, 'off_76': 529, 'off_80': 69154592, 'off_84': 530, 'off_96': -736248240, 'off_100': 527, 'off_112': 201212, 'off_116': 1, 'off_124': 1}
+2026-04-05 04:15:54,022 [INFO]         {'off_16': 201531, 'off_20': 1, 'off_28': 1, 'off_44': 117, 'off_48': 117, 'off_52': 130, 'off_56': 10, 'off_60': 1, 'off_72': -1727242240, 'off_76': 529, 'off_80': 69154496, 'off_84': 530}
+2026-04-05 04:15:54,022 [INFO] 
   ALL UNIQUE SKILL IDs CAPTURED: [100521, 200151, 200152, 200154, 200181, 200182, 200301, 200302, 200331, 200332, 200441, 200442, 200462, 200471, 200472, 200582, 200652, 200722, 200891, 200911, 201152, 201212, 201412, 201531, 201532, 900161, 900271]
-2026-04-05 04:03:11,370 [INFO]   Total: 27
-2026-04-05 04:03:11,371 [INFO] 
+2026-04-05 04:15:54,022 [INFO]   Total: 27
+2026-04-05 04:15:54,024 [INFO] 
   Saved: C:\Users\nikit\Documents\UmaExtractor\py\skill_hook_results.json
-2026-04-05 04:03:11,371 [INFO]   Log:   C:\Users\nikit\Documents\UmaExtractor\py\skill_hook.log
-2026-04-05 04:03:11,371 [INFO] ============================================================
+2026-04-05 04:15:54,024 [INFO]   Log:   C:\Users\nikit\Documents\UmaExtractor\py\skill_hook.log
+2026-04-05 04:15:54,024 [INFO] ============================================================

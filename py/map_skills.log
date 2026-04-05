@@ -1,0 +1,98 @@
+2026-04-05 04:16:04,663 [INFO] ============================================================
+2026-04-05 04:16:04,663 [INFO]   Uma Musume Skill Name Extractor
+2026-04-05 04:16:04,663 [INFO]   Pulls skill ID → name from in-game MasterSkillData
+2026-04-05 04:16:04,663 [INFO] ============================================================
+2026-04-05 04:16:04,663 [INFO] 
+2026-04-05 04:16:04,879 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 04:16:04,885 [INFO] [*] Loading skill name hooks...
+2026-04-05 04:16:04,895 [INFO]   Hooks ready. Get=True, Name=True
+2026-04-05 04:16:05,396 [INFO] 
+2026-04-05 04:16:05,396 [INFO]   Hooks active. Navigate to skill learning screen or character details.
+2026-04-05 04:16:05,396 [INFO]   Ctrl+C to stop and save.
+2026-04-05 04:16:10,897 [INFO]   +27 skills (total: 27)
+2026-04-05 04:16:19,573 [INFO] 
+[*] Stopped.
+2026-04-05 04:16:19,573 [INFO] 
+2026-04-05 04:16:19,573 [INFO] ============================================================
+2026-04-05 04:16:19,573 [INFO]   RESULTS
+2026-04-05 04:16:19,573 [INFO] ============================================================
+2026-04-05 04:16:19,573 [INFO]   Collected 27 skills
+2026-04-05 04:16:19,573 [INFO]       100521  r=4  "Super-Duper Climax"
+2026-04-05 04:16:19,573 [INFO]       200151  r=1  "Firm Conditions ◎"
+2026-04-05 04:16:19,573 [INFO]       200152  r=1  "Firm Conditions ○"
+2026-04-05 04:16:19,573 [INFO]       200154  r=2  "Firm Course Menace"
+2026-04-05 04:16:19,573 [INFO]       200181  r=1  "Summer Runner ◎"
+2026-04-05 04:16:19,573 [INFO]       200182  r=1  "Summer Runner ○"
+2026-04-05 04:16:19,573 [INFO]       200301  r=1  "Long Shot ◎"
+2026-04-05 04:16:19,573 [INFO]       200302  r=1  "Long Shot ○"
+2026-04-05 04:16:19,573 [INFO]       200331  r=2  "Professor of Curvature"
+2026-04-05 04:16:19,573 [INFO]       200332  r=1  "Corner Adept ○"
+2026-04-05 04:16:19,573 [INFO]       200441  r=2  "Iron Will"
+2026-04-05 04:16:19,573 [INFO]       200442  r=1  "Lay Low"
+2026-04-05 04:16:19,573 [INFO]       200462  r=1  "Ramp Up"
+2026-04-05 04:16:19,573 [INFO]       200471  r=2  "Indomitable"
+2026-04-05 04:16:19,573 [INFO]       200472  r=1  "Pace Strategy"
+2026-04-05 04:16:19,573 [INFO]       200582  r=1  "Prepared to Pass"
+2026-04-05 04:16:19,573 [INFO]       200652  r=1  "Sprinting Gear"
+2026-04-05 04:16:19,573 [INFO]       200722  r=1  "Up-Tempo"
+2026-04-05 04:16:19,573 [INFO]       200891  r=1  "Subdued Late Surgers"
+2026-04-05 04:16:19,573 [INFO]       200911  r=1  "Hesitant Late Surgers"
+2026-04-05 04:16:19,573 [INFO]       201152  r=1  "Tether"
+2026-04-05 04:16:19,573 [INFO]       201212  r=1  "Pressure"
+2026-04-05 04:16:19,573 [INFO]       201412  r=1  "1,500,000 CC"
+2026-04-05 04:16:19,573 [INFO]       201531  r=1  "Pace Chaser Savvy ◎"
+2026-04-05 04:16:19,573 [INFO]       201532  r=1  "Pace Chaser Savvy ○"
+2026-04-05 04:16:19,573 [INFO]       900161  r=1  "Shadow Break"
+2026-04-05 04:16:19,573 [INFO]       900271  r=1  "Let's Pump Some Iron!"
+2026-04-05 04:16:19,574 [INFO] 
+  Saved: C:\Users\nikit\Documents\UmaExtractor\py\skill_id_map.json (27 entries)
+2026-04-05 04:16:19,581 [INFO] 
+2026-04-05 04:16:19,581 [INFO] ============================================================
+2026-04-05 04:16:19,581 [INFO]   DECODED SKILL HOOK RESULTS
+2026-04-05 04:16:19,581 [INFO] ============================================================
+2026-04-05 04:16:19,581 [INFO] 
+  CHARACTER-SPECIFIC (MasterAvailableSkillSet):
+2026-04-05 04:16:19,581 [INFO]       200442  NeedRank=0  Lay Low
+2026-04-05 04:16:19,581 [INFO]       200652  NeedRank=0  Sprinting Gear
+2026-04-05 04:16:19,581 [INFO]       201412  NeedRank=0  1,500,000 CC
+2026-04-05 04:16:19,581 [INFO]       200472  NeedRank=2  Pace Strategy
+2026-04-05 04:16:19,581 [INFO]       200441  NeedRank=3  Iron Will
+2026-04-05 04:16:19,581 [INFO]       200302  NeedRank=4  Long Shot ○
+2026-04-05 04:16:19,581 [INFO]       200471  NeedRank=5  Indomitable
+2026-04-05 04:16:19,581 [INFO] 
+  ALL SKILL TREE (27 entries):
+2026-04-05 04:16:19,581 [INFO] 
+    variant=1 (23):
+2026-04-05 04:16:19,581 [INFO]         100521  Super-Duper Climax
+2026-04-05 04:16:19,581 [INFO]         200152  Firm Conditions ○
+2026-04-05 04:16:19,581 [INFO]         200154  Firm Course Menace
+2026-04-05 04:16:19,581 [INFO]         200182  Summer Runner ○
+2026-04-05 04:16:19,581 [INFO]         200302  Long Shot ○
+2026-04-05 04:16:19,581 [INFO]         200331  Professor of Curvature
+2026-04-05 04:16:19,581 [INFO]         200332  Corner Adept ○
+2026-04-05 04:16:19,581 [INFO]         200441  Iron Will
+2026-04-05 04:16:19,581 [INFO]         200442  Lay Low
+2026-04-05 04:16:19,581 [INFO]         200462  Ramp Up
+2026-04-05 04:16:19,581 [INFO]         200471  Indomitable
+2026-04-05 04:16:19,581 [INFO]         200472  Pace Strategy
+2026-04-05 04:16:19,581 [INFO]         200582  Prepared to Pass
+2026-04-05 04:16:19,582 [INFO]         200652  Sprinting Gear
+2026-04-05 04:16:19,582 [INFO]         200722  Up-Tempo
+2026-04-05 04:16:19,582 [INFO]         200891  Subdued Late Surgers
+2026-04-05 04:16:19,582 [INFO]         200911  Hesitant Late Surgers
+2026-04-05 04:16:19,582 [INFO]         201152  Tether
+2026-04-05 04:16:19,582 [INFO]         201212  Pressure
+2026-04-05 04:16:19,582 [INFO]         201412  1,500,000 CC
+2026-04-05 04:16:19,582 [INFO]         201532  Pace Chaser Savvy ○
+2026-04-05 04:16:19,582 [INFO]         900161  Shadow Break
+2026-04-05 04:16:19,582 [INFO]         900271  Let's Pump Some Iron!
+2026-04-05 04:16:19,582 [INFO] 
+    variant=0 (4):
+2026-04-05 04:16:19,582 [INFO]         200151  Firm Conditions ◎
+2026-04-05 04:16:19,582 [INFO]         200181  Summer Runner ◎
+2026-04-05 04:16:19,582 [INFO]         200301  Long Shot ◎
+2026-04-05 04:16:19,582 [INFO]         201531  Pace Chaser Savvy ◎
+2026-04-05 04:16:19,582 [INFO] 
+  Saved: C:\Users\nikit\Documents\UmaExtractor\py\decoded_skills.json
+2026-04-05 04:16:19,582 [INFO]   Log: C:\Users\nikit\Documents\UmaExtractor\py\map_skills.log
+2026-04-05 04:16:19,582 [INFO] ============================================================
