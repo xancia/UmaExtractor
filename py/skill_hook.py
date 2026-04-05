@@ -592,14 +592,19 @@ FRIDA_SCRIPT = r"""
 
     // ── Hook 7: SkillInfo.AddInfo (inner class) ──
     // Called when skills are added to the learning list
-    const skillInfoClass = targets["SkillInfo"];
+    // arg1 = skill ID (int), arg2 = variant flag (0 or 1)
+    const skillInfoClass = targets["SkillInfo"]
+        || targets["Gallop.SingleModeSkillLearningViewController.SkillInfo"];
     if (skillInfoClass) {
-        hookMethod("SkillInfo", "AddInfo", 2, {
+        const className = targets["SkillInfo"] ? "SkillInfo"
+            : "Gallop.SingleModeSkillLearningViewController.SkillInfo";
+        hookMethod(className, "AddInfo", 2, {
             onEnter(args) {
-                // Log the call and try to read args
+                const skillId = args[1].toInt32();
+                const variant = args[2] ? args[2].toInt32() : -1;
                 send({ type: "skill_info_add_info",
-                       arg1_raw: args[1].toString(),
-                       arg2_raw: args[2] ? args[2].toString() : "null" });
+                       skillId: skillId,
+                       variant: variant });
             }
         });
     }
@@ -824,6 +829,19 @@ def main():
             ids = sorted(set(ev["skillId"] for ev in events))
             log(f"    Unique IDs: {ids}")
             log(f"    Count: {len(ids)}")
+        elif t == "skill_info_add_info":
+            # Group by variant
+            by_variant = {}
+            for ev in events:
+                v = ev.get("variant", -1)
+                if v not in by_variant:
+                    by_variant[v] = []
+                by_variant[v].append(ev.get("skillId", 0))
+            all_add_ids = sorted(set(ev.get("skillId", 0) for ev in events))
+            log(f"    All skill IDs added: {all_add_ids}")
+            log(f"    Total unique: {len(all_add_ids)}")
+            for v, ids in sorted(by_variant.items()):
+                log(f"    variant={v}: {sorted(set(ids))} ({len(set(ids))} unique)")
 
     # Collect all unique skill IDs across all events
     all_skill_ids = set()
