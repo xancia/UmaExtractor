@@ -1,5 +1,4 @@
 {
-  "total_unique_skills": 27,
   "available_skill_set": [
     {
       "id": 365,
@@ -51,169 +50,248 @@
       "name": "Indomitable"
     }
   ],
-  "all_skill_tree_skills": [
+  "acquired_skills": [
     {
       "skillId": 100521,
-      "variant": 1,
       "name": "Super-Duper Climax",
-      "rarity": 4
-    },
+      "currentLevel": 3
+    }
+  ],
+  "buyable_skills": [
     {
-      "skillId": 200151,
-      "variant": 0,
-      "name": "Firm Conditions ◎",
-      "rarity": 1
-    },
-    {
-      "skillId": 200152,
-      "variant": 1,
-      "name": "Firm Conditions ○",
-      "rarity": 1
-    },
-    {
-      "skillId": 200154,
-      "variant": 1,
-      "name": "Firm Course Menace",
-      "rarity": 2
-    },
-    {
-      "skillId": 200181,
-      "variant": 0,
-      "name": "Summer Runner ◎",
-      "rarity": 1
-    },
-    {
-      "skillId": 200182,
-      "variant": 1,
-      "name": "Summer Runner ○",
-      "rarity": 1
-    },
-    {
-      "skillId": 200301,
-      "variant": 0,
-      "name": "Long Shot ◎",
-      "rarity": 1
-    },
-    {
-      "skillId": 200302,
-      "variant": 1,
-      "name": "Long Shot ○",
-      "rarity": 1
-    },
-    {
-      "skillId": 200331,
-      "variant": 1,
-      "name": "Professor of Curvature",
-      "rarity": 2
-    },
-    {
-      "skillId": 200332,
-      "variant": 1,
-      "name": "Corner Adept ○",
-      "rarity": 1
-    },
-    {
-      "skillId": 200441,
-      "variant": 1,
-      "name": "Iron Will",
-      "rarity": 2
-    },
-    {
-      "skillId": 200442,
-      "variant": 1,
-      "name": "Lay Low",
-      "rarity": 1
-    },
-    {
-      "skillId": 200462,
-      "variant": 1,
-      "name": "Ramp Up",
-      "rarity": 1
-    },
-    {
-      "skillId": 200471,
-      "variant": 1,
-      "name": "Indomitable",
-      "rarity": 2
-    },
-    {
-      "skillId": 200472,
-      "variant": 1,
-      "name": "Pace Strategy",
-      "rarity": 1
-    },
-    {
-      "skillId": 200582,
-      "variant": 1,
-      "name": "Prepared to Pass",
-      "rarity": 1
-    },
-    {
-      "skillId": 200652,
-      "variant": 1,
-      "name": "Sprinting Gear",
-      "rarity": 1
-    },
-    {
-      "skillId": 200722,
-      "variant": 1,
-      "name": "Up-Tempo",
-      "rarity": 1
-    },
-    {
-      "skillId": 200891,
-      "variant": 1,
-      "name": "Subdued Late Surgers",
-      "rarity": 1
-    },
-    {
-      "skillId": 200911,
-      "variant": 1,
-      "name": "Hesitant Late Surgers",
-      "rarity": 1
-    },
-    {
-      "skillId": 201152,
-      "variant": 1,
-      "name": "Tether",
-      "rarity": 1
-    },
-    {
-      "skillId": 201212,
-      "variant": 1,
-      "name": "Pressure",
-      "rarity": 1
-    },
-    {
-      "skillId": 201412,
-      "variant": 1,
-      "name": "1,500,000 CC",
-      "rarity": 1
-    },
-    {
-      "skillId": 201531,
-      "variant": 0,
-      "name": "Pace Chaser Savvy ◎",
-      "rarity": 1
-    },
-    {
-      "skillId": 201532,
-      "variant": 1,
-      "name": "Pace Chaser Savvy ○",
+      "skillId": 900271,
+      "name": "Let's Pump Some Iron!",
+      "baseCost": 200,
+      "discountedCost": 120,
+      "hintLevel": 5,
+      "discountPercent": 40,
       "rarity": 1
     },
     {
       "skillId": 900161,
-      "variant": 1,
       "name": "Shadow Break",
+      "baseCost": 200,
+      "discountedCost": 180,
+      "hintLevel": 1,
+      "discountPercent": 10,
       "rarity": 1
     },
     {
-      "skillId": 900271,
-      "variant": 1,
-      "name": "Let's Pump Some Iron!",
+      "skillId": 200154,
+      "name": "Firm Course Menace",
+      "baseCost": 130,
+      "discountedCost": 117,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 2
+    },
+    {
+      "skillId": 200152,
+      "name": "Firm Conditions ○",
+      "baseCost": 90,
+      "discountedCost": 63,
+      "hintLevel": 3,
+      "discountPercent": 30,
+      "rarity": 1
+    },
+    {
+      "skillId": 200151,
+      "name": "Firm Conditions ◎",
+      "baseCost": 110,
+      "discountedCost": 77,
+      "hintLevel": 3,
+      "discountPercent": 30,
+      "rarity": 1
+    },
+    {
+      "skillId": 200182,
+      "name": "Summer Runner ○",
+      "baseCost": 90,
+      "discountedCost": 81,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 1
+    },
+    {
+      "skillId": 200181,
+      "name": "Summer Runner ◎",
+      "baseCost": 110,
+      "discountedCost": 99,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 1
+    },
+    {
+      "skillId": 200302,
+      "name": "Long Shot ○",
+      "baseCost": 90,
+      "discountedCost": 90,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 1
+    },
+    {
+      "skillId": 200301,
+      "name": "Long Shot ◎",
+      "baseCost": 110,
+      "discountedCost": 110,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 1
+    },
+    {
+      "skillId": 200331,
+      "name": "Professor of Curvature",
+      "baseCost": 180,
+      "discountedCost": 162,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 2
+    },
+    {
+      "skillId": 200332,
+      "name": "Corner Adept ○",
+      "baseCost": 180,
+      "discountedCost": 180,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 1
+    },
+    {
+      "skillId": 200441,
+      "name": "Iron Will",
+      "baseCost": 160,
+      "discountedCost": 160,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 2
+    },
+    {
+      "skillId": 200442,
+      "name": "Lay Low",
+      "baseCost": 160,
+      "discountedCost": 160,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 1
+    },
+    {
+      "skillId": 200462,
+      "name": "Ramp Up",
+      "baseCost": 170,
+      "discountedCost": 153,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 1
+    },
+    {
+      "skillId": 200471,
+      "name": "Indomitable",
+      "baseCost": 170,
+      "discountedCost": 170,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 2
+    },
+    {
+      "skillId": 200472,
+      "name": "Pace Strategy",
+      "baseCost": 170,
+      "discountedCost": 170,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 1
+    },
+    {
+      "skillId": 200582,
+      "name": "Prepared to Pass",
+      "baseCost": 180,
+      "discountedCost": 108,
+      "hintLevel": 5,
+      "discountPercent": 40,
+      "rarity": 1
+    },
+    {
+      "skillId": 200652,
+      "name": "Sprinting Gear",
+      "baseCost": 160,
+      "discountedCost": 160,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 1
+    },
+    {
+      "skillId": 200722,
+      "name": "Up-Tempo",
+      "baseCost": 160,
+      "discountedCost": 104,
+      "hintLevel": 4,
+      "discountPercent": 35,
+      "rarity": 1
+    },
+    {
+      "skillId": 200891,
+      "name": "Subdued Late Surgers",
+      "baseCost": 130,
+      "discountedCost": 117,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 1
+    },
+    {
+      "skillId": 200911,
+      "name": "Hesitant Late Surgers",
+      "baseCost": 130,
+      "discountedCost": 117,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 1
+    },
+    {
+      "skillId": 201152,
+      "name": "Tether",
+      "baseCost": 160,
+      "discountedCost": 144,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 1
+    },
+    {
+      "skillId": 201212,
+      "name": "Pressure",
+      "baseCost": 160,
+      "discountedCost": 144,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 1
+    },
+    {
+      "skillId": 201412,
+      "name": "1,500,000 CC",
+      "baseCost": 120,
+      "discountedCost": 120,
+      "hintLevel": 0,
+      "discountPercent": 0,
+      "rarity": 1
+    },
+    {
+      "skillId": 201532,
+      "name": "Pace Chaser Savvy ○",
+      "baseCost": 110,
+      "discountedCost": 99,
+      "hintLevel": 1,
+      "discountPercent": 10,
+      "rarity": 1
+    },
+    {
+      "skillId": 201531,
+      "name": "Pace Chaser Savvy ◎",
+      "baseCost": 130,
+      "discountedCost": 117,
+      "hintLevel": 1,
+      "discountPercent": 10,
       "rarity": 1
     }
   ],
-  "missing_from_map": []
+  "names_not_collected": []
 }
