@@ -1,0 +1,48 @@
+2026-04-05 01:42:01,018 [INFO] ============================================================
+2026-04-05 01:42:01,018 [INFO]   Uma Musume API Interceptor
+2026-04-05 01:42:01,018 [INFO]   Looking for IDs: [200154, 200152, 200441, 200652, 200722, 201152]
+2026-04-05 01:42:01,018 [INFO]   Debug log: C:\Users\nikit\Documents\UmaExtractor\py\intercept_debug.log
+2026-04-05 01:42:01,018 [INFO]   Output dir: C:\Users\nikit\Documents\UmaExtractor\py\intercepted_responses
+2026-04-05 01:42:01,018 [INFO] ============================================================
+2026-04-05 01:42:01,018 [INFO] 
+2026-04-05 01:42:01,018 [INFO]   HOW TO USE:
+2026-04-05 01:42:01,018 [INFO]   1. Keep this running
+2026-04-05 01:42:01,019 [INFO]   2. In the game, navigate to the page with the data you need
+2026-04-05 01:42:01,019 [INFO]   3. The script will detect new MsgPack data appearing in memory
+2026-04-05 01:42:01,019 [INFO]   4. Results saved to intercepted_responses/
+2026-04-05 01:42:01,019 [INFO] 
+2026-04-05 01:42:01,239 [INFO] [OK] Attached: UmamusumePrettyDerby.exe
+2026-04-05 01:42:01,245 [INFO] [*] Loading interceptor...
+2026-04-05 01:42:01,247 [INFO] [*] Found GameAssembly.dll, scanning for hooks...
+2026-04-05 01:42:26,247 [INFO] [*] Script load timed out, interceptor continues in background...
+2026-04-05 01:42:26,247 [INFO] [*] Interceptor running (up to 600s)...
+2026-04-05 01:42:26,247 [INFO] [*] Navigate to the page with the data you need.
+2026-04-05 01:42:26,247 [INFO] [*] Press Ctrl+C to stop early.
+
+2026-04-05 01:42:32,871 [INFO] 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+2026-04-05 01:42:32,871 [INFO]   NEW MSGPACK BLOB #1
+2026-04-05 01:42:32,871 [INFO]   3/6 target IDs found as MsgPack!
+2026-04-05 01:42:32,871 [INFO]   IDs: [200154, 200152, 200441]
+2026-04-05 01:42:32,871 [INFO]   Size: 1,107,040 bytes
+2026-04-05 01:42:32,871 [INFO] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+2026-04-05 01:42:32,872 [INFO]   Raw blob saved: C:\Users\nikit\Documents\UmaExtractor\py\intercepted_responses\response_001.msgpack
+2026-04-05 01:42:32,872 [INFO]   Searching for MsgPack structures...
+2026-04-05 01:42:33,713 [INFO]   Could not parse MsgPack structures from blob
+2026-04-05 01:42:33,714 [INFO]   Raw blob saved for manual inspection
+2026-04-05 01:42:33,715 [INFO] 
+[*] Interceptor ready. Navigate to the target page.
+2026-04-05 01:42:33,715 [INFO] [*] >>> Navigate to the target page in the game NOW <<<
+
+2026-04-05 01:43:02,193 [INFO] 
+[*] Stopped by user.
+2026-04-05 01:43:02,193 [INFO] 
+2026-04-05 01:43:02,193 [INFO] ============================================================
+2026-04-05 01:43:02,193 [INFO]   INTERCEPT SUMMARY
+2026-04-05 01:43:02,193 [INFO] ============================================================
+2026-04-05 01:43:02,193 [INFO]   Total MsgPack blobs captured: 1
+2026-04-05 01:43:02,193 [INFO]   STATUS: Some blobs captured, check intercepted_responses/
+2026-04-05 01:43:02,193 [INFO] 
+  Output: C:\Users\nikit\Documents\UmaExtractor\py\intercepted_responses
+2026-04-05 01:43:02,193 [INFO]   Debug log: C:\Users\nikit\Documents\UmaExtractor\py\intercept_debug.log
+2026-04-05 01:43:02,193 [INFO] ============================================================
