@@ -1,0 +1,706 @@
+{
+  "total_events": 28,
+  "events_by_type": {
+    "available_skill_set": 1,
+    "skill_info_add_info": 27
+  },
+  "all_unique_skill_ids": [
+    200302,
+    200441,
+    200442,
+    200471,
+    200472,
+    200652,
+    201412
+  ],
+  "unique_skill_id_count": 7,
+  "class_details": {
+    "AvailableSkillSet": {
+      "methods": [
+        ".ctor"
+      ],
+      "fields": {
+        "Id": {
+          "offset": 16
+        },
+        "AvailableSkillSetId": {
+          "offset": 20
+        },
+        "SkillId": {
+          "offset": 24
+        },
+        "NeedRank": {
+          "offset": 28
+        }
+      }
+    },
+    "Gallop.MasterAvailableSkillSet": {
+      "methods": [
+        ".ctor",
+        "Get",
+        "_SelectOne",
+        "GetWithAvailableSkillSetIdOrderByIdAsc",
+        "_SelectWithAvailableSkillSetIdOrderByIdAsc",
+        "GetListWithAvailableSkillSetIdOrderByIdAsc",
+        "MaybeListWithAvailableSkillSetIdOrderByIdAsc",
+        "_ListSelectWithAvailableSkillSetIdOrderByIdAsc",
+        "_CreateOrmByQueryResultWithAvailableSkillSetIdOrderByIdAsc",
+        "Unload",
+        "GetFromTalentLevel"
+      ],
+      "fields": {
+        "TABLE_NAME": {
+          "offset": 0
+        },
+        "_db": {
+          "offset": 16
+        },
+        "_notFounds": {
+          "offset": 24
+        },
+        "_lazyPrimaryKeyDictionary": {
+          "offset": 32
+        },
+        "_dictionaryWithAvailableSkillSetId": {
+          "offset": 40
+        }
+      }
+    },
+    "Gallop.MasterAvailableSkillSet.AvailableSkillSet": {
+      "methods": [
+        ".ctor"
+      ],
+      "fields": {
+        "Id": {
+          "offset": 16
+        },
+        "AvailableSkillSetId": {
+          "offset": 20
+        },
+        "SkillId": {
+          "offset": 24
+        },
+        "NeedRank": {
+          "offset": 28
+        }
+      }
+    },
+    "Gallop.MasterSkillSet": {
+      "methods": [
+        "get_dictionary",
+        ".ctor",
+        "Get",
+        "_SelectOne",
+        "Unload",
+        "_ForcePreloadAllEntries",
+        "GetSkillDataList"
+      ],
+      "fields": {
+        "TABLE_NAME": {
+          "offset": 0
+        },
+        "_db": {
+          "offset": 16
+        },
+        "_preloaded": {
+          "offset": 24
+        },
+        "_notFounds": {
+          "offset": 32
+        },
+        "_lazyPrimaryKeyDictionary": {
+          "offset": 40
+        }
+      }
+    },
+    "Gallop.SkillManager": {
+      "methods": [
+        ".ctor",
+        "_CreateTriggerCreate",
+        "CreateSkillView",
+        "AddSkill",
+        "GetSkill",
+        "GetSkills",
+        "CreateSkillArray",
+        "ClearSkills",
+        "AddCurrentActiveSkill",
+        "RemoveCurrentActiveSkill",
+        "GetCurrentActiveSkill",
+        "AddUsedSkillId",
+        "GetUsedSkillIdList",
+        "AddPrevActivateSkill",
+        "RemovePrevActivateSkill",
+        "GetPrevActivateSkillList",
+        "Update",
+        "LotActivateSkill",
+        "CheckSkillTriggerAndActivate",
+        "InitSkillEffect",
+        "InitSkillSE",
+        "PlaySkillEffect",
+        "ClearDelayPlayEffect",
+        "StopEffect",
+        "PauseEffect",
+        "ResumeEffect",
+        "SetEffectSpeed",
+        "PlaySkillSE",
+        "StopSE"
+      ],
+      "fields": {
+        "_ownerInfo": {
+          "offset": 16
+        },
+        "_skills": {
+          "offset": 24
+        },
+        "_skillArray": {
+          "offset": 32
+        },
+        "_usedSkillIdList": {
+          "offset": 40
+        },
+        "_prevActivateSkills": {
+          "offset": 48
+        },
+        "_skillView": {
+          "offset": 56
+        }
+      }
+    },
+    "Gallop.PartsSingleModeSkillLearningListItem": {
+      "methods": [
+        "get_PlusButton",
+        "get_BaseImage",
+        "UpdateItem",
+        "UpdateCurrent",
+        "GetMaxLevel",
+        "GetMasterSkillExp",
+        "GetSkillId",
+        "UpdateSkillName",
+        "UpdateLevelText",
+        "UpdateBaseImage",
+        "UpdateIcon",
+        "UpdateTipsBalloon",
+        "UpdateEventLimited",
+        "UpdateNotResolved",
+        "UpdateButtonVisible",
+        "UpdatePlusButtonIntaractable",
+        "UpdateMinusButtonIntaractable",
+        "GetTopInfo",
+        "GetPreInfo",
+        "IsRareSkill",
+        ".ctor"
+      ],
+      "fields": {
+        "TIPS_LEVEL_MAX": {
+          "offset": 0
+        },
+        "_skillIconRoot": {
+          "offset": 56
+        },
+        "_nameText": {
+          "offset": 64
+        },
+        "_descriptionText": {
+          "offset": 72
+        },
+        "_levelText": {
+          "offset": 80
+        },
+        "_lineImage": {
+          "offset": 88
+        },
+        "_needPointRoot": {
+          "offset": 96
+        },
+        "_needPoint": {
+          "offset": 104
+        },
+        "_getRoot": {
+          "offset": 112
+        },
+        "_lockRoot": {
+          "offset": 120
+        },
+        "_lockText": {
+          "offset": 128
+        },
+        "_plusButton": {
+          "offset": 136
+        },
+        "_minusButton": {
+          "offset": 144
+        },
+        "_baseImage": {
+          "offset": 152
+        },
+        "_hintBalloonRoot": {
+          "offset": 160
+        },
+        "_hintLvText": {
+          "offset": 168
+        },
+        "_hintRatioText": {
+          "offset": 176
+        },
+        "_eventLimitedImage": {
+          "offset": 184
+        },
+        "_notResolvedRoot": {
+          "offset": 192
+        },
+        "_infoList": {
+          "offset": 200
+        },
+        "_getRemainingSkillPoint": {
+          "offset": 208
+        },
+        "_skillIcon": {
+          "offset": 216
+        }
+      }
+    },
+    "Gallop.PartsSingleModeSkillListItem": {
+      "methods": [
+        "UpdateItem",
+        "SetupOnClickSkillButton",
+        "SetupNeedSkillPoint",
+        "SetActiveNeedSkillPoint",
+        "ResizeObject",
+        "ChangeTextColorType",
+        "SetupNameText",
+        "SetGetSkill",
+        "SetHintLv",
+        "SetAcquire",
+        "SetUnAcquirable",
+        "SetInteractableMulColor",
+        "SetActiveSkillLevelText",
+        ".ctor"
+      ],
+      "fields": {
+        "DISC_CHAR_NAME": {
+          "offset": 0
+        },
+        "EVENT_BONUS_BADGE_CONDITION_COMPLETE_POS_X": {
+          "offset": 0
+        },
+        "EVENT_BONUS_BADGE_DEFAULT_POS_X": {
+          "offset": 0
+        },
+        "HEIGHT_THREE_LINES": {
+          "offset": 0
+        },
+        "HEIGHT_FOUR_LINES": {
+          "offset": 0
+        },
+        "_bgImage": {
+          "offset": 56
+        },
+        "_bgButton": {
+          "offset": 64
+        },
+        "_lineImage": {
+          "offset": 72
+        },
+        "_skillIconRoot": {
+          "offset": 80
+        },
+        "_nameText": {
+          "offset": 88
+        },
+        "_levelText": {
+          "offset": 96
+        },
+        "_descText": {
+          "offset": 104
+        },
+        "_newIconObject": {
+          "offset": 112
+        },
+        "_needSkillPointRoot": {
+          "offset": 120
+        },
+        "_needSkillPointText": {
+          "offset": 128
+        },
+        "_needTalentLevelText": {
+          "offset": 136
+        },
+        "_blinkImage": {
+          "offset": 144
+        },
+        "_eventLimitedImage": {
+          "offset": 152
+        },
+        "_hintLabelObject": {
+          "offset": 160
+        },
+        "_hintLvText": {
+          "offset": 168
+        },
+        "_acquireIcon": {
+          "offset": 176
+        },
+        "_unAcquirableIcon": {
+          "offset": 184
+        },
+        "_info": {
+          "offset": 192
+        },
+        "_skillIcon": {
+          "offset": 200
+        },
+        "_skillInfoPop": {
+          "offset": 208
+        },
+        "_hintLvMaxEffect": {
+          "offset": 216
+        },
+        "_resourceHash": {
+          "offset": 224
+        }
+      }
+    },
+    "Gallop.SingleModeSkillLearningView": {
+      "methods": [
+        "get_ScrollRect",
+        "set_ScrollRect",
+        "get_Item",
+        "set_Item",
+        "get_SkillPointText",
+        "set_SkillPointText",
+        "get_DetailButton",
+        "set_DetailButton",
+        "get_DecideButton",
+        "set_DecideButton",
+        "get_ResetButton",
+        "set_ResetButton",
+        "get_AnimationTargetList",
+        "set_AnimationTargetList",
+        "get_AnimationTargetBottom",
+        "set_AnimationTargetBottom",
+        "get_TutorialStep1",
+        "set_TutorialStep1",
+        ".ctor"
+      ],
+      "fields": {
+        "<ScrollRect>k__BackingField": {
+          "offset": 80
+        },
+        "<Item>k__BackingField": {
+          "offset": 88
+        },
+        "<SkillPointText>k__BackingField": {
+          "offset": 96
+        },
+        "<DetailButton>k__BackingField": {
+          "offset": 104
+        },
+        "<DecideButton>k__BackingField": {
+          "offset": 112
+        },
+        "<ResetButton>k__BackingField": {
+          "offset": 120
+        },
+        "<AnimationTargetList>k__BackingField": {
+          "offset": 128
+        },
+        "<AnimationTargetBottom>k__BackingField": {
+          "offset": 136
+        },
+        "<TutorialStep1>k__BackingField": {
+          "offset": 144
+        }
+      }
+    },
+    "SkillInfo": {
+      "methods": [
+        "get_SkillList",
+        "AddInfo",
+        "IsSelected",
+        "IsSelectedOrLevelChange",
+        "ClearSelected",
+        "GetNeedSkillPoint",
+        "IsEnableDecide",
+        "GetDispOrder",
+        ".ctor"
+      ],
+      "fields": {
+        "_skillList": {
+          "offset": 16
+        }
+      }
+    },
+    "Gallop.SingleModeSkillLearningViewController": {
+      "methods": [
+        "get_RemainingPoint",
+        "set_RemainingPoint",
+        "RegisterDownload",
+        "InitializeView",
+        "BeginView",
+        "GetDynamicBgmId",
+        "GetDynamicBgmCueInfo",
+        "OverrideDynamicNowLoadingType",
+        "PlayInView",
+        "GetActiveItemList",
+        "GetBackButtonAnimationDelayTime",
+        "PlayOutView",
+        "OnGamePadMenuButton",
+        "OnClickBackButton",
+        "ChagePrevView",
+        "OnClickOsBackKey",
+        "Setup",
+        "SetupAnimationRectTransformList",
+        "IsResultState",
+        "GetInfo",
+        "IsValidDecideButton",
+        "UpdateDecideButton",
+        "UpdateSkillPoint",
+        "OnClickPlusListItem",
+        "OnClickMinusListItem",
+        "OnSelectUpdate",
+        "OnClickDecideButton",
+        "OnClickDetailButton",
+        "CoroutineSkillGetChangeView",
+        "PlaySkillGetSe",
+        "OnClickResetButton",
+        "ClearSelected",
+        "Cleanup",
+        ".ctor",
+        "<OnClickBackButton>b__24_1"
+      ],
+      "fields": {
+        "BG_ID": {
+          "offset": 0
+        },
+        "BG_SUB_ID": {
+          "offset": 0
+        },
+        "BG_PATH": {
+          "offset": 48
+        },
+        "ENV_PATH": {
+          "offset": 56
+        },
+        "_skillInfoList": {
+          "offset": 64
+        },
+        "_itemList": {
+          "offset": 72
+        },
+        "_itemRectTransformList": {
+          "offset": 80
+        },
+        "<RemainingPoint>k__BackingField": {
+          "offset": 88
+        },
+        "_isSelectedDialog": {
+          "offset": 96
+        }
+      }
+    },
+    "Gallop.SingleModeSkillLearningViewController.SkillInfo": {
+      "methods": [
+        "get_SkillList",
+        "AddInfo",
+        "IsSelected",
+        "IsSelectedOrLevelChange",
+        "ClearSelected",
+        "GetNeedSkillPoint",
+        "IsEnableDecide",
+        "GetDispOrder",
+        ".ctor"
+      ],
+      "fields": {
+        "_skillList": {
+          "offset": 16
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "type": "available_skill_set",
+      "availableSkillSetId": 105201,
+      "count": 7,
+      "skills": [
+        {
+          "id": 365,
+          "setId": 105201,
+          "skillId": 200442,
+          "needRank": 0
+        },
+        {
+          "id": 366,
+          "setId": 105201,
+          "skillId": 200652,
+          "needRank": 0
+        },
+        {
+          "id": 367,
+          "setId": 105201,
+          "skillId": 201412,
+          "needRank": 0
+        },
+        {
+          "id": 375,
+          "setId": 105201,
+          "skillId": 200472,
+          "needRank": 2
+        },
+        {
+          "id": 376,
+          "setId": 105201,
+          "skillId": 200441,
+          "needRank": 3
+        },
+        {
+          "id": 377,
+          "setId": 105201,
+          "skillId": 200302,
+          "needRank": 4
+        },
+        {
+          "id": 378,
+          "setId": 105201,
+          "skillId": 200471,
+          "needRank": 5
+        }
+      ]
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30efa",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30fcc",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x312c4",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30f18",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30ef9",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30e6e",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30e6d",
+      "arg2_raw": "0x0"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30f17",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30dd8",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30dd7",
+      "arg2_raw": "0x0"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30dda",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30df6",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30df5",
+      "arg2_raw": "0x0"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30e8b",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30f0e",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30f86",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x31012",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x310bb",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x310cf",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x311c0",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x311fc",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x3133c",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x3133b",
+      "arg2_raw": "0x0"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0xdbc41",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0xdbcaf",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x188a9",
+      "arg2_raw": "0x1"
+    },
+    {
+      "type": "skill_info_add_info",
+      "arg1_raw": "0x30e8c",
+      "arg2_raw": "0x1"
+    }
+  ]
+}
