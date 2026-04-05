@@ -382,95 +382,111 @@ def decode_hook_results(mapping):
 
     events = hook_data.get("events", [])
 
-    all_ids = set()
-    for ev in events:
-        if "skillId" in ev:
-            all_ids.add(ev["skillId"])
-        if "arg1_raw" in ev:
-            try:
-                all_ids.add(int(ev["arg1_raw"], 16))
-            except (ValueError, TypeError):
-                pass
-        for s in ev.get("skills", []):
-            if "skillId" in s:
-                all_ids.add(s["skillId"])
-    for sid in hook_data.get("all_unique_skill_ids", []):
-        all_ids.add(sid)
-
-    available_set_seen = set()
-    available_set_skills = []
-    add_info_seen = set()
-    add_info_skills = []
-    for ev in events:
-        if ev.get("type") == "available_skill_set":
-            for s in ev.get("skills", []):
-                key = s["skillId"]
-                if key not in available_set_seen:
-                    available_set_seen.add(key)
-                    available_set_skills.append(s)
-        elif ev.get("type") == "skill_info_add_info":
-            sid = ev.get("skillId")
-            if sid is None and "arg1_raw" in ev:
-                try:
-                    sid = int(ev["arg1_raw"], 16)
-                except (ValueError, TypeError):
-                    continue
-            if sid:
-                variant = ev.get("variant", ev.get("arg2_raw", "?"))
-                if isinstance(variant, str) and variant.startswith("0x"):
-                    try:
-                        variant = int(variant, 16)
-                    except ValueError:
-                        pass
-                key = (sid, variant)
-                if key not in add_info_seen:
-                    add_info_seen.add(key)
-                    add_info_skills.append({"skillId": sid, "variant": variant})
-
     def lookup(sid):
         return mapping.get(str(sid), mapping.get(sid, {}))
 
+    # ── Extract from skill_tree_full (best source — has hint levels) ──
+
+    skill_tree_groups = []
+    available_set_skills = []
+
+    for ev in events:
+        if ev.get("type") == "skill_tree_full":
+            for g in ev.get("groups", []):
+                for s in g.get("skills", []):
+                    skill_tree_groups.append({
+                        "groupIndex": g["groupIndex"],
+                        "skillId": s.get("off_16", 0),
+                        "currentLevel": s.get("off_20", 0),
+                        "maxLevel": s.get("off_28", 0),
+                        "isAcquired": s.get("off_32", 0),
+                        "discountedCost": s.get("off_48", 0),
+                        "baseCost": s.get("off_52", 0),
+                        "discountPercent": s.get("off_56", 0),
+                        "hintLevel": s.get("off_60", 0),
+                    })
+        elif ev.get("type") == "available_skill_set":
+            for s in ev.get("skills", []):
+                available_set_skills.append(s)
+
+    # Dedup available set
+    seen = set()
+    available_set_deduped = []
+    for s in available_set_skills:
+        if s["skillId"] not in seen:
+            seen.add(s["skillId"])
+            available_set_deduped.append(s)
+    available_set_skills = available_set_deduped
+
+    # Dedup skill tree by skillId
+    seen = set()
+    skill_tree_deduped = []
+    for s in skill_tree_groups:
+        if s["skillId"] not in seen:
+            seen.add(s["skillId"])
+            skill_tree_deduped.append(s)
+    skill_tree_groups = skill_tree_deduped
+
+    # Add names
+    for s in skill_tree_groups:
+        info = lookup(s["skillId"])
+        s["name"] = info.get("name", "[not collected]")
+        s["rarity"] = info.get("rarity", 0)
+        s["desc"] = info.get("desc", "")
+
+    for s in available_set_skills:
+        info = lookup(s["skillId"])
+        s["name"] = info.get("name", "[not collected]")
+
     log()
     log("=" * 60)
-    log("  DECODED SKILL HOOK RESULTS")
+    log("  DECODED SKILL TREE")
     log("=" * 60)
 
-    log(f"\n  CHARACTER-SPECIFIC (MasterAvailableSkillSet):")
+    log(f"\n  CHARACTER-SPECIFIC (MasterAvailableSkillSet): {len(available_set_skills)}")
     for s in available_set_skills:
-        sid = s["skillId"]
-        name = lookup(sid).get("name", "[not collected]")
-        log(f"    {sid:>8}  NeedRank={s.get('needRank', '?')}  {name}")
+        log(f"    {s['skillId']:>8}  NeedRank={s.get('needRank', '?'):>1}  {s['name']}")
 
-    log(f"\n  ALL SKILL TREE ({len(add_info_skills)} entries):")
-    variant_1 = [s for s in add_info_skills if s.get("variant") in (1, "0x1")]
-    variant_0 = [s for s in add_info_skills if s.get("variant") in (0, "0x0")]
+    # Split skill tree into acquired vs buyable
+    acquired = [s for s in skill_tree_groups if s["isAcquired"]]
+    buyable = [s for s in skill_tree_groups if not s["isAcquired"]]
 
-    log(f"\n    variant=1 ({len(variant_1)}):")
-    for s in sorted(variant_1, key=lambda x: x["skillId"]):
-        name = lookup(s["skillId"]).get("name", "[not collected]")
-        log(f"      {s['skillId']:>8}  {name}")
+    log(f"\n  ALREADY ACQUIRED: {len(acquired)}")
+    for s in sorted(acquired, key=lambda x: x["skillId"]):
+        log(f"    {s['skillId']:>8}  lvl={s['currentLevel']}  {s['name']}")
 
-    log(f"\n    variant=0 ({len(variant_0)}):")
-    for s in sorted(variant_0, key=lambda x: x["skillId"]):
-        name = lookup(s["skillId"]).get("name", "[not collected]")
-        log(f"      {s['skillId']:>8}  {name}")
+    log(f"\n  BUYABLE SKILLS: {len(buyable)}")
+    log(f"    {'ID':>8}  {'Cost':>5}  {'Base':>5}  {'Hint':>4}  {'Disc':>4}  Name")
+    log(f"    {'':->8}  {'':->5}  {'':->5}  {'':->4}  {'':->4}  {'':->20}")
+    for s in sorted(buyable, key=lambda x: x["groupIndex"]):
+        cost = s["discountedCost"]
+        base = s["baseCost"]
+        hint = s["hintLevel"]
+        disc = s["discountPercent"]
+        log(f"    {s['skillId']:>8}  {cost:>5}  {base:>5}  {hint:>4}  {disc:>3}%  {s['name']}")
 
-    missing = [sid for sid in sorted(all_ids) if not lookup(sid)]
+    missing = [s["skillId"] for s in skill_tree_groups
+               if s["name"] == "[not collected]"]
     if missing:
-        log(f"\n  MISSING FROM MAP: {missing}")
+        log(f"\n  NAMES NOT COLLECTED: {missing}")
+        log(f"  (re-run map_skills.py and navigate to skill screen)")
 
+    # Save
     output = {
-        "total_unique_skills": len(all_ids),
-        "available_skill_set": [
-            {**s, "name": lookup(s["skillId"]).get("name", "?")}
-            for s in available_set_skills
+        "available_skill_set": available_set_skills,
+        "acquired_skills": [
+            {"skillId": s["skillId"], "name": s["name"],
+             "currentLevel": s["currentLevel"]}
+            for s in sorted(acquired, key=lambda x: x["skillId"])
         ],
-        "all_skill_tree_skills": [
-            {**s, "name": lookup(s["skillId"]).get("name", "?"),
-             "rarity": lookup(s["skillId"]).get("rarity", 0)}
-            for s in sorted(add_info_skills, key=lambda x: x["skillId"])
+        "buyable_skills": [
+            {"skillId": s["skillId"], "name": s["name"],
+             "baseCost": s["baseCost"], "discountedCost": s["discountedCost"],
+             "hintLevel": s["hintLevel"], "discountPercent": s["discountPercent"],
+             "rarity": s["rarity"]}
+            for s in sorted(buyable, key=lambda x: x["groupIndex"])
         ],
-        "missing_from_map": missing,
+        "names_not_collected": missing,
     }
 
     with open(OUTPUT_DECODED, "w", encoding="utf-8") as f:
