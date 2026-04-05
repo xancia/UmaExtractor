@@ -166,7 +166,7 @@ console.log("Navigate to the target page now!");
         }
 
         // Check if any region has multiple target IDs as MsgPack — that's an API response!
-        const promising = Object.values(newHits).filter(h => h.ids.size >= 3);
+        const promising = Object.values(newHits).filter(h => h.ids.size >= 2);
 
         for (const region of promising) {
             console.log(`\n!!! NEW MsgPack region with ${region.ids.size}/${targetIds.length} IDs !!!`);
@@ -180,8 +180,8 @@ console.log("Navigate to the target page now!");
                 if (a.address.compare(maxAddr) > 0) maxAddr = a.address;
             }
 
-            // Read a generous chunk: from 256KB before first hit to 1MB after last
-            const readBefore = 256 * 1024;
+            // Read a generous chunk: from 1MB before first hit to 1MB after last
+            const readBefore = 1 * 1024 * 1024;
             const readAfter = 1 * 1024 * 1024;
             const readStart = minAddr.sub(readBefore);
             const clampedStart = readStart.compare(region.base) < 0 ? region.base : readStart;
@@ -357,16 +357,54 @@ def deep_find_ids(obj, known_set, found=None, depth=0):
     return found
 
 
+def try_unpack_at(raw_bytes, offset, known_set):
+    """Try MsgPack deserialization at a single offset, return result or None."""
+    if offset < 0 or offset >= len(raw_bytes):
+        return None
+    try:
+        chunk = raw_bytes[offset:min(offset + 25 * 1024 * 1024, len(raw_bytes))]
+        unpacker = msgpack.Unpacker(raw=False, max_buffer_size=50 * 1024 * 1024)
+        unpacker.feed(chunk)
+        decoded = unpacker.unpack()
+        if decoded is None:
+            return None
+        if isinstance(decoded, (list, dict)) and len(decoded) == 0:
+            return None
+        consumed = unpacker.tell()
+        found_ids = deep_find_ids(decoded, known_set)
+        if len(found_ids) >= 1:
+            if isinstance(decoded, list):
+                desc = f"array[{len(decoded)}]"
+            elif isinstance(decoded, dict):
+                desc = f"map[{len(decoded)} keys]"
+            else:
+                desc = type(decoded).__name__
+            return {
+                "offset": offset,
+                "description": desc,
+                "found_ids": sorted(found_ids),
+                "found_count": len(found_ids),
+                "data": decoded,
+                "consumed": consumed,
+            }
+    except Exception:
+        pass
+    return None
+
+
 def find_msgpack_in_blob(raw_bytes, known_ids):
     """
     Scan raw bytes for MsgPack structures containing target IDs.
-    Only checks at MsgPack container header positions — not brute force.
+    Multiple strategies: try from start, try brute-force on first few KB,
+    then targeted backward search from ID locations.
     """
     known_set = set(known_ids)
     results = []
     data_len = len(raw_bytes)
 
-    # First, find where the MsgPack uint32-encoded IDs actually are
+    log_debug(f"  Parsing blob: {data_len:,} bytes")
+
+    # Find where the MsgPack uint32-encoded IDs actually are
     id_offsets = {}
     for target_id in known_ids:
         b3 = (target_id >> 24) & 0xFF
@@ -385,53 +423,91 @@ def find_msgpack_in_blob(raw_bytes, known_ids):
             pos = idx + 5
 
     if not id_offsets:
+        log_debug("  No MsgPack-encoded IDs found in blob bytes")
         return results
 
-    # Find the earliest ID occurrence
-    min_offset = min(off for offsets in id_offsets.values() for off in offsets)
+    for tid, offsets in id_offsets.items():
+        log_debug(f"  ID {tid} found at byte offsets: {offsets}")
 
-    # Scan backwards from earliest ID to find the enclosing MsgPack container
-    for back in range(min_offset, max(0, min_offset - 512 * 1024), -1):
+    min_offset = min(off for offsets in id_offsets.values() for off in offsets)
+    max_offset = max(off for offsets in id_offsets.values() for off in offsets)
+    log_debug(f"  ID range: {min_offset} - {max_offset}")
+
+    # ── Strategy A: Try from offset 0 (entire blob might be one MsgPack response)
+    log_debug("  Strategy A: trying from offset 0...")
+    for start in range(0, min(64, data_len)):
+        r = try_unpack_at(raw_bytes, start, known_set)
+        if r and r["found_count"] >= 1:
+            log(f"  Strategy A: Found {r['description']} at offset {start} "
+                f"with {r['found_count']}/{len(known_ids)} IDs")
+            results.append(r)
+            if r["found_count"] == len(known_ids):
+                return results  # Perfect match, done
+
+    # ── Strategy B: Brute-force the first 8KB for any valid MsgPack container
+    log_debug("  Strategy B: brute-force first 8KB...")
+    checked = set()
+    for pos in range(0, min(8192, data_len)):
+        if pos in checked:
+            continue
+        b = raw_bytes[pos]
+        is_container = False
+        if 0x82 <= b <= 0x8F or b in (0xDE, 0xDF):
+            is_container = True
+        elif 0x92 <= b <= 0x9F or b in (0xDC, 0xDD):
+            is_container = True
+        if not is_container:
+            continue
+        checked.add(pos)
+        r = try_unpack_at(raw_bytes, pos, known_set)
+        if r and r["found_count"] >= 2:
+            log(f"  Strategy B: Found {r['description']} at offset {pos} "
+                f"with {r['found_count']}/{len(known_ids)} IDs")
+            results.append(r)
+            if r["found_count"] == len(known_ids):
+                return results
+
+    # ── Strategy C: Backward search from earliest ID (up to 2MB back)
+    log_debug(f"  Strategy C: backward search from offset {min_offset} (up to 2MB)...")
+    search_limit = max(0, min_offset - 2 * 1024 * 1024)
+    for back in range(min_offset, search_limit, -1):
         b = raw_bytes[back]
         is_container = False
         if 0x82 <= b <= 0x8F or b in (0xDE, 0xDF):
             is_container = True
         elif 0x92 <= b <= 0x9F or b in (0xDC, 0xDD):
             is_container = True
-
         if not is_container:
             continue
+        r = try_unpack_at(raw_bytes, back, known_set)
+        if r and r["found_count"] >= 2:
+            log(f"  Strategy C: Found {r['description']} at offset {back} "
+                f"with {r['found_count']}/{len(known_ids)} IDs")
+            results.append(r)
+            if r["found_count"] == len(known_ids):
+                break
 
-        try:
-            chunk = raw_bytes[back:min(back + 25 * 1024 * 1024, data_len)]
-            unpacker = msgpack.Unpacker(raw=False, max_buffer_size=50 * 1024 * 1024)
-            unpacker.feed(chunk)
-            decoded = unpacker.unpack()
-            if decoded is None or (isinstance(decoded, (list, dict)) and len(decoded) == 0):
-                continue
-            consumed = unpacker.tell()
-            found_ids = deep_find_ids(decoded, known_set)
-            if len(found_ids) >= 2:
-                if isinstance(decoded, list):
-                    desc = f"array[{len(decoded)}]"
-                elif isinstance(decoded, dict):
-                    desc = f"map[{len(decoded)} keys]"
-                else:
-                    desc = type(decoded).__name__
-                results.append({
-                    "offset": back,
-                    "description": desc,
-                    "found_ids": sorted(found_ids),
-                    "found_count": len(found_ids),
-                    "data": decoded,
-                    "consumed": consumed,
-                })
-                if len(found_ids) == len(known_ids):
-                    break  # Perfect match
-        except Exception:
-            continue
+    # ── Strategy D: Try just before each individual ID offset
+    log_debug("  Strategy D: probing near each ID location...")
+    for tid, offsets in id_offsets.items():
+        for off in offsets:
+            for probe in [0, -1, -2, -3, -4, -5, -6, -7, -8, -16, -32, -64]:
+                pos = off + probe
+                if pos < 0:
+                    continue
+                r = try_unpack_at(raw_bytes, pos, known_set)
+                if r and r["found_count"] >= 2:
+                    log_debug(f"  Strategy D: Found {r['description']} at {pos} "
+                              f"with {r['found_count']} IDs")
+                    results.append(r)
 
-    results.sort(key=lambda r: r["found_count"], reverse=True)
+    # Deduplicate and sort
+    unique = {}
+    for r in results:
+        key = r["offset"]
+        if key not in unique or r["found_count"] > unique[key]["found_count"]:
+            unique[key] = r
+    results = sorted(unique.values(), key=lambda r: r["found_count"], reverse=True)
     return results
 
 
@@ -449,10 +525,12 @@ def main():
     log("=" * 60)
     log()
     log("  HOW TO USE:")
-    log("  1. Keep this running")
-    log("  2. In the game, navigate to the page with the data you need")
-    log("  3. The script will detect new MsgPack data appearing in memory")
-    log("  4. Results saved to intercepted_responses/")
+    log("  1. Start this script while on a DIFFERENT page (e.g. home)")
+    log("  2. Wait for 'Interceptor ready' message")
+    log("  3. THEN navigate to the skills/target page in-game")
+    log("     (the script detects NEW MsgPack data appearing in memory)")
+    log("  4. If the page was already open, go to home first, then back")
+    log("  5. Results saved to intercepted_responses/")
     log()
 
     session = attach_to_game()
@@ -641,6 +719,70 @@ def main():
     log("=" * 60)
 
 
+def analyze_existing_blob(filepath):
+    """Re-analyze a previously captured .msgpack blob with improved parsing."""
+    log("=" * 60)
+    log("  Re-analyzing existing blob")
+    log(f"  File: {filepath}")
+    log(f"  Target IDs: {TARGET_IDS}")
+    log("=" * 60)
+
+    with open(filepath, "rb") as f:
+        raw = f.read()
+    log(f"  Loaded {len(raw):,} bytes")
+
+    structures = find_msgpack_in_blob(raw, TARGET_IDS)
+
+    if not structures:
+        log("\n  No MsgPack structures found containing target IDs.")
+        log("  The blob may not contain the right API response,")
+        log("  or the IDs may be encoded differently.")
+        return
+
+    for i, s in enumerate(structures[:5]):
+        log(f"\n  Result {i}: {s['description']} at offset {s['offset']}")
+        log(f"  Contains {s['found_count']}/{len(TARGET_IDS)} IDs: {s['found_ids']}")
+        log(f"  Consumed {s['consumed']} bytes")
+
+        data = s["data"]
+        if isinstance(data, dict):
+            keys = list(data.keys())[:30]
+            log(f"  Keys: {keys}")
+            for k in keys[:5]:
+                v = data[k]
+                if isinstance(v, list):
+                    log(f"    {k}: array[{len(v)}]")
+                elif isinstance(v, dict):
+                    log(f"    {k}: map[{len(v)} keys]")
+                else:
+                    preview = str(v)[:100]
+                    log(f"    {k}: {preview}")
+        elif isinstance(data, list):
+            log(f"  Array with {len(data)} items")
+
+        # Save
+        out_file = os.path.splitext(filepath)[0] + f"_parsed_{i}.json"
+        # Strip PII
+        if isinstance(data, list):
+            for item in data:
+                if isinstance(item, dict):
+                    for pii in PII_FIELDS:
+                        item.pop(pii, None)
+        elif isinstance(data, dict):
+            for pii in PII_FIELDS:
+                data.pop(pii, None)
+
+        with open(out_file, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False, default=str)
+        log(f"  Saved: {out_file}")
+
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "--analyze":
+        if len(sys.argv) < 3:
+            print("Usage: python intercept_api.py --analyze <path_to.msgpack>")
+            sys.exit(1)
+        analyze_existing_blob(sys.argv[2])
+    else:
+        main()
 
