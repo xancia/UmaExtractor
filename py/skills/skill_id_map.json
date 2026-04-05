@@ -1,0 +1,245 @@
+{
+  "100521": {
+    "skillId": 100521,
+    "name": "Super-Duper Climax",
+    "desc": "Recover endurance with a glance at nearby runners when positioned toward the back on the final corner.",
+    "rarity": 4,
+    "groupId": 10052,
+    "gradeValue": 340,
+    "skillCategory": 5
+  },
+  "200151": {
+    "skillId": 200151,
+    "name": "Firm Conditions ◎",
+    "desc": "Increase performance on firm ground.",
+    "rarity": 1,
+    "groupId": 20015,
+    "gradeValue": 174,
+    "skillCategory": 0
+  },
+  "200152": {
+    "skillId": 200152,
+    "name": "Firm Conditions ○",
+    "desc": "Moderately increase performance on firm ground.",
+    "rarity": 1,
+    "groupId": 20015,
+    "gradeValue": 129,
+    "skillCategory": 0
+  },
+  "200154": {
+    "skillId": 200154,
+    "name": "Firm Course Menace",
+    "desc": "Increase performance on firm ground, boosting Power and Speed.",
+    "rarity": 2,
+    "groupId": 20015,
+    "gradeValue": 461,
+    "skillCategory": 0
+  },
+  "200181": {
+    "skillId": 200181,
+    "name": "Summer Runner ◎",
+    "desc": "Increase performance in summer.",
+    "rarity": 1,
+    "groupId": 20018,
+    "gradeValue": 174,
+    "skillCategory": 0
+  },
+  "200182": {
+    "skillId": 200182,
+    "name": "Summer Runner ○",
+    "desc": "Moderately increase performance in summer.",
+    "rarity": 1,
+    "groupId": 20018,
+    "gradeValue": 129,
+    "skillCategory": 0
+  },
+  "200301": {
+    "skillId": 200301,
+    "name": "Long Shot ◎",
+    "desc": "Increase performance when 4th favorite or below.",
+    "rarity": 1,
+    "groupId": 20030,
+    "gradeValue": 174,
+    "skillCategory": 0
+  },
+  "200302": {
+    "skillId": 200302,
+    "name": "Long Shot ○",
+    "desc": "Moderately increase performance when 4th favorite or below.",
+    "rarity": 1,
+    "groupId": 20030,
+    "gradeValue": 129,
+    "skillCategory": 0
+  },
+  "200331": {
+    "skillId": 200331,
+    "name": "Professor of Curvature",
+    "desc": "Increase velocity on a corner with skilled turning.",
+    "rarity": 2,
+    "groupId": 20033,
+    "gradeValue": 508,
+    "skillCategory": 4
+  },
+  "200332": {
+    "skillId": 200332,
+    "name": "Corner Adept ○",
+    "desc": "Slightly increase velocity on a corner with skilled turning.",
+    "rarity": 1,
+    "groupId": 20033,
+    "gradeValue": 217,
+    "skillCategory": 4
+  },
+  "200441": {
+    "skillId": 200441,
+    "name": "Iron Will",
+    "desc": "Recover endurance when the way ahead is jammed early-race or mid-race.",
+    "rarity": 2,
+    "groupId": 20044,
+    "gradeValue": 508,
+    "skillCategory": 4
+  },
+  "200442": {
+    "skillId": 200442,
+    "name": "Lay Low",
+    "desc": "Slightly recover endurance when the way ahead is jammed early-race or mid-race.",
+    "rarity": 1,
+    "groupId": 20044,
+    "gradeValue": 217,
+    "skillCategory": 4
+  },
+  "200462": {
+    "skillId": 200462,
+    "name": "Ramp Up",
+    "desc": "Slightly increase velocity when passing another runner mid-race.",
+    "rarity": 1,
+    "groupId": 20046,
+    "gradeValue": 217,
+    "skillCategory": 2
+  },
+  "200471": {
+    "skillId": 200471,
+    "name": "Indomitable",
+    "desc": "Recover endurance when passed by another runner mid-race.",
+    "rarity": 2,
+    "groupId": 20047,
+    "gradeValue": 508,
+    "skillCategory": 2
+  },
+  "200472": {
+    "skillId": 200472,
+    "name": "Pace Strategy",
+    "desc": "Slightly recover endurance when passed by another runner mid-race.",
+    "rarity": 1,
+    "groupId": 20047,
+    "gradeValue": 217,
+    "skillCategory": 2
+  },
+  "200582": {
+    "skillId": 200582,
+    "name": "Prepared to Pass",
+    "desc": "Slightly increase ability to break out of the pack on the final corner. (Pace Chaser)",
+    "rarity": 1,
+    "groupId": 20058,
+    "gradeValue": 217,
+    "skillCategory": 3
+  },
+  "200652": {
+    "skillId": 200652,
+    "name": "Sprinting Gear",
+    "desc": "Slightly increase acceleration on a straight. (Sprint)",
+    "rarity": 1,
+    "groupId": 20065,
+    "gradeValue": 217,
+    "skillCategory": 4
+  },
+  "200722": {
+    "skillId": 200722,
+    "name": "Up-Tempo",
+    "desc": "Slightly increase positioning ability when positioned toward the front mid-race. (Medium)",
+    "rarity": 1,
+    "groupId": 20072,
+    "gradeValue": 217,
+    "skillCategory": 2
+  },
+  "200891": {
+    "skillId": 200891,
+    "name": "Subdued Late Surgers",
+    "desc": "Slightly increase fatigue for late surgers early-race.",
+    "rarity": 1,
+    "groupId": 20089,
+    "gradeValue": 217,
+    "skillCategory": 1
+  },
+  "200911": {
+    "skillId": 200911,
+    "name": "Hesitant Late Surgers",
+    "desc": "Slightly decrease velocity of late surgers late-race.",
+    "rarity": 1,
+    "groupId": 20091,
+    "gradeValue": 217,
+    "skillCategory": 3
+  },
+  "201152": {
+    "skillId": 201152,
+    "name": "Tether",
+    "desc": "Slightly decrease velocity of runners ahead when positioned toward the back late-race. (Medium)",
+    "rarity": 1,
+    "groupId": 20115,
+    "gradeValue": 217,
+    "skillCategory": 3
+  },
+  "201212": {
+    "skillId": 201212,
+    "name": "Pressure",
+    "desc": "Slightly increase velocity when passing another runner late-race. (Long)",
+    "rarity": 1,
+    "groupId": 20121,
+    "gradeValue": 217,
+    "skillCategory": 3
+  },
+  "201412": {
+    "skillId": 201412,
+    "name": "1,500,000 CC",
+    "desc": "Slightly increase velocity on an uphill. (Late Surger)",
+    "rarity": 1,
+    "groupId": 20141,
+    "gradeValue": 217,
+    "skillCategory": 4
+  },
+  "201531": {
+    "skillId": 201531,
+    "name": "Pace Chaser Savvy ◎",
+    "desc": "Increase ability to get into a good position. (Pace Chaser)",
+    "rarity": 1,
+    "groupId": 20153,
+    "gradeValue": 217,
+    "skillCategory": 0
+  },
+  "201532": {
+    "skillId": 201532,
+    "name": "Pace Chaser Savvy ○",
+    "desc": "Moderately increase ability to get into a good position. (Pace Chaser)",
+    "rarity": 1,
+    "groupId": 20153,
+    "gradeValue": 174,
+    "skillCategory": 0
+  },
+  "900161": {
+    "skillId": 900161,
+    "name": "Shadow Break",
+    "desc": "Slightly increase velocity when passing another runner on the outside on the final corner or later. If the skill user engaged in a challenge mid-race, moderately increase velocity instead.",
+    "rarity": 1,
+    "groupId": 90016,
+    "gradeValue": 180,
+    "skillCategory": 5
+  },
+  "900271": {
+    "skillId": 900271,
+    "name": "Let's Pump Some Iron!",
+    "desc": "Slightly increase acceleration in an attempt to move up on a corner late-race.",
+    "rarity": 1,
+    "groupId": 90027,
+    "gradeValue": 180,
+    "skillCategory": 5
+  }
+}
