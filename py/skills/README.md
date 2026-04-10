@@ -26,7 +26,7 @@ Captures the **full skill tree** with human-readable names in a single pass. One
    ```bash
    python skill_extract.py
    ```
-3. **Navigate to the skill learning screen** in-game (during training)
+3. **Navigate to the skill learning screen** in-game (during training or at career end)
 4. Wait a few seconds for data capture
 5. Press `Ctrl+C` to stop and save results
 
