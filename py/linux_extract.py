@@ -110,8 +110,9 @@ print("\nSearching for veteran character data...")
 print("This may take 30-60 seconds, please wait...\n")
 
 # Pattern: "trained_chara_array" in msgpack format
-# B3 = fixstr(19), followed by "trained_chara_array", then DC = array16
-pattern = b"\xb3trained_chara_array\xdc"
+# B3 = fixstr(19), followed by "trained_chara_array"
+# The next byte is the array marker: fixarray (0x90-0x9F), array16 (0xDC), or array32 (0xDD)
+pattern = b"\xb3trained_chara_array"
 
 found_data = None
 found_location = None
@@ -145,9 +146,30 @@ try:
                         f"\n[OK] Found pattern at offset {hex(region['start'] + offset)}"
                     )
 
-                    # Array starts after: B3(1) + "trained_chara_array"(19) + DC(1) = 21 bytes
-                    # But we want to include the DC marker, so skip 20 bytes
+                    # Array marker starts after: B3(1) + "trained_chara_array"(19) = 20 bytes
                     array_start = offset + 20
+
+                    # Validate msgpack array header (matching Frida logic)
+                    if array_start >= len(data):
+                        continue
+                    first_byte = data[array_start]
+                    array_len = -1
+                    if 0x90 <= first_byte <= 0x9F:
+                        array_len = first_byte - 0x90  # fixarray (0-15 items)
+                    elif first_byte == 0xDC and array_start + 2 < len(data):
+                        array_len = (data[array_start + 1] << 8) | data[array_start + 2]  # array16
+                    elif first_byte == 0xDD and array_start + 4 < len(data):
+                        array_len = (
+                            (data[array_start + 1] << 24)
+                            + (data[array_start + 2] << 16)
+                            + (data[array_start + 3] << 8)
+                            + data[array_start + 4]
+                        )  # array32
+                    else:
+                        print(f"  Unknown array marker byte: {hex(first_byte)}, skipping")
+                        continue
+
+                    print(f"  Array type byte: {hex(first_byte)}, declared length: {array_len}")
 
                     # Try different sizes (matching Frida script exactly)
                     sizes = [15 * 1024 * 1024, 20 * 1024 * 1024, 25 * 1024 * 1024]
