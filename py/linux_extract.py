@@ -6,9 +6,7 @@
 # ///
 import json
 import os
-import re
 import sys
-import time
 
 import msgpack
 
@@ -221,10 +219,10 @@ try:
     if found_data is None:
         print("\n[X] No veteran data found")
         print("\nTroubleshooting:")
-        print("  1. Make sure you're on the Veteran List page (Enhance -> List)")
+        print("  1. Make sure you're on the Veteran List page (Enhance -> Veteran Umamusume -> List)")
         print("  2. Wait for the page to fully load")
         print(
-            "  3. Try running this script as root: sudo python3 extract_umas_direct.py"
+            f"  3. Try running this script as root: sudo python3 {sys.argv[0]}"
         )
         sys.exit(1)
 
