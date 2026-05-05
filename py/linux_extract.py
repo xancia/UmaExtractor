@@ -90,10 +90,10 @@ try:
 
             all_regions.append({"start": start_addr, "end": end_addr, "size": size})
 
-    # Filter and sort ranges: skip tiny (<100KB) and huge (>500MB) ranges
+    # Filter and sort ranges: skip tiny (<16KB) and huge (>500MB) ranges
     # Sort by size descending - game data is likely in larger allocations
     memory_regions = [
-        r for r in all_regions if r["size"] >= 100000 and r["size"] <= 500 * 1024 * 1024
+        r for r in all_regions if r["size"] >= 16 * 1024 and r["size"] <= 500 * 1024 * 1024
     ]
     memory_regions.sort(key=lambda r: r["size"], reverse=True)
 
@@ -179,10 +179,10 @@ try:
                             # Calculate max size we can read from this region
                             max_read_size = min(try_size, region["size"] - array_start)
 
-                            if max_read_size < 1024 * 1024:
+                            if max_read_size < 1024:
                                 continue
 
-                            # Extract the potential array data
+                            # Extract the potential array data (include the array marker)
                             potential_data = data[
                                 array_start : array_start + max_read_size
                             ]
@@ -190,31 +190,19 @@ try:
                             # Quick validation: count occurrences of "card_id"
                             # Check only first 3MB for performance (matching Frida)
                             # Look for: A7 63 61 72 64 5f 69 64 (fixstr(7) + "card_id")
-                            check_size = min(len(potential_data) - 8, 3 * 1024 * 1024)
-                            card_count = 0
-
-                            for j in range(check_size):
-                                if (
-                                    potential_data[j] == 0xA7
-                                    and potential_data[j + 1] == 0x63
-                                    and potential_data[j + 2] == 0x61
-                                    and potential_data[j + 3] == 0x72
-                                    and potential_data[j + 4] == 0x64
-                                    and potential_data[j + 5] == 0x5F
-                                    and potential_data[j + 6] == 0x69
-                                    and potential_data[j + 7] == 0x64
-                                ):
-                                    card_count += 1
-                                    if card_count >= 200:
-                                        break
+                            card_id_pattern = b"\xa7card_id"
+                            check_data = potential_data[:3 * 1024 * 1024]
+                            card_count = check_data.count(card_id_pattern)
 
                             print(
-                                f"Size {try_size // (1024 * 1024)}MB: Found {card_count} card_id entries"
+                                f"  Size {try_size // (1024 * 1024)}MB: Found {card_count} card_id entries"
                             )
 
-                            if card_count >= 150:
+                            # Accept empty arrays or any array with at least 1 card_id
+                            # (matching Frida validation logic)
+                            if array_len == 0 or card_count >= 1:
                                 print(
-                                    f"[OK] Found valid array with {card_count}+ characters!"
+                                    f"[OK] Found valid array (len={array_len}) with {card_count} card_id matches!"
                                 )
                                 found_data = potential_data
                                 found_location = hex(region["start"] + array_start)
