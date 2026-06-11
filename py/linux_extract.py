@@ -19,6 +19,7 @@ game_name = None
 
 # Search for the process
 try:
+    target = "umamusumeprettyderby.exe"
     candidates = []
 
     for pid_dir in os.listdir("/proc"):
@@ -26,30 +27,24 @@ try:
             continue
 
         try:
-            with open(f"/proc/{pid_dir}/cmdline", "r") as f:
-                cmdline = f.read()
-                cmdline_lower = cmdline.lower()
-
-                # Look for the actual game executable, not Steam helper processes
-                if "umamusumeprettyderby.exe" in cmdline_lower:
-                    # The actual game should have the full path with steamapps
-                    # Filter out: reaper, steam.exe launcher, and other helpers
-                    if (
-                        "steamapps" in cmdline_lower
-                        and "reaper" not in cmdline_lower
-                        and not cmdline_lower.strip().endswith("steam.exe")
-                    ):
-                        game_pid = int(pid_dir)
-                        game_name = cmdline.split("\x00")[0]
-                        candidates.append((game_pid, game_name))
+            with open(f"/proc/{pid_dir}/cmdline", "rb") as f:
+                cmdline_bytes = f.read()
         except (FileNotFoundError, PermissionError):
             continue
 
-    # Prefer the process with the full game path
+        if not cmdline_bytes:
+            continue
+
+        argv0 = cmdline_bytes.split(b"\x00", 1)[0].decode("utf-8", "replace")
+        if argv0.lower().endswith(target):
+            candidates.append((int(pid_dir), argv0))
+
     if candidates:
-        # Sort by path length - the actual game has the longest path
-        candidates.sort(key=lambda x: len(x[1]), reverse=True)
         game_pid, game_name = candidates[0]
+        if len(candidates) > 1:
+            print(f"[!] Multiple game processes found, using PID {game_pid}:")
+            for pid, name in candidates:
+                print(f"    PID {pid}: {name}")
         print(f"[OK] Found game process: {game_name} (PID: {game_pid})")
     else:
         print("[X] Error: Could not find game process")
