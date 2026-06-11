@@ -6,9 +6,7 @@
 # ///
 import json
 import os
-import re
 import sys
-import time
 
 import msgpack
 
@@ -90,10 +88,10 @@ try:
 
             all_regions.append({"start": start_addr, "end": end_addr, "size": size})
 
-    # Filter and sort ranges: skip tiny (<100KB) and huge (>500MB) ranges
+    # Filter and sort ranges: skip tiny (<16KB) and huge (>500MB) ranges
     # Sort by size descending - game data is likely in larger allocations
     memory_regions = [
-        r for r in all_regions if r["size"] >= 100000 and r["size"] <= 500 * 1024 * 1024
+        r for r in all_regions if r["size"] >= 16 * 1024 and r["size"] <= 500 * 1024 * 1024
     ]
     memory_regions.sort(key=lambda r: r["size"], reverse=True)
 
@@ -110,8 +108,9 @@ print("\nSearching for veteran character data...")
 print("This may take 30-60 seconds, please wait...\n")
 
 # Pattern: "trained_chara_array" in msgpack format
-# B3 = fixstr(19), followed by "trained_chara_array", then DC = array16
-pattern = b"\xb3trained_chara_array\xdc"
+# B3 = fixstr(19), followed by "trained_chara_array"
+# The next byte is the array marker: fixarray (0x90-0x9F), array16 (0xDC), or array32 (0xDD)
+pattern = b"\xb3trained_chara_array"
 
 found_data = None
 found_location = None
@@ -145,9 +144,30 @@ try:
                         f"\n[OK] Found pattern at offset {hex(region['start'] + offset)}"
                     )
 
-                    # Array starts after: B3(1) + "trained_chara_array"(19) + DC(1) = 21 bytes
-                    # But we want to include the DC marker, so skip 20 bytes
+                    # Array marker starts after: B3(1) + "trained_chara_array"(19) = 20 bytes
                     array_start = offset + 20
+
+                    # Validate msgpack array header (matching Frida logic)
+                    if array_start >= len(data):
+                        continue
+                    first_byte = data[array_start]
+                    array_len = -1
+                    if 0x90 <= first_byte <= 0x9F:
+                        array_len = first_byte - 0x90  # fixarray (0-15 items)
+                    elif first_byte == 0xDC and array_start + 2 < len(data):
+                        array_len = (data[array_start + 1] << 8) | data[array_start + 2]  # array16
+                    elif first_byte == 0xDD and array_start + 4 < len(data):
+                        array_len = (
+                            (data[array_start + 1] << 24)
+                            + (data[array_start + 2] << 16)
+                            + (data[array_start + 3] << 8)
+                            + data[array_start + 4]
+                        )  # array32
+                    else:
+                        print(f"  Unknown array marker byte: {hex(first_byte)}, skipping")
+                        continue
+
+                    print(f"  Array type byte: {hex(first_byte)}, declared length: {array_len}")
 
                     # Try different sizes (matching Frida script exactly)
                     sizes = [15 * 1024 * 1024, 20 * 1024 * 1024, 25 * 1024 * 1024]
@@ -157,10 +177,10 @@ try:
                             # Calculate max size we can read from this region
                             max_read_size = min(try_size, region["size"] - array_start)
 
-                            if max_read_size < 1024 * 1024:
+                            if max_read_size < 1024:
                                 continue
 
-                            # Extract the potential array data
+                            # Extract the potential array data (include the array marker)
                             potential_data = data[
                                 array_start : array_start + max_read_size
                             ]
@@ -168,31 +188,19 @@ try:
                             # Quick validation: count occurrences of "card_id"
                             # Check only first 3MB for performance (matching Frida)
                             # Look for: A7 63 61 72 64 5f 69 64 (fixstr(7) + "card_id")
-                            check_size = min(len(potential_data) - 8, 3 * 1024 * 1024)
-                            card_count = 0
-
-                            for j in range(check_size):
-                                if (
-                                    potential_data[j] == 0xA7
-                                    and potential_data[j + 1] == 0x63
-                                    and potential_data[j + 2] == 0x61
-                                    and potential_data[j + 3] == 0x72
-                                    and potential_data[j + 4] == 0x64
-                                    and potential_data[j + 5] == 0x5F
-                                    and potential_data[j + 6] == 0x69
-                                    and potential_data[j + 7] == 0x64
-                                ):
-                                    card_count += 1
-                                    if card_count >= 200:
-                                        break
+                            card_id_pattern = b"\xa7card_id"
+                            check_data = potential_data[:3 * 1024 * 1024]
+                            card_count = check_data.count(card_id_pattern)
 
                             print(
-                                f"Size {try_size // (1024 * 1024)}MB: Found {card_count} card_id entries"
+                                f"  Size {try_size // (1024 * 1024)}MB: Found {card_count} card_id entries"
                             )
 
-                            if card_count >= 150:
+                            # Accept empty arrays or any array with at least 1 card_id
+                            # (matching Frida validation logic)
+                            if array_len == 0 or card_count >= 1:
                                 print(
-                                    f"[OK] Found valid array with {card_count}+ characters!"
+                                    f"[OK] Found valid array (len={array_len}) with {card_count} card_id matches!"
                                 )
                                 found_data = potential_data
                                 found_location = hex(region["start"] + array_start)
@@ -211,10 +219,10 @@ try:
     if found_data is None:
         print("\n[X] No veteran data found")
         print("\nTroubleshooting:")
-        print("  1. Make sure you're on the Veteran List page (Enhance -> List)")
+        print("  1. Make sure you're on the Veteran List page (Enhance -> Veteran Umamusume -> List)")
         print("  2. Wait for the page to fully load")
         print(
-            "  3. Try running this script as root: sudo python3 extract_umas_direct.py"
+            f"  3. Try running this script as root: sudo python3 {sys.argv[0]}"
         )
         sys.exit(1)
 
