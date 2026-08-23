@@ -484,14 +484,17 @@ FRIDA_SCRIPT = r"""
     );
 
     // Hook 4: PartsSingleModeSkillLearningListItem.UpdateItem (4 params)
-    hookMethod(
+    const _learningItemFields = (targets["Gallop.PartsSingleModeSkillLearningListItem"] || {}).fields || {};
+    const _infoListOffset = (_learningItemFields["_infoList"] || {}).offset;
+    if (_infoListOffset == null) console.log("  [WARN] _infoList offset not found, skipping UpdateItem hook");
+    _infoListOffset != null && hookMethod(
         "Gallop.PartsSingleModeSkillLearningListItem",
         "UpdateItem", 4,
         {
             onEnter(args) {
                 try {
                     const thisPtr = args[0];
-                    const infoList = thisPtr.add(200).readPointer();
+                    const infoList = thisPtr.add(_infoListOffset).readPointer();
                     const count = readListCount(infoList);
                     const arr = readListItemsArray(infoList);
                     if (count > 0) {
@@ -515,14 +518,17 @@ FRIDA_SCRIPT = r"""
     );
 
     // Hook 5: PartsSingleModeSkillListItem.SetAcquire
-    hookMethod(
+    const _skillListItemFields = (targets["Gallop.PartsSingleModeSkillListItem"] || {}).fields || {};
+    const _infoFieldOffset = (_skillListItemFields["_info"] || {}).offset;
+    if (_infoFieldOffset == null) console.log("  [WARN] _info offset not found, skipping SetAcquire hook");
+    _infoFieldOffset != null && hookMethod(
         "Gallop.PartsSingleModeSkillListItem",
         "SetAcquire", 0,
         {
             onEnter(args) {
                 try {
                     const thisPtr = args[0];
-                    const info = thisPtr.add(192).readPointer();
+                    const info = thisPtr.add(_infoFieldOffset).readPointer();
                     if (info && !info.isNull()) {
                         const fields = [];
                         for (let off = 16; off < 80; off += 4) {
